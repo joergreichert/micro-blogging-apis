@@ -17,7 +17,11 @@ class TwitterController @Autowired constructor(val twitterService: TwitterServic
     }
 
     @GetMapping("likes")
-    fun getLikes(@RequestParam(required = false) accessToken: String? = null) {
-        twitterService.callApi(accessToken)
-    }
+    fun getLikes(@RequestParam(required = false) accessToken: String? = null) = twitterService.listLikes(accessToken)
+
+    @GetMapping("followers")
+    fun getFollowers(@RequestParam(required = false) accessToken: String? = null)  = twitterService.listFollowers(accessToken)
+
+    @GetMapping("following")
+    fun getFollowing(@RequestParam(required = false) accessToken: String? = null) = twitterService.listFollowing(accessToken)
 }

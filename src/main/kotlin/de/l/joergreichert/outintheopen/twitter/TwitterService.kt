@@ -22,17 +22,16 @@ import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.util.*
 
-
 @Service
-class TwitterService @Autowired constructor(val template: RestTemplate, val appProperties: AppProperties) {
+class TwitterService @Autowired constructor(val appProperties: AppProperties) {
 
     fun triggerAuth(): String {
         val credentials = createTwitterCredentialsOAuth2()
         val service = TwitterOAuth20Service(
-            credentials.twitterOauth2ClientId,
-            credentials.twitterOAuth2ClientSecret,
-            "http://localhost:5000/callback",
-            "offline.access tweet.read users.read"
+                credentials.twitterOauth2ClientId,
+                credentials.twitterOAuth2ClientSecret,
+                "http://localhost:5000/callback",
+                "offline.access tweet.read users.read"
         )
         AuthStore.codeVerifier = generateCodeVerifier()
         AuthStore.codeChallenge = generateCodeChallenge(AuthStore.codeVerifier!!)
@@ -48,20 +47,19 @@ class TwitterService @Autowired constructor(val template: RestTemplate, val appP
     }
 
     private fun createTwitterCredentialsOAuth2() = TwitterCredentialsOAuth2(
-        appProperties.twitter.clientId,
-        appProperties.twitter.clientSecret,
-        TokenStore.accessToken,
-        TokenStore.refreshToken,
+            appProperties.twitter.clientId,
+            appProperties.twitter.clientSecret,
+            TokenStore.accessToken,
+            TokenStore.refreshToken,
     )
-
 
     fun storeAccessToken(code: String) {
         val credentials = createTwitterCredentialsOAuth2()
         val service = TwitterOAuth20Service(
-            credentials.twitterOauth2ClientId,
-            credentials.twitterOAuth2ClientSecret,
-            "http://twitter.com",
-            "offline.access tweet.read users.read"
+                credentials.twitterOauth2ClientId,
+                credentials.twitterOAuth2ClientSecret,
+                "http://twitter.com",
+                "offline.access tweet.read users.read"
         )
         try {
             val pkce = PKCE().apply {
@@ -93,7 +91,7 @@ class TwitterService @Autowired constructor(val template: RestTemplate, val appP
         return Base64.getUrlEncoder().withoutPadding().encodeToString(digest)
     }
 
-    fun callApi(accessToken: String? = null) {
+    fun listLikes(accessToken: String? = null): List<String> {
         accessToken?.let { TokenStore.accessToken = accessToken }
         val credentials = createTwitterCredentialsOAuth2()
         val apiInstance = TwitterApi(credentials)
@@ -106,8 +104,8 @@ class TwitterService @Autowired constructor(val template: RestTemplate, val appP
             do {
                 var stop = false
                 val result =
-                    apiInstance.tweets().usersIdLikedTweets("83401212").paginationToken(pageToken).maxResults(100)
-                        .tweetFields(tweetFields).execute()
+                        apiInstance.tweets().usersIdLikedTweets("83401212").paginationToken(pageToken).maxResults(100)
+                                .tweetFields(tweetFields).execute()
                 if (result.errors?.size?.let { it > 0 } == true) {
                     stop = true
                     println("Error:")
@@ -124,8 +122,8 @@ class TwitterService @Autowired constructor(val template: RestTemplate, val appP
                         if (tweet.createdAt?.isBefore(maxDate) == true) stop = true
                         if (stop) break
                         val author =
-                            apiInstance.users().findUserById(tweet.authorId).userFields(setOf("name")).execute()
-                        val authorName = author.data?.name
+                                apiInstance.users().findUserById(tweet.authorId).userFields(setOf("username", "name")).execute()
+                        val authorName = author.data?.username
                         val content = """
                             ${decimalFormat.format(index)}. ${simpleDateFormat.format(tweet.createdAt)}}: ${tweet.text}
                             ${tweet.entities?.toJson()}
@@ -136,7 +134,92 @@ class TwitterService @Autowired constructor(val template: RestTemplate, val appP
                 }
                 pageToken = if (!stop) result.meta?.nextToken else null
             } while (pageToken != null)
-            FileWriter(File("D:/likes.txt")).use {
+            FileWriter(File("${rootFolder()}likes.txt")).use {
+                it.write(list.joinToString("---\n"))
+            }
+            return list
+        } catch (e: ApiException) {
+            System.err.println("Status code: " + e.code)
+            System.err.println("Reason: " + e.responseBody)
+            System.err.println("Response headers: " + e.responseHeaders)
+            e.printStackTrace()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return emptyList()
+    }
+
+    fun listFollowers(accessToken: String? = null): List<String> {
+        accessToken?.let { TokenStore.accessToken = accessToken }
+        val credentials = createTwitterCredentialsOAuth2()
+        val apiInstance = TwitterApi(credentials)
+        val userFields = setOf("username", "name")
+        try {
+            var pageToken: String? = null
+            val list = mutableListOf<String>()
+            do {
+                val result =
+                        apiInstance.users().listGetFollowers("83401212").paginationToken(pageToken).maxResults(100)
+                                .userFields(userFields).execute()
+                if (result.errors?.size?.let { it > 0 } == true) {
+                    println("Error:")
+                    result.errors!!.forEach { e ->
+                        println(e.toString())
+                        if (e is ResourceUnauthorizedProblem) {
+                            println(e.title + " " + e.detail)
+                        }
+                    }
+                } else {
+                    for (user in result.data!!) {
+                        list.add(user.username)
+                    }
+                }
+                pageToken = result.meta?.nextToken
+            } while (pageToken != null)
+            FileWriter(File("${rootFolder()}followers.txt")).use {
+                it.write(list.joinToString("---\n"))
+            }
+            return list
+        } catch (e: ApiException) {
+            System.err.println("Status code: " + e.code)
+            System.err.println("Reason: " + e.responseBody)
+            System.err.println("Response headers: " + e.responseHeaders)
+            e.printStackTrace()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return emptyList()
+    }
+
+    fun listFollowing(accessToken: String? = null) {
+        accessToken?.let { TokenStore.accessToken = accessToken }
+        val credentials = createTwitterCredentialsOAuth2()
+        val apiInstance = TwitterApi(credentials)
+        val tweetFields = setOf("name")
+        try {
+            // findTweetById
+            var pageToken: String? = null
+            val list = mutableListOf<String>()
+            do {
+                val result =
+                        apiInstance.users().usersIdFollowing("83401212").paginationToken(pageToken).maxResults(100)
+                                .tweetFields(tweetFields).execute()
+                if (result.errors?.size?.let { it > 0 } == true) {
+                    println("Error:")
+                    result.errors!!.forEach { e ->
+                        println(e.toString())
+                        if (e is ResourceUnauthorizedProblem) {
+                            println(e.title + " " + e.detail)
+                        }
+                    }
+                } else {
+                    for (user in result.data!!) {
+                        list.add(user.username)
+                    }
+                }
+                pageToken = result.meta?.nextToken
+            } while (pageToken != null)
+            FileWriter(File("${rootFolder()}likes.txt")).use {
                 it.write(list.joinToString("---\n"))
             }
         } catch (e: ApiException) {
@@ -148,4 +231,6 @@ class TwitterService @Autowired constructor(val template: RestTemplate, val appP
             e.printStackTrace()
         }
     }
+
+    private fun rootFolder() = "/home/joerg/Schreibtisch"
 }
