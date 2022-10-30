@@ -2,3 +2,5 @@ app:
   twitter:
     clientId: ${CLIENT_ID}
     clientSecret: ${CLIENT_SECRET}
+    consumerKey: ${CONSUMER_KEY}
+    consumerSecret: ${CONSUMER_SECRET}

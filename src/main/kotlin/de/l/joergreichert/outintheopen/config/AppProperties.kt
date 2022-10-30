@@ -11,6 +11,8 @@ data class AppProperties(
 
 @ConstructorBinding
 data class TwitterConfig(
-    val clientId: String? = null,
-    val clientSecret: String? = null,
+    val clientId: String,
+    val clientSecret: String,
+    val consumerKey: String,
+    val consumerSecret: String,
 )
