@@ -1,6 +1,14 @@
 app:
+  mastodon:
+    website: ${MASTODON_WEBSITE}
+    accountId: ${MASTODON_ACCOUNT_ID}
+    clientId: ${MASTODON_CLIENT_ID}
+    clientSecret: ${MASTODON_CLIENT_SECRET}
+    consumerKey: ${MASTODON_CONSUMER_KEY}
+    consumerSecret: ${MASTODON_CONSUMER_SECRET}
   twitter:
-    clientId: ${CLIENT_ID}
-    clientSecret: ${CLIENT_SECRET}
-    consumerKey: ${CONSUMER_KEY}
-    consumerSecret: ${CONSUMER_SECRET}
+    accountId: ${TWITTER_ACCOUNT_ID}
+    clientId: ${TWITTER_CLIENT_ID}
+    clientSecret: ${TWITTER_CLIENT_SECRET}
+    consumerKey: ${TWITTER_CONSUMER_KEY}
+    consumerSecret: ${TWITTER_CONSUMER_SECRET}

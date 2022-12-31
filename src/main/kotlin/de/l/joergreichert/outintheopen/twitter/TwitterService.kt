@@ -14,6 +14,7 @@ import org.springframework.web.client.RestTemplate
 import java.io.File
 import java.io.FileWriter
 import java.text.DecimalFormat
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.OffsetDateTime
 import java.time.ZoneOffset
@@ -31,35 +32,35 @@ class TwitterService @Autowired constructor(val restTemplate: RestTemplate, val 
             HttpMethod.POST, request, Map::class.java
         )
         val accessToken = response.body["access_token"].toString()
-        TokenStore.accessToken = accessToken
+        TwitterTokenStore.accessToken = accessToken
         return accessToken
     }
 
     private fun getAccessToken(givenAccessToken: String?): String {
-        givenAccessToken?.let { TokenStore.accessToken = givenAccessToken }
-        return TokenStore.accessToken ?: getAppAccessToken().let { TokenStore.accessToken = it; it  }
+        givenAccessToken?.let { TwitterTokenStore.accessToken = givenAccessToken }
+        return TwitterTokenStore.accessToken ?: getAppAccessToken().let { TwitterTokenStore.accessToken = it; it  }
     }
 
     private fun createTwitterCredentialsOAuth2(givenAccessToken: String?) = TwitterCredentialsOAuth2(
         appProperties.twitter.clientId,
         appProperties.twitter.clientSecret,
         getAccessToken(givenAccessToken),
-        TokenStore.refreshToken,
+        TwitterTokenStore.refreshToken,
     )
 
-    fun listLikes(givenAccessToken: String? = null, userId: String? = null, targetFile: String? = null): List<String> {
+    fun listLikes(givenAccessToken: String? = null, userId: String? = null, targetFile: String? = null, since: LocalDate?): List<String> {
         val credentials = createTwitterCredentialsOAuth2(givenAccessToken)
         val apiInstance = TwitterApi(credentials)
         val tweetFields = setOf("author_id", "id", "created_at")
         try {
             // findTweetById
             var pageToken: String? = null
-            val maxDate = OffsetDateTime.of(LocalDateTime.of(2022, 10, 1, 0, 0, 0), ZoneOffset.ofHours(1))
+            val maxDate = OffsetDateTime.of(LocalDateTime.of(2022, 12, 1, 0, 0, 0), ZoneOffset.ofHours(1))
             val list = mutableListOf<String>()
             do {
                 var stop = false
                 val result =
-                    apiInstance.tweets().usersIdLikedTweets(userId ?: "83401212").paginationToken(pageToken).maxResults(100)
+                    apiInstance.tweets().usersIdLikedTweets(userId ?: appProperties.twitter.accountId).paginationToken(pageToken).maxResults(100)
                         .tweetFields(tweetFields).execute()
                 if (result.errors?.size?.let { it > 0 } == true) {
                     stop = true
@@ -73,18 +74,19 @@ class TwitterService @Autowired constructor(val restTemplate: RestTemplate, val 
                 } else {
                     val decimalFormat = DecimalFormat("000")
                     val simpleDateFormat = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss")
-                    for ((index, tweet) in result.data!!.withIndex()) {
-                        if (tweet.createdAt?.isBefore(maxDate) == true) stop = true
-                        if (stop) break
+                    for ((index, tweet) in result.data!!
+                            .sortedWith { a, b -> -(a.createdAt?.compareTo(b.createdAt) ?: 0) }
+                            .filter { it.createdAt?.isBefore(maxDate) ?: true }.withIndex()) {
                         val author =
                             apiInstance.users().findUserById(tweet.authorId).userFields(setOf("username", "name"))
                                 .execute()
+                        Thread.sleep(1000)
                         val authorName = author.data?.username
-                        val content = listOf(
+                        val content = listOfNotNull(
                             "${decimalFormat.format(index)}. ${simpleDateFormat.format(tweet.createdAt)}}: ${tweet.text}",
                             tweet.entities?.toJson(),
                             "https://twitter.com/${authorName}/status/${tweet.id}"
-                        ).filterNotNull().joinToString("\n")
+                        ).joinToString("\n")
                         list.add(content)
                     }
                 }
@@ -114,7 +116,7 @@ class TwitterService @Autowired constructor(val restTemplate: RestTemplate, val 
             val list = mutableListOf<String>()
             do {
                 val result =
-                    apiInstance.users().usersIdFollowers(userId ?: "83401212").paginationToken(pageToken).maxResults(100)
+                    apiInstance.users().usersIdFollowers(userId ?: appProperties.twitter.accountId).paginationToken(pageToken).maxResults(100)
                         .userFields(userFields).execute()
                 if (result.errors?.size?.let { it > 0 } == true) {
                     println("Error:")
@@ -156,7 +158,7 @@ class TwitterService @Autowired constructor(val restTemplate: RestTemplate, val 
             val list = mutableListOf<String>()
             do {
                 val result =
-                    apiInstance.users().usersIdFollowing(userId ?: "83401212").paginationToken(pageToken).maxResults(100)
+                    apiInstance.users().usersIdFollowing(userId ?: appProperties.twitter.accountId).paginationToken(pageToken).maxResults(100)
                         .userFields(userFields).execute()
                 Thread.sleep(1000)
                 if (result.errors?.size?.let { it > 0 } == true) {

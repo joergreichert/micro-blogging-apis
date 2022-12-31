@@ -1,6 +1,6 @@
 package de.l.joergreichert.outintheopen.twitter
 
-object TokenStore {
+object TwitterTokenStore {
     var accessToken: String? = null
     var refreshToken: String? = null
 }
