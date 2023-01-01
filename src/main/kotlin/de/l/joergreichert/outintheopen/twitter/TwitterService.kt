@@ -38,7 +38,7 @@ class TwitterService @Autowired constructor(val restTemplate: RestTemplate, val 
 
     private fun getAccessToken(givenAccessToken: String?): String {
         givenAccessToken?.let { TwitterTokenStore.accessToken = givenAccessToken }
-        return TwitterTokenStore.accessToken ?: getAppAccessToken().let { TwitterTokenStore.accessToken = it; it  }
+        return TwitterTokenStore.accessToken ?: getAppAccessToken().let { TwitterTokenStore.accessToken = it; it }
     }
 
     private fun createTwitterCredentialsOAuth2(givenAccessToken: String?) = TwitterCredentialsOAuth2(
@@ -48,7 +48,12 @@ class TwitterService @Autowired constructor(val restTemplate: RestTemplate, val 
         TwitterTokenStore.refreshToken,
     )
 
-    fun listLikes(givenAccessToken: String? = null, userId: String? = null, targetFile: String? = null, since: LocalDate?): List<String> {
+    fun listLikes(
+        givenAccessToken: String? = null,
+        userId: String? = null,
+        targetFile: String? = null,
+        since: LocalDate?
+    ): List<String> {
         val credentials = createTwitterCredentialsOAuth2(givenAccessToken)
         val apiInstance = TwitterApi(credentials)
         val tweetFields = setOf("author_id", "id", "created_at")
@@ -60,7 +65,8 @@ class TwitterService @Autowired constructor(val restTemplate: RestTemplate, val 
             do {
                 var stop = false
                 val result =
-                    apiInstance.tweets().usersIdLikedTweets(userId ?: appProperties.twitter.accountId).paginationToken(pageToken).maxResults(100)
+                    apiInstance.tweets().usersIdLikedTweets(userId ?: appProperties.twitter.accountId)
+                        .paginationToken(pageToken).maxResults(100)
                         .tweetFields(tweetFields).execute()
                 if (result.errors?.size?.let { it > 0 } == true) {
                     stop = true
@@ -74,20 +80,29 @@ class TwitterService @Autowired constructor(val restTemplate: RestTemplate, val 
                 } else {
                     val decimalFormat = DecimalFormat("000")
                     val simpleDateFormat = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss")
-                    for ((index, tweet) in result.data!!
+                    try {
+                        for ((index, tweet) in result.data!!
                             .sortedWith { a, b -> -(a.createdAt?.compareTo(b.createdAt) ?: 0) }
-                            .filter { it.createdAt?.isBefore(maxDate) ?: true }.withIndex()) {
-                        val author =
-                            apiInstance.users().findUserById(tweet.authorId).userFields(setOf("username", "name"))
-                                .execute()
-                        Thread.sleep(1000)
-                        val authorName = author.data?.username
-                        val content = listOfNotNull(
-                            "${decimalFormat.format(index)}. ${simpleDateFormat.format(tweet.createdAt)}}: ${tweet.text}",
-                            tweet.entities?.toJson(),
-                            "https://twitter.com/${authorName}/status/${tweet.id}"
-                        ).joinToString("\n")
-                        list.add(content)
+                            .filter { it.createdAt?.isAfter(maxDate) ?: true }.withIndex()) {
+                            try {
+                                val author =
+                                    apiInstance.users().findUserById(tweet.authorId)
+                                        .userFields(setOf("username", "name"))
+                                        .execute()
+                                Thread.sleep(2000)
+                                val authorName = author.data?.username
+                                val content = listOfNotNull(
+                                    "${decimalFormat.format(index)}. ${simpleDateFormat.format(tweet.createdAt)}}: ${tweet.text}",
+                                    tweet.entities?.toJson(),
+                                    "https://twitter.com/${authorName}/status/${tweet.id}"
+                                ).joinToString("\n")
+                                list.add(content)
+                            } catch (e: Exception) {
+                                println("index: $index" + e.message)
+                            }
+                        }
+                    } catch (e: Exception) {
+                        println(e.message)
                     }
                 }
                 pageToken = if (!stop) result.meta?.nextToken else null
@@ -107,7 +122,11 @@ class TwitterService @Autowired constructor(val restTemplate: RestTemplate, val 
         return emptyList()
     }
 
-    fun listFollowers(givenAccessToken: String? = null, userId: String? = null, targetFile: String? = null): List<String> {
+    fun listFollowers(
+        givenAccessToken: String? = null,
+        userId: String? = null,
+        targetFile: String? = null
+    ): List<String> {
         val credentials = createTwitterCredentialsOAuth2(givenAccessToken)
         val apiInstance = TwitterApi(credentials)
         val userFields = setOf("username", "name")
@@ -116,7 +135,8 @@ class TwitterService @Autowired constructor(val restTemplate: RestTemplate, val 
             val list = mutableListOf<String>()
             do {
                 val result =
-                    apiInstance.users().usersIdFollowers(userId ?: appProperties.twitter.accountId).paginationToken(pageToken).maxResults(100)
+                    apiInstance.users().usersIdFollowers(userId ?: appProperties.twitter.accountId)
+                        .paginationToken(pageToken).maxResults(100)
                         .userFields(userFields).execute()
                 if (result.errors?.size?.let { it > 0 } == true) {
                     println("Error:")
@@ -158,7 +178,8 @@ class TwitterService @Autowired constructor(val restTemplate: RestTemplate, val 
             val list = mutableListOf<String>()
             do {
                 val result =
-                    apiInstance.users().usersIdFollowing(userId ?: appProperties.twitter.accountId).paginationToken(pageToken).maxResults(100)
+                    apiInstance.users().usersIdFollowing(userId ?: appProperties.twitter.accountId)
+                        .paginationToken(pageToken).maxResults(100)
                         .userFields(userFields).execute()
                 Thread.sleep(1000)
                 if (result.errors?.size?.let { it > 0 } == true) {

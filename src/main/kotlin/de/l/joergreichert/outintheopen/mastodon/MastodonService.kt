@@ -15,6 +15,8 @@ import org.springframework.web.client.RestTemplate
 import java.io.File
 import java.io.FileWriter
 import java.text.DecimalFormat
+import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 
@@ -37,6 +39,12 @@ class MastodonService @Autowired constructor(
         MastodonTokenStore.accessToken = accessToken
         return accessToken
     }
+
+    fun getCodeLoginUrl(): String =
+        "https://${appProperties.mastodon.website}/oauth/authorize?redirect_uri=urn:ietf:wg:oauth:2.0:oob&client_id=${appProperties.mastodon.clientId}&response_type=code&scope=read"
+
+    fun getUserAppAccessTokenForCode(code: String): String =
+        "https://${appProperties.mastodon.website}/oauth/token?redirect_uri=urn:ietf:wg:oauth:2.0:oob&grant_type=authorization_code&client_id=${appProperties.mastodon.clientId}&client_secret=${appProperties.mastodon.clientSecret}&code=$code"
 
     private fun getAccessToken(givenAccessToken: String?): String {
         givenAccessToken?.let { MastodonTokenStore.accessToken = givenAccessToken }
@@ -94,17 +102,28 @@ class MastodonService @Autowired constructor(
     fun listStatuses(
         givenAccessToken: String? = null,
         userId: String? = null,
-        targetFile: String? = null
+        targetFile: String? = null,
+        since: LocalDate?
     ): List<String> {
         val accessToken = getAccessToken(givenAccessToken)
-        val list = internalStatuses("https://${appProperties.mastodon.website}/api/v1/accounts/${appProperties.mastodon.accountId}/statuses", accessToken, mutableListOf())
+        val list = internalStatuses(
+            "https://${appProperties.mastodon.website}/api/v1/accounts/${appProperties.mastodon.accountId}/statuses",
+            accessToken,
+            mutableListOf(),
+            since
+        )
         FileWriter(File(targetFile ?: "${rootFolder()}mastodon-statuses.txt")).use {
             it.write(list.joinToString("\n"))
         }
         return list
     }
 
-    private fun internalStatuses(url: String, accessToken: String, visited: MutableList<String>): List<String> {
+    private fun internalStatuses(
+        url: String,
+        accessToken: String,
+        visited: MutableList<String>,
+        since: LocalDate?
+    ): List<String> {
         val headers = HttpHeaders()
         headers.setBearerAuth(accessToken)
         val request = HttpEntity<String>(headers)
@@ -121,30 +140,45 @@ class MastodonService @Autowired constructor(
         val joinedList = mutableListOf<String>()
         if (linkHeader != null) {
             val parts = linkHeader[0].split(";")
-            if (parts.size > 1) {
+            if (parts.isNotEmpty()) {
                 val prevUrl = parts[0].replace("<", "").replace(">", "")
-                if (prevUrl != url && visited.contains(prevUrl)) {
+                if (prevUrl != url && !visited.contains(prevUrl)) {
                     visited.add(url)
-                    joinedList.addAll(internalStatuses(prevUrl, accessToken, visited))
+                    try {
+                        joinedList.addAll(internalStatuses(prevUrl, accessToken, visited, since))
+                    } catch (e: Exception) {
+                        println(e.message)
+                    }
                 }
             }
         }
         val decimalFormat = DecimalFormat("000")
         val simpleDateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy'T'HH:mm:ss.SSS'Z'")
         val list = response.body?.mapIndexed { index, tweet ->
-            listOfNotNull(
-                "${decimalFormat.format(index)}. ${tweet.createdAt}: ${tweet.content}",
-                tweet.reblog?.content ?: tweet.content,
-                tweet.reblog?.uri ?: tweet.uri
-            ).joinToString("\n")
-        } ?: emptyList()
+            val createdAt = LocalDateTime.from(simpleDateFormat.parse(tweet.createdAt))
+            if (since == null || createdAt.toLocalDate().isAfter(since)) {
+                listOfNotNull(
+                    "${decimalFormat.format(index)}. ${tweet.createdAt}: ${tweet.content}",
+                    tweet.reblog?.content ?: tweet.content,
+                    tweet.reblog?.uri ?: tweet.uri
+                ).joinToString("\n")
+            } else null
+        }?.filterNotNull() ?: emptyList()
         joinedList.addAll(list)
         return joinedList
     }
 
-    fun listLikes(givenAccessToken: String? = null, userId: String? = null, targetFile: String? = null): List<String> {
+    fun listLikes(
+        givenAccessToken: String? = null, userId: String? = null, targetFile: String? = null,
+        since: LocalDate?
+    ): List<String> {
         val accessToken = getAccessToken(givenAccessToken)
-        val list = internalStatuses("https://${appProperties.mastodon.website}/api/v1/favourites?limit=100", accessToken, mutableListOf())
+        val list = internalStatuses(
+            "https://${appProperties.mastodon.website}/api/v1/favourites?limit=100",
+            accessToken,
+            mutableListOf(),
+            since
+        )
         FileWriter(File(targetFile ?: "${rootFolder()}mastodon-likes.txt")).use {
             it.write(list.joinToString("\n"))
         }

@@ -2,6 +2,7 @@ package de.l.joergreichert.outintheopen.web
 
 import de.l.joergreichert.outintheopen.twitter.TwitterService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.format.annotation.DateTimeFormat
 import org.springframework.web.bind.annotation.*
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -17,7 +18,7 @@ class TwitterController @Autowired constructor(val twitterService: TwitterServic
     fun getLikes(@RequestParam(required = false) accessToken: String? = null,
                  @RequestParam(required = false) userId: String? = null,
                  @RequestParam(required = false) targetFile: String? = null,
-                 @RequestParam(required = false) since: LocalDate? = null) =
+                 @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) since: LocalDate? = null) =
         twitterService.listLikes(accessToken, userId, targetFile, since)
 
     @GetMapping("followers")
