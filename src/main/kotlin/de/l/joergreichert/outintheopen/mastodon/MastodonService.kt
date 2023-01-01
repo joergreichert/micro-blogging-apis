@@ -153,7 +153,7 @@ class MastodonService @Autowired constructor(
             }
         }
         val decimalFormat = DecimalFormat("000")
-        val simpleDateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy'T'HH:mm:ss.SSS'Z'")
+        val simpleDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
         val list = response.body?.mapIndexed { index, tweet ->
             val createdAt = LocalDateTime.from(simpleDateFormat.parse(tweet.createdAt))
             if (since == null || createdAt.toLocalDate().isAfter(since)) {
@@ -182,7 +182,7 @@ class MastodonService @Autowired constructor(
         FileWriter(File(targetFile ?: "${rootFolder()}mastodon-likes.txt")).use {
             it.write(list.joinToString("\n"))
         }
-        return emptyList()
+        return list
     }
 
     private fun rootFolder() = "/tmp"
