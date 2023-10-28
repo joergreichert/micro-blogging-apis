@@ -52,7 +52,7 @@ class TwitterService @Autowired constructor(val restTemplate: RestTemplate, val 
         givenAccessToken: String? = null,
         userId: String? = null,
         targetFile: String? = null,
-        since: LocalDate?
+        since: LocalDateTime?
     ): List<String> {
         val credentials = createTwitterCredentialsOAuth2(givenAccessToken)
         val apiInstance = TwitterApi(credentials)
@@ -60,7 +60,7 @@ class TwitterService @Autowired constructor(val restTemplate: RestTemplate, val 
         try {
             // findTweetById
             var pageToken: String? = null
-            val maxDate = OffsetDateTime.of(LocalDateTime.of(2022, 12, 1, 0, 0, 0), ZoneOffset.ofHours(1))
+            val maxDate = OffsetDateTime.of(since ?: LocalDateTime.of(2023, 1, 21, 0, 0, 0), ZoneOffset.ofHours(1))
             val list = mutableListOf<String>()
             do {
                 var stop = false
@@ -110,7 +110,7 @@ class TwitterService @Autowired constructor(val restTemplate: RestTemplate, val 
             FileWriter(File(targetFile ?: "${rootFolder()}likes.txt")).use {
                 it.write(list.joinToString("\n---\n\n"))
             }
-            return list
+            return list.reversed()
         } catch (e: ApiException) {
             System.err.println("Status code: " + e.code)
             System.err.println("Reason: " + e.responseBody)
@@ -122,6 +122,79 @@ class TwitterService @Autowired constructor(val restTemplate: RestTemplate, val 
         return emptyList()
     }
 
+    fun listBookmarks(
+        givenAccessToken: String? = null,
+        userId: String? = null,
+        targetFile: String? = null,
+        since: LocalDateTime?
+    ): List<String> {
+        val credentials = createTwitterCredentialsOAuth2(givenAccessToken)
+        val apiInstance = TwitterApi(credentials)
+        val tweetFields = setOf("author_id", "id", "created_at")
+        try {
+            // findTweetById
+            var pageToken: String? = null
+            val maxDate = OffsetDateTime.of(since ?: LocalDateTime.of(2023, 1, 21, 0, 0, 0), ZoneOffset.ofHours(1))
+            val list = mutableListOf<String>()
+            do {
+                var stop = false
+                val result =
+                    apiInstance.bookmarks().getUsersIdBookmarks(userId ?: appProperties.twitter.accountId)
+                        .paginationToken(pageToken).maxResults(100)
+                        .tweetFields(tweetFields).execute()
+                if (result.errors?.size?.let { it > 0 } == true) {
+                    stop = true
+                    println("Error:")
+                    result.errors!!.forEach { e ->
+                        println(e.toString())
+                        if (e is ResourceUnauthorizedProblem) {
+                            println(e.title + " " + e.detail)
+                        }
+                    }
+                } else {
+                    val decimalFormat = DecimalFormat("000")
+                    val simpleDateFormat = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss")
+                    try {
+                        for ((index, tweet) in result.data!!
+                            .sortedWith { a, b -> -(a.createdAt?.compareTo(b.createdAt) ?: 0) }
+                            .filter { it.createdAt?.isAfter(maxDate) ?: true }.withIndex()) {
+                            try {
+                                val author =
+                                    apiInstance.users().findUserById(tweet.authorId)
+                                        .userFields(setOf("username", "name"))
+                                        .execute()
+                                Thread.sleep(2000)
+                                val authorName = author.data?.username
+                                val content = listOfNotNull(
+                                    "${decimalFormat.format(index)}. ${simpleDateFormat.format(tweet.createdAt)}}: ${tweet.text}",
+                                    tweet.entities?.toJson(),
+                                    "https://twitter.com/${authorName}/status/${tweet.id}"
+                                ).joinToString("\n")
+                                list.add(content)
+                            } catch (e: Exception) {
+                                println("index: $index" + e.message)
+                            }
+                        }
+                    } catch (e: Exception) {
+                        println(e.message)
+                    }
+                }
+                pageToken = if (!stop) result.meta?.nextToken else null
+            } while (pageToken != null)
+            FileWriter(File(targetFile ?: "${rootFolder()}likes.txt")).use {
+                it.write(list.joinToString("\n---\n\n"))
+            }
+            return list.reversed()
+        } catch (e: ApiException) {
+            System.err.println("Status code: " + e.code)
+            System.err.println("Reason: " + e.responseBody)
+            System.err.println("Response headers: " + e.responseHeaders)
+            e.printStackTrace()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return emptyList()
+    }
     fun listFollowers(
         givenAccessToken: String? = null,
         userId: String? = null,

@@ -118,6 +118,25 @@ class MastodonService @Autowired constructor(
         return list
     }
 
+    fun listBookmarks(
+        givenAccessToken: String? = null,
+        userId: String? = null,
+        targetFile: String? = null,
+        since: LocalDate?
+    ): List<String> {
+        val accessToken = getAccessToken(givenAccessToken)
+        val list = internalStatuses(
+            "https://${appProperties.mastodon.website}/api/v1/bookmarks",
+            accessToken,
+            mutableListOf(),
+            since
+        )
+        FileWriter(File(targetFile ?: "${rootFolder()}mastodon-bookmarks.txt")).use {
+            it.write(list.joinToString("\n"))
+        }
+        return list
+    }
+
     private fun internalStatuses(
         url: String,
         accessToken: String,
@@ -154,11 +173,11 @@ class MastodonService @Autowired constructor(
         }
         val decimalFormat = DecimalFormat("000")
         val simpleDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-        val list = response.body?.mapIndexed { index, tweet ->
+        val list = response.body?.reversed()?.mapIndexed { index, tweet ->
             val createdAt = LocalDateTime.from(simpleDateFormat.parse(tweet.createdAt))
             if (since == null || createdAt.toLocalDate().isAfter(since)) {
                 listOfNotNull(
-                    "${decimalFormat.format(index)}. ${tweet.createdAt}: ${tweet.content}",
+                    "${decimalFormat.format(joinedList.size + index + 1)}. ${tweet.createdAt}: ${tweet.content}",
                     tweet.reblog?.content ?: tweet.content,
                     tweet.reblog?.uri ?: tweet.uri
                 ).joinToString("\n")

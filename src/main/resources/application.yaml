@@ -2,7 +2,7 @@ app:
   mastodon:
     website: ${MASTODON_WEBSITE}
     accountId: ${MASTODON_ACCOUNT_ID}
-    clientId: ${MASTODON_CLIENT_ID}
+    clientId: ${MASTODON_CLIENT_KEY}
     clientSecret: ${MASTODON_CLIENT_SECRET}
     consumerKey: ${MASTODON_CONSUMER_KEY}
     consumerSecret: ${MASTODON_CONSUMER_SECRET}

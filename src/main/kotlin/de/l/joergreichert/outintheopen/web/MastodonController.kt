@@ -38,6 +38,15 @@ class MastodonController @Autowired constructor(val mastodonService: MastodonSer
     ) =
         mastodonService.listStatuses(accessToken, userId, targetFile, since)
 
+    @GetMapping("bookmarks")
+    fun getBookmarks(
+        @RequestParam(required = false) accessToken: String? = null,
+        @RequestParam(required = false) userId: String? = null,
+        @RequestParam(required = false) targetFile: String? = null,
+        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) since: LocalDate? = null
+    ) =
+        mastodonService.listBookmarks(accessToken, userId, targetFile, since)
+
     @GetMapping("followers")
     fun getFollowers(
         @RequestParam(required = false) accessToken: String? = null,
