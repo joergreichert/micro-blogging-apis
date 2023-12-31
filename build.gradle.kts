@@ -2,10 +2,10 @@ group = "de.l.joergreichert.twitter"
 version = "1.0.0-SNAPSHOT"
 
 plugins {
-    id("org.springframework.boot") version("2.7.5")
-    id("org.jetbrains.kotlin.plugin.spring") version("1.7.20")
+    id("org.springframework.boot")
+    id("org.jetbrains.kotlin.plugin.spring")
     idea
-    kotlin("jvm") version "1.7.20"
+    kotlin("jvm")
 }
 
 java {
@@ -18,25 +18,22 @@ repositories {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10")
-    implementation(platform("org.springframework.boot:spring-boot-dependencies:2.7.5"))
-    implementation("org.springframework.boot:spring-boot-starter")
-    implementation("org.springframework.boot:spring-boot-starter-web:2.7.5")
-    implementation("org.springframework:spring-web:5.3.23")
-    implementation("com.fasterxml.jackson.core:jackson-core:2.14.0-rc2")
-    implementation("com.fasterxml.jackson.core:jackson-annotations:2.14.0-rc2")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.14.0-rc2")
-    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.14.0-rc2")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.14.0-rc2")
-    implementation("com.twitter:twitter-api-java-sdk:2.0.3")
-    implementation("org.springdoc:springdoc-openapi-ui:1.6.12")
+    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:_")
+    implementation(platform(Spring.boms.dependencies))
+    implementation("org.springframework.boot:spring-boot-starter:_")
+    implementation(Spring.boot.web)
+    implementation("org.springframework:spring-web:_")
+    implementation("com.fasterxml.jackson.core:jackson-core:_")
+    implementation("com.fasterxml.jackson.core:jackson-annotations:_")
+    implementation("com.fasterxml.jackson.core:jackson-databind:_")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:_")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:_")
+    implementation("com.twitter:twitter-api-java-sdk:_")
+    implementation("org.springdoc:springdoc-openapi-ui:_")
 
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.0")
+    testImplementation(Testing.junit.jupiter.api)
+    testRuntimeOnly(Testing.junit.jupiter.engine)
     implementation(kotlin("stdlib"))
-    testImplementation("org.springframework.boot:spring-boot-starter-test") {
-        exclude(mapOf("group" to "org.junit.vintage", "module" to "junit-vintage-engine"))
-    }
 }
 
 tasks.test {

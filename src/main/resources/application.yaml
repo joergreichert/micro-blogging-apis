@@ -12,3 +12,11 @@ app:
     clientSecret: ${TWITTER_CLIENT_SECRET}
     consumerKey: ${TWITTER_CONSUMER_KEY}
     consumerSecret: ${TWITTER_CONSUMER_SECRET}
+  bluesky:
+    accountId: ${BLUESKY_ACCOUNT_ID}
+
+springdoc:
+  swagger-ui:
+    config-url: /v3/api-docs/swagger-config
+    disable-swagger-default-url: false
+    url: /v3/api-docs

@@ -11,7 +11,7 @@ import org.springframework.boot.runApplication
 import org.springframework.context.annotation.Bean
 import org.springframework.web.client.RestTemplate
 import java.time.format.DateTimeFormatter
-import javax.annotation.PostConstruct
+import jakarta.annotation.PostConstruct
 
 
 @EnableConfigurationProperties(AppProperties::class)

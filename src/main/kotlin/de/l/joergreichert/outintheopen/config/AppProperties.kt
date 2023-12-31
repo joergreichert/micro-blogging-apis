@@ -1,16 +1,14 @@
 package de.l.joergreichert.outintheopen.config
 
 import org.springframework.boot.context.properties.ConfigurationProperties
-import org.springframework.boot.context.properties.ConstructorBinding
 
 @ConfigurationProperties(prefix = "app")
-@ConstructorBinding
 data class AppProperties(
     val twitter: TwitterConfig,
-    val mastodon: MastodonConfig
+    val mastodon: MastodonConfig,
+    val bluesky: BlueSkyConfig
 )
 
-@ConstructorBinding
 data class TwitterConfig(
     val accountId: String,
     val clientId: String,
@@ -19,7 +17,6 @@ data class TwitterConfig(
     val consumerSecret: String,
 )
 
-@ConstructorBinding
 data class MastodonConfig(
     val accountId: String,
     val website: String,
@@ -27,4 +24,8 @@ data class MastodonConfig(
     val clientSecret: String,
     val consumerKey: String,
     val consumerSecret: String,
+)
+
+data class BlueSkyConfig(
+    val accountId: String,
 )
