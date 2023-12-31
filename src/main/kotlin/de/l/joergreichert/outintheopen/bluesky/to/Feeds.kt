@@ -5,95 +5,95 @@ import java.time.ZonedDateTime
 
 @JvmRecord
 data class Feeds(
-    val feed: List<Feed>,
-    val cursor: String
+    val feed: List<Feed>? = null,
+    val cursor: String? = null
 )
 
 
 @JvmRecord
 data class Feed(
-    val post: PostView,
-    val reason: Reason,
-    val reply: Reply
+    val post: PostView? = null,
+    val reason: Reason? = null,
+    val reply: Reply? = null
 )
 
 @JvmRecord
 data class PostView(
-    val uri: String,
-    val cid: String,
-    val author: Author,
-    val embed: Embed,
-    val record: Record,
-    val replyCount: Int,
-    val repostCount: Int,
-    val likeCount: Int,
-    val indexedAt: ZonedDateTime,
-    val viewer: Viewer,
-    val labels: List<Label>
+    val uri: String? = null,
+    val cid: String? = null,
+    val author: Author? = null,
+    val embed: Embed? = null,
+    val record: Record? = null,
+    val replyCount: Int? = null,
+    val repostCount: Int? = null,
+    val likeCount: Int? = null,
+    val indexedAt: ZonedDateTime? = null,
+    val viewer: Viewer? = null,
+    val labels: List<Label>? = null
 )
 
 @JvmRecord
 data class Author(
-    val did: String,
-    val handle: String,
-    val displayName: String,
-    val avatar: String,
-    val viewer: Viewer,
-    val labels: List<Label>
+    val did: String? = null,
+    val handle: String? = null,
+    val displayName: String? = null,
+    val avatar: String? = null,
+    val viewer: Viewer? = null,
+    val labels: List<Label>? = null
 )
 
 @JvmRecord
 data class Reason(
-    val `$type`: String,
-    val by: Author,
-    val indexedAt: ZonedDateTime
+    val `$type`: String? = null,
+    val by: Author? = null,
+    val indexedAt: ZonedDateTime? = null
 )
 
 @JvmRecord
 data class Reply(
-    val root: PostView,
-    val handle: String,
-    val parent: PostView
+    val root: PostView? = null,
+    val handle: String? = null,
+    val parent: PostView? = null
 )
 
 @JvmRecord
 data class Embed(
-    val `$type`: String,
-    val record: Record,
-    val media: Media,
-    val external: External,
-    val images: List<Images>
+    val `$type`: String? = null,
+    val record: Record? = null,
+    val media: Media? = null,
+    val external: External? = null,
+    val images: List<Images>? = null
 )
 
 @JvmRecord
 data class External(
-    val uri: String,
-    val title: String,
-    val description: String,
-    val thumb: Any
+    val uri: String? = null,
+    val title: String? = null,
+    val description: String? = null,
+    val thumb: Any? = null
 )
 
 @JvmRecord
 data class Media(
-    val `$type`: String,
-    val images: List<Images>
+    val `$type`: String? = null,
+    val images: List<Images>? = null
 )
 
 @JvmRecord
 data class Images(
-    val thumb: String,
-    val fullsize: String,
-    val alt: String,
-    val image: Image
+    val thumb: String? = null,
+    val fullsize: String? = null,
+    val alt: String? = null,
+    val image: Image? = null
 )
 
 @JvmRecord
 data class Image(
-    val `$type`: String,
-    val ref: Ref,
-    val mimeType: String,
-    val size: Int
+    val `$type`: String? = null,
+    val ref: Ref? = null,
+    val mimeType: String? = null,
+    val size: Int? = null
 )
 
 @JvmRecord
-data class Ref(val `$link`: String)
+data class Ref(val `$link`: String? = null)

@@ -9,12 +9,12 @@ data class Session(
 
 @JvmRecord
 data class Jwt(
-    val access: String,
-    val refresh: String
+    val access: String? = null,
+    val refresh: String? = null
 )
 
 @JvmRecord
 data class User(
-    val identifier: String,
-    val password: String
+    val identifier: String? = null,
+    val password: String? = null
 )

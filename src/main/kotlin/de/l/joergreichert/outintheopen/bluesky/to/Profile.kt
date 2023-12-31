@@ -3,15 +3,15 @@ package de.l.joergreichert.outintheopen.bluesky.to
 import java.time.ZonedDateTime
 
 data class Profile (
-    val did: String,
-    val handle: String,
-    val displayName: String,
-    val description: String,
-    val avatar: String,
-    val banner: String,
-    val followsCount: Int,
-    val followersCount: Int,
-    val postsCount: Int,
-    val indexedAt: ZonedDateTime,
-    val labels: List<Label>
+    val did: String? = null,
+    val handle: String? = null,
+    val displayName: String? = null,
+    val description: String? = null,
+    val avatar: String? = null,
+    val banner: String? = null,
+    val followsCount: Int? = null,
+    val followersCount: Int? = null,
+    val postsCount: Int? = null,
+    val indexedAt: ZonedDateTime? = null,
+    val labels: List<Label>? = null
 )

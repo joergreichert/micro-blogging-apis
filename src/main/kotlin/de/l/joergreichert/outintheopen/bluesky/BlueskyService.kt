@@ -41,8 +41,8 @@ class BlueskyService @Autowired constructor(
         val response = restTemplate.getForEntity(url, Followers::class.java, map)
         val body = response.body
         body?.let {
-            FileWriter(File(targetFile ?: "${rootFolder()}bluesky-followers.txt")).use {
-                it.write(body.followers.joinToString("\n"))
+            FileWriter(File(targetFile ?: "${rootFolder()}bluesky-followers.txt")).use { fw ->
+                body.followers?.let { fw.write(body.followers.joinToString("\n")) }
             }
         }
         return body
@@ -63,8 +63,8 @@ class BlueskyService @Autowired constructor(
         val response = restTemplate.getForEntity(url, Follows::class.java, map)
         val body = response.body
         body?.let {
-            FileWriter(File(targetFile ?: "${rootFolder()}bluesky-following.txt")).use {
-                it.write(body.follows.joinToString("\n"))
+            FileWriter(File(targetFile ?: "${rootFolder()}bluesky-following.txt")).use { fw ->
+                body.follows?.let { fw.write(it.joinToString("\n")) }
             }
         }
         return body
@@ -86,8 +86,8 @@ class BlueskyService @Autowired constructor(
         val response = restTemplate.getForEntity(url, Feeds::class.java, map)
         val body = response.body
         body?.let {
-            FileWriter(File(targetFile ?: "${rootFolder()}bluesky-feeds.txt")).use {
-                it.write(body.feed.joinToString("\n"))
+            FileWriter(File(targetFile ?: "${rootFolder()}bluesky-feeds.txt")).use { fw ->
+                body.feed?.let { fw.write(body.feed.joinToString("\n")) }
             }
         }
         return body
@@ -108,8 +108,8 @@ class BlueskyService @Autowired constructor(
         val response = restTemplate.getForEntity(url, Likes::class.java, map)
         val body = response.body
         body?.let {
-            FileWriter(File(targetFile ?: "${rootFolder()}bluesky-likes.txt")).use {
-                it.write(body.likes.joinToString("\n"))
+            FileWriter(File(targetFile ?: "${rootFolder()}bluesky-likes.txt")).use {fw ->
+                body.likes?.let { fw.write(body.likes.joinToString("\n")) }
             }
         }
         return body

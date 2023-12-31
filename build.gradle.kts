@@ -29,7 +29,7 @@ dependencies {
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:_")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:_")
     implementation("com.twitter:twitter-api-java-sdk:_")
-    implementation("org.springdoc:springdoc-openapi-ui:_")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:_")
 
     testImplementation(Testing.junit.jupiter.api)
     testRuntimeOnly(Testing.junit.jupiter.engine)

@@ -4,14 +4,14 @@ import java.time.ZonedDateTime
 
 @JvmRecord
 data class Likes(
-    val uri: String,
-    val cursor: String,
-    val likes: List<Like>
+    val uri: String? = null,
+    val cursor: String? = null,
+    val likes: List<Like>? = null
 )
 
 @JvmRecord
 data class Like(
-    val createdAt: ZonedDateTime,
-    val indexedAt: ZonedDateTime,
-    val actor: Actor
+    val createdAt: ZonedDateTime? = null,
+    val indexedAt: ZonedDateTime? = null,
+    val actor: Actor? = null
 )
