@@ -1,5 +1,6 @@
 package de.l.joergreichert.outintheopen.mastodon
 
+import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.type.CollectionType
 import de.l.joergreichert.outintheopen.config.AppProperties
@@ -103,14 +104,16 @@ class MastodonService @Autowired constructor(
         givenAccessToken: String? = null,
         userId: String? = null,
         targetFile: String? = null,
-        since: LocalDate?
+        since: LocalDate?,
+        until: LocalDate?
     ): List<String> {
         val accessToken = getAccessToken(givenAccessToken)
         val list = internalStatuses(
             "https://${appProperties.mastodon.website}/api/v1/accounts/${appProperties.mastodon.accountId}/statuses",
             accessToken,
             mutableListOf(),
-            since
+            since,
+            until
         )
         FileWriter(File(targetFile ?: "${rootFolder()}mastodon-statuses.txt")).use {
             it.write(list.joinToString("\n"))
@@ -122,14 +125,16 @@ class MastodonService @Autowired constructor(
         givenAccessToken: String? = null,
         userId: String? = null,
         targetFile: String? = null,
-        since: LocalDate?
+        since: LocalDate?,
+        until: LocalDate?,
     ): List<String> {
         val accessToken = getAccessToken(givenAccessToken)
         val list = internalStatuses(
             "https://${appProperties.mastodon.website}/api/v1/bookmarks",
             accessToken,
             mutableListOf(),
-            since
+            since,
+            until
         )
         FileWriter(File(targetFile ?: "${rootFolder()}mastodon-bookmarks.txt")).use {
             it.write(list.joinToString("\n"))
@@ -141,7 +146,8 @@ class MastodonService @Autowired constructor(
         url: String,
         accessToken: String,
         visited: MutableList<String>,
-        since: LocalDate?
+        since: LocalDate?,
+        until: LocalDate?,
     ): List<String> {
         val headers = HttpHeaders()
         headers.setBearerAuth(accessToken)
@@ -151,52 +157,85 @@ class MastodonService @Autowired constructor(
         )
         val paramType: ParameterizedTypeReference<MutableList<MastodonStatus>> =
             ParameterizedTypeReference.forType(type)
-        val response = restTemplate.exchange(
-            url,
-            HttpMethod.GET, request, paramType
-        )
-        val linkHeader = response.headers["Link"]
         val joinedList = mutableListOf<String>()
-        if (linkHeader != null) {
-            val parts = linkHeader[0].split(";")
-            if (parts.isNotEmpty()) {
-                val prevUrl = parts[0].replace("<", "").replace(">", "")
-                if (prevUrl != url && !visited.contains(prevUrl)) {
-                    visited.add(url)
-                    try {
-                        joinedList.addAll(internalStatuses(prevUrl, accessToken, visited, since))
-                    } catch (e: Exception) {
-                        println(e.message)
+        try {
+            val response = try {
+                restTemplate.exchange(
+                    url,
+                    HttpMethod.GET, request, paramType
+                )
+            } catch(e2: Exception) {
+                restTemplate.exchange(
+                    url,
+                    HttpMethod.GET, request, JsonNode::class.java
+                )
+            }
+            val linkHeader = response.headers["Link"]
+            if (linkHeader != null) {
+                val parts = linkHeader[0].split(";")
+                if (parts.isNotEmpty()) {
+                    val prevUrl = parts[0].replace("<", "").replace(">", "")
+                    if (prevUrl != url && !visited.contains(prevUrl)) {
+                        visited.add(url)
+                        try {
+                            joinedList.addAll(internalStatuses(prevUrl, accessToken, visited, since, until))
+                        } catch (e: Exception) {
+                            println(e.message)
+                        }
                     }
                 }
             }
+            val decimalFormat = DecimalFormat("000")
+            val simpleDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+            val list = response.body?.reversed()?.mapIndexed { index, tweet ->
+                if (tweet is MastodonStatus) {
+                    val createdAt = LocalDateTime.from(simpleDateFormat.parse(tweet.createdAt))
+                    if ((since == null || createdAt.toLocalDate().isAfter(since)) &&
+                        (until == null || createdAt.toLocalDate().isBefore(until))
+                    ) {
+                        listOfNotNull(
+                            "${decimalFormat.format(joinedList.size + index + 1)}. ${tweet.createdAt}: ${tweet.content}",
+                            tweet.reblog?.content ?: tweet.content,
+                            tweet.reblog?.uri ?: tweet.uri
+                        ).joinToString("\n")
+                    } else if (tweet is JsonNode) {
+                        try {
+                            val tweetCasted = objectMapper.readValue(tweet.content, MastodonStatus::class.java)
+                            val createdAt = LocalDateTime.from(simpleDateFormat.parse(tweetCasted.createdAt))
+                            if ((since == null || createdAt.toLocalDate().isAfter(since)) &&
+                                (until == null || createdAt.toLocalDate().isBefore(until))
+                            ) {
+                                listOfNotNull(
+                                    "${decimalFormat.format(joinedList.size + index + 1)}. ${tweetCasted.createdAt}: ${tweetCasted.content}",
+                                    tweetCasted.reblog?.content ?: tweetCasted.content,
+                                    tweetCasted.reblog?.uri ?: tweetCasted.uri
+                                ).joinToString("\n")
+                            } else null
+                        } catch(e3: Exception) {
+                            println("Parse error for " + url + ": " + e3.message)
+                            null
+                        }
+                    } else null
+                } else null
+            }?.filterNotNull() ?: emptyList()
+            joinedList.addAll(list)
+        } catch(e: Exception) {
+            println("Error for " + url + ": " + e.message)
         }
-        val decimalFormat = DecimalFormat("000")
-        val simpleDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-        val list = response.body?.reversed()?.mapIndexed { index, tweet ->
-            val createdAt = LocalDateTime.from(simpleDateFormat.parse(tweet.createdAt))
-            if (since == null || createdAt.toLocalDate().isAfter(since)) {
-                listOfNotNull(
-                    "${decimalFormat.format(joinedList.size + index + 1)}. ${tweet.createdAt}: ${tweet.content}",
-                    tweet.reblog?.content ?: tweet.content,
-                    tweet.reblog?.uri ?: tweet.uri
-                ).joinToString("\n")
-            } else null
-        }?.filterNotNull() ?: emptyList()
-        joinedList.addAll(list)
         return joinedList
     }
 
     fun listLikes(
         givenAccessToken: String? = null, userId: String? = null, targetFile: String? = null,
-        since: LocalDate?
+        since: LocalDate?, until: LocalDate?
     ): List<String> {
         val accessToken = getAccessToken(givenAccessToken)
         val list = internalStatuses(
             "https://${appProperties.mastodon.website}/api/v1/favourites?limit=100",
             accessToken,
             mutableListOf(),
-            since
+            since,
+            until
         )
         FileWriter(File(targetFile ?: "${rootFolder()}mastodon-likes.txt")).use {
             it.write(list.joinToString("\n"))

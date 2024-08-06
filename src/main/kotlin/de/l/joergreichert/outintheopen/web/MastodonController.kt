@@ -25,27 +25,30 @@ class MastodonController @Autowired constructor(val mastodonService: MastodonSer
         @RequestParam(required = false) accessToken: String? = null,
         @RequestParam(required = false) userId: String? = null,
         @RequestParam(required = false) targetFile: String? = null,
-        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) since: LocalDate? = null
+        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) since: LocalDate? = null,
+        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) until: LocalDate? = null
     ) =
-        mastodonService.listLikes(accessToken, userId, targetFile, since)
+        mastodonService.listLikes(accessToken, userId, targetFile, since, until)
 
     @GetMapping("statuses")
     fun getStatuses(
         @RequestParam(required = false) accessToken: String? = null,
         @RequestParam(required = false) userId: String? = null,
         @RequestParam(required = false) targetFile: String? = null,
-        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) since: LocalDate? = null
+        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) since: LocalDate? = null,
+        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) until: LocalDate? = null
     ) =
-        mastodonService.listStatuses(accessToken, userId, targetFile, since)
+        mastodonService.listStatuses(accessToken, userId, targetFile, since, until)
 
     @GetMapping("bookmarks")
     fun getBookmarks(
         @RequestParam(required = false) accessToken: String? = null,
         @RequestParam(required = false) userId: String? = null,
         @RequestParam(required = false) targetFile: String? = null,
-        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) since: LocalDate? = null
+        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) since: LocalDate? = null,
+        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) until: LocalDate? = null
     ) =
-        mastodonService.listBookmarks(accessToken, userId, targetFile, since)
+        mastodonService.listBookmarks(accessToken, userId, targetFile, since, until)
 
     @GetMapping("followers")
     fun getFollowers(
