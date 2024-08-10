@@ -31,7 +31,9 @@ class MastodonService @Autowired constructor(
         return webClientBuilder.build()
             .post().uri { uriBuilder ->
                 uriBuilder
-                    .path("https://${appProperties.mastodon.website}/oauth/token")
+                    .scheme("https")
+                    .host(appProperties.mastodon.website)
+                    .path("/oauth/token")
                     .queryParam("redirect_uri", "urn:ietf:wg:oauth:2.0:oob")
                     .queryParam("grant_type", "client_credentials")
                     .queryParam("client_id", appProperties.mastodon.consumerKey)
@@ -157,7 +159,7 @@ class MastodonService @Autowired constructor(
         since: LocalDate?,
         until: LocalDate?,
     ): Mono<List<String>> {
-        val listOfLists = mutableListOf<Mono<List<String>>>()
+        val listOfLists = mutableListOf<String>()
         var currentSize = 0
         val type: CollectionType = objectMapper.typeFactory.constructCollectionType(
             MutableList::class.java, MastodonStatus::class.java
@@ -165,12 +167,14 @@ class MastodonService @Autowired constructor(
         val paramType: ParameterizedTypeReference<MutableList<MastodonStatus>> =
             ParameterizedTypeReference.forType(type)
         return getAccessToken(givenAccessToken).flatMap { accessToken ->
-            val single = webClientBuilder.build().get().uri(url).headers { h -> h.setBearerAuth(accessToken) }.retrieve()
+            webClientBuilder.build().get().uri(url).headers { h -> h.setBearerAuth(accessToken) }.retrieve()
                 .toEntity(paramType).map { response ->
                     val linkHeader = response.headers["Link"]
                     currentSize =
                         handleLink(linkHeader, url, visited, listOfLists, givenAccessToken, since, until, currentSize)
-                    handleBody(response, since, until, currentSize)
+                    val res = handleBody(response, since, until, currentSize)
+                    listOfLists.addAll(res)
+                    listOfLists
                 }.doOnError {
                     val type2: CollectionType = objectMapper.typeFactory.constructCollectionType(
                         MutableList::class.java, JsonNode::class.java
@@ -182,11 +186,11 @@ class MastodonService @Autowired constructor(
                             val linkHeader = response.headers["Link"]
                             currentSize =
                                 handleLink(linkHeader, url, visited, listOfLists, givenAccessToken, since, until, currentSize)
-                            handleBody2(response, since, until, currentSize, url)
+                            val res = handleBody2(response, since, until, currentSize, url)
+                            listOfLists.addAll(res)
+                            listOfLists
                         }
                 }
-            listOfLists.add(single)
-            Mono.zip(listOfLists) { a -> a.toList().filterIsInstance<String>() }
         }
     }
 
@@ -248,7 +252,7 @@ class MastodonService @Autowired constructor(
         linkHeader: MutableList<String>?,
         url: String,
         visited: MutableList<String>,
-        listOfLists: MutableList<Mono<List<String>>>,
+        listOfLists: MutableList<String>,
         givenAccessToken: String?,
         since: LocalDate?,
         until: LocalDate?,
@@ -262,9 +266,9 @@ class MastodonService @Autowired constructor(
                 if (prevUrl != url && !visited.contains(prevUrl)) {
                     visited.add(url)
                     try {
-                        listOfLists.add(internalStatuses(givenAccessToken, prevUrl, visited, since, until).map { list ->
-                            currentSize1 += list.size; println(list); list
-                        })
+                        internalStatuses(givenAccessToken, prevUrl, visited, since, until).map { list ->
+                            currentSize1 += list.size; listOfLists.addAll(list); println(list); list
+                        }
                     } catch (e: Exception) {
                         println(e.message)
                     }
