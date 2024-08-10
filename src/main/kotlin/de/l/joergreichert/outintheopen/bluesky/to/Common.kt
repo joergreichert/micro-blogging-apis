@@ -17,7 +17,8 @@ data class Label(
     val uri: String? = null,
     val `val`: String? = null,
     val neg: Boolean? = null,
-    val cts: ZonedDateTime? = null
+    val cts: ZonedDateTime? = null,
+    val cid: String? = null,
 )
 
 @JvmRecord

@@ -1,6 +1,6 @@
-package de.l.joergreichert.outintheopen.twitter
+package de.l.joergreichert.outintheopen.bluesky
 
-object TwitterTokenStore {
+object BlueskyTokenStore {
     var accessToken: String? = null
     var refreshToken: String? = null
 }

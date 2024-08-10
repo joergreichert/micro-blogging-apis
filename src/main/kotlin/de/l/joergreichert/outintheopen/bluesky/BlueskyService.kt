@@ -1,119 +1,210 @@
 package de.l.joergreichert.outintheopen.bluesky
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import de.l.joergreichert.outintheopen.bluesky.to.*
 import de.l.joergreichert.outintheopen.config.AppProperties
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.MediaType
 import org.springframework.stereotype.Service
-import org.springframework.web.client.RestTemplate
+import org.springframework.web.reactive.function.client.*
+import reactor.core.publisher.Mono
 import java.io.File
 import java.io.FileWriter
 import java.time.LocalDate
+import java.util.function.Consumer
 
 
 @Service
 class BlueskyService @Autowired constructor(
-    val restTemplate: RestTemplate,
+    val webClientBuilder: WebClient.Builder,
+    val objectMapper: ObjectMapper,
     val appProperties: AppProperties
 ) {
 
-
-    fun getProfile(userId: String? = null): Profile? {
-        val map = mapOf(
-            "actor" to (userId ?: appProperties.bluesky.accountId),
+    fun getAppAccessToken(): Mono<String> {
+        val body = objectMapper.writeValueAsString(
+            appProperties.bluesky.let { AuthRequest(identifier = it.accountId, password = it.password) }
         )
-        val url = "https://api.bsky.app/xrpc/app.bsky.actor.getProfile?actor={actor}"
-        val response = restTemplate.getForEntity(url, Profile::class.java, map)
-        return response.body
+        return webClientBuilder.build()
+            .post().uri("https://bsky.social/xrpc/com.atproto.server.createSession")
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(body)
+            .retrieve()
+            .bodyToMono(Map::class.java)
+            .map { result ->
+                val accessToken = result["accessJwt"].toString()
+                val refreshToken = result["refreshJwt"].toString()
+                BlueskyTokenStore.accessToken = accessToken
+                BlueskyTokenStore.refreshToken = refreshToken
+                accessToken
+            }
+    }
+
+    private fun getAccessToken(givenAccessToken: String?): Mono<String> {
+        givenAccessToken?.let { BlueskyTokenStore.accessToken = givenAccessToken }
+        return givenAccessToken?.let { Mono.just(givenAccessToken) } ?: getAppAccessToken()
+    }
+
+    fun getProfile(givenAccessToken: String? = null, userId: String? = null): Mono<Profile>? {
+        return getAccessToken(givenAccessToken).flatMap { accessToken ->
+            val actor = userId ?: appProperties.bluesky.accountId
+            val url = "https://public.api.bsky.app/xrpc/app.bsky.actor.getProfile?actor=${actor}"
+            webClientBuilder
+                .filter(ExchangeFilterFunction.ofRequestProcessor {
+                    clientRequest -> println(clientRequest.url());
+                    clientRequest.headers().forEach { t, u -> println("t: $t, u: $u") };
+                    Mono.just(clientRequest)
+                })
+                .build().get().uri(url)
+                .headers { h -> h.setBearerAuth(accessToken) }
+                .retrieve()
+                .bodyToMono(Profile::class.java)
+                .doOnError { error -> println("error: " + error.message) }
+        }
     }
 
     fun listFollowers(
+        givenAccessToken: String? = null,
         userId: String? = null,
         limit: Int? = 100,
         cursor: String? = null,
         targetFile: String? = null
-    ): Followers? {
-        val map = mapOf(
-            "actor" to (userId ?: appProperties.bluesky.accountId),
-            "limit" to limit,
-            "cursor" to cursor
-        )
-        val url = "https://api.bsky.app/xrpc/app.bsky.graph.getFollowers?actor={actor}&limit={limit}&cursor={cursor}"
-        val response = restTemplate.getForEntity(url, Followers::class.java, map)
-        val body = response.body
-        body?.let {
-            FileWriter(File(targetFile ?: "${rootFolder()}bluesky-followers.txt")).use { fw ->
+    ): Mono<Followers?> {
+        val processBody: Consumer<Followers> = Consumer { body: Followers ->
+            FileWriter(File(targetFile ?: "${rootFolder()}/bluesky-followers.txt")).use { fw ->
                 body.followers?.let { fw.write(body.followers.joinToString("\n")) }
             }
         }
-        return body
+        return genericCall(
+            pathSegment = "getFollowers",
+            returnType = Followers::class.java,
+            processBody = processBody,
+            givenAccessToken = givenAccessToken,
+            userId = userId,
+            limit = limit,
+            cursor = cursor,
+            since = null
+        )
     }
 
     fun listFollowing(
+        givenAccessToken: String? = null,
         userId: String? = null,
         limit: Int? = 100,
         cursor: String? = null,
         targetFile: String? = null
-    ): Follows? {
-        val map = mapOf(
-            "actor" to (userId ?: appProperties.bluesky.accountId),
-            "limit" to limit,
-            "cursor" to cursor
-        )
-        val url = "https://api.bsky.app/xrpc/app.bsky.graph.getFollows?actor={actor}&limit={limit}&cursor={cursor}"
-        val response = restTemplate.getForEntity(url, Follows::class.java, map)
-        val body = response.body
-        body?.let {
-            FileWriter(File(targetFile ?: "${rootFolder()}bluesky-following.txt")).use { fw ->
-                body.follows?.let { fw.write(it.joinToString("\n")) }
+    ): Mono<Follows?> {
+        val processBody: Consumer<Follows> = Consumer { body: Follows ->
+            FileWriter(File(targetFile ?: "${rootFolder()}/bluesky-following.txt")).use { fw ->
+                body.follows?.let { fw.write(body.follows.joinToString("\n")) }
             }
         }
-        return body
+        return genericCall(
+            pathSegment = "getFollows",
+            returnType = Follows::class.java,
+            processBody = processBody,
+            givenAccessToken = givenAccessToken,
+            userId = userId,
+            limit = limit,
+            cursor = cursor,
+            since = null
+        )
     }
 
     fun listStatuses(
+        givenAccessToken: String? = null,
         userId: String? = null,
         targetFile: String? = null,
         limit: Int? = 50,
         cursor: String? = null,
         since: LocalDate?
-    ): Feeds? {
-        val map = mapOf(
-            "actor" to (userId ?: appProperties.bluesky.accountId),
-            "limit" to limit,
-            "cursor" to cursor
-        )
-        val url = "https://api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed?actor={actor}&limit={limit}&cursor={cursor}"
-        val response = restTemplate.getForEntity(url, Feeds::class.java, map)
-        val body = response.body
-        body?.let {
-            FileWriter(File(targetFile ?: "${rootFolder()}bluesky-feeds.txt")).use { fw ->
+    ): Mono<Feeds?> {
+        val processBody: Consumer<Feeds> = Consumer { body: Feeds ->
+            FileWriter(File(targetFile ?: "${rootFolder()}/bluesky-feeds.txt")).use { fw ->
                 body.feed?.let { fw.write(body.feed.joinToString("\n")) }
             }
         }
-        return body
+        return genericCall(
+            pathSegment = "getAuthorFeed",
+            returnType = Feeds::class.java,
+            processBody = processBody,
+            givenAccessToken = givenAccessToken,
+            userId = userId,
+            limit = limit,
+            cursor = cursor,
+            since = null
+        )
     }
 
+    // https://docs.bsky.app/docs/api/app-bsky-feed-get-actor-likes
     fun listLikes(
+        givenAccessToken: String? = null,
         userId: String? = null, targetFile: String? = null,
         limit: Int? = 50,
         cursor: String? = null,
         since: LocalDate?
-    ): Likes? {
-        val map = mapOf(
-            "actor" to (userId ?: appProperties.bluesky.accountId),
-            "limit" to limit,
-            "cursor" to cursor
-        )
-        val url = "https://api.bsky.app/xrpc/app.bsky.feed.getActorLikes?actor={actor}&limit={limit}&cursor={cursor}"
-        val response = restTemplate.getForEntity(url, Likes::class.java, map)
-        val body = response.body
-        body?.let {
-            FileWriter(File(targetFile ?: "${rootFolder()}bluesky-likes.txt")).use {fw ->
+    ): Mono<Likes?> {
+        val processBody: Consumer<Likes> = Consumer { body: Likes ->
+            FileWriter(File(targetFile ?: "${rootFolder()}/bluesky-likes.txt")).use { fw ->
                 body.likes?.let { fw.write(body.likes.joinToString("\n")) }
             }
         }
-        return body
+        return genericCall(
+            pathSegment = "getActorLikes",
+            returnType = Likes::class.java,
+            processBody = processBody,
+            givenAccessToken = givenAccessToken,
+            userId = userId,
+            limit = limit,
+            cursor = cursor,
+            since = null
+        )
+    }
+
+    private fun <T> genericCall(
+        pathSegment: String,
+        returnType: Class<T>,
+        processBody: Consumer<T>,
+        givenAccessToken: String? = null,
+        userId: String? = null,
+        limit: Int? = 50,
+        cursor: String? = null,
+        since: LocalDate?,
+    ): Mono<T?> {
+        return getAccessToken(givenAccessToken).flatMap { accessToken ->
+            webClientBuilder
+                .filter(ExchangeFilterFunction.ofRequestProcessor {
+                        clientRequest -> println(clientRequest.url());
+                    clientRequest.headers().forEach { t, u -> println("t: $t, u: $u") };
+                    Mono.just(clientRequest)
+                })
+                .build().get().uri { uriBuilder ->
+                uriBuilder
+                    .scheme("https")
+                    .host("public.api.bsky.app")
+                    .path("/xrpc/app.bsky.feed.$pathSegment")
+                    .queryParam("actor", (userId ?: appProperties.bluesky.accountId))
+                    .queryParam("limit", limit).let {
+                        if (cursor != null) it.queryParam("cursor", cursor) else it
+                    }
+                    .build()
+            }
+                .headers { h -> h.setBearerAuth(accessToken) }
+                .retrieve()
+
+                .bodyToMono(returnType).map { body ->
+                    body?.let {
+                        processBody.accept(body)
+                    }
+                    body
+                }
+        }
     }
 
     private fun rootFolder() = "/tmp"
 }
+
+data class AuthRequest(
+    val identifier: String,
+    val password: String
+)

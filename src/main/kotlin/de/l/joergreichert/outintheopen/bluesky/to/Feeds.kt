@@ -23,7 +23,7 @@ data class PostView(
     val cid: String? = null,
     val author: Author? = null,
     val embed: Embed? = null,
-    val record: Record? = null,
+    val record: de.l.joergreichert.outintheopen.bluesky.to.Record? = null,
     val replyCount: Int? = null,
     val repostCount: Int? = null,
     val likeCount: Int? = null,
@@ -39,7 +39,9 @@ data class Author(
     val displayName: String? = null,
     val avatar: String? = null,
     val viewer: Viewer? = null,
-    val labels: List<Label>? = null
+    val labels: List<Label>? = null,
+    val createdAt: String? = null,
+    val associated: Any? = null,
 )
 
 @JvmRecord
@@ -59,7 +61,7 @@ data class Reply(
 @JvmRecord
 data class Embed(
     val `$type`: String? = null,
-    val record: Record? = null,
+    val record: de.l.joergreichert.outintheopen.bluesky.to.Record? = null,
     val media: Media? = null,
     val external: External? = null,
     val images: List<Images>? = null
@@ -84,7 +86,8 @@ data class Images(
     val thumb: String? = null,
     val fullsize: String? = null,
     val alt: String? = null,
-    val image: Image? = null
+    val image: Image? = null,
+    val aspectRatio: Any? = null,
 )
 
 @JvmRecord
@@ -97,3 +100,13 @@ data class Image(
 
 @JvmRecord
 data class Ref(val `$link`: String? = null)
+
+@JvmRecord
+data class Record(
+    val `$type`: String? = null,
+    val createdAt: String? = null,
+    val embed: Any? = null,
+    val facets: Any? = null,
+    val langs: Any? = null,
+    val text: Any? = null,
+)

@@ -6,14 +6,9 @@ app:
     clientSecret: ${MASTODON_CLIENT_SECRET}
     consumerKey: ${MASTODON_CONSUMER_KEY}
     consumerSecret: ${MASTODON_CONSUMER_SECRET}
-  twitter:
-    accountId: ${TWITTER_ACCOUNT_ID}
-    clientId: ${TWITTER_CLIENT_ID}
-    clientSecret: ${TWITTER_CLIENT_SECRET}
-    consumerKey: ${TWITTER_CONSUMER_KEY}
-    consumerSecret: ${TWITTER_CONSUMER_SECRET}
   bluesky:
     accountId: ${BLUESKY_ACCOUNT_ID}
+    password: ${BLUESKY_PASSWORD}
 
 springdoc:
   api-docs:

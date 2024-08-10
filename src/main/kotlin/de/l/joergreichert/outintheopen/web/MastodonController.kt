@@ -11,7 +11,7 @@ import java.time.LocalDate
 class MastodonController @Autowired constructor(val mastodonService: MastodonService) {
 
     @PostMapping("appAccessToken")
-    fun appAccessToken(): String = mastodonService.getAppAccessToken()
+    fun appAccessToken() = mastodonService.getAppAccessToken()
 
     @GetMapping("codeLoginUrl")
     fun codeLoginUrl(): String = mastodonService.getCodeLoginUrl()
