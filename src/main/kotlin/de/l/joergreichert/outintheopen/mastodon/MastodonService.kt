@@ -159,8 +159,6 @@ class MastodonService @Autowired constructor(
         since: LocalDate?,
         until: LocalDate?,
     ): Mono<List<String>> {
-        val listOfLists = mutableListOf<String>()
-        var currentSize = 0
         val type: CollectionType = objectMapper.typeFactory.constructCollectionType(
             MutableList::class.java, MastodonStatus::class.java
         )
@@ -168,13 +166,15 @@ class MastodonService @Autowired constructor(
             ParameterizedTypeReference.forType(type)
         return getAccessToken(givenAccessToken).flatMap { accessToken ->
             webClientBuilder.build().get().uri(url).headers { h -> h.setBearerAuth(accessToken) }.retrieve()
-                .toEntity(paramType).map { response ->
+                .toEntity(paramType).flatMap { response ->
                     val linkHeader = response.headers["Link"]
-                    currentSize =
-                        handleLink(linkHeader, url, visited, listOfLists, givenAccessToken, since, until, currentSize)
-                    val res = handleBody(response, since, until, currentSize)
-                    listOfLists.addAll(res)
-                    listOfLists
+                    handleLink(linkHeader, url, visited, givenAccessToken, since, until).map { processed ->
+                        val listOfLists = mutableListOf<String>()
+                        listOfLists.addAll(processed)
+                        val res = handleBody(response, since, until, listOfLists.size)
+                        listOfLists.addAll(res)
+                        listOfLists
+                    }
                 }.doOnError {
                     val type2: CollectionType = objectMapper.typeFactory.constructCollectionType(
                         MutableList::class.java, JsonNode::class.java
@@ -182,13 +182,15 @@ class MastodonService @Autowired constructor(
                     val paramType2: ParameterizedTypeReference<MutableList<JsonNode>> =
                         ParameterizedTypeReference.forType(type2)
                     webClientBuilder.build().get().uri(url).headers { h -> h.setBearerAuth(accessToken) }.retrieve()
-                        .toEntity(paramType2).map { response ->
+                        .toEntity(paramType2).flatMap { response ->
                             val linkHeader = response.headers["Link"]
-                            currentSize =
-                                handleLink(linkHeader, url, visited, listOfLists, givenAccessToken, since, until, currentSize)
-                            val res = handleBody2(response, since, until, currentSize, url)
-                            listOfLists.addAll(res)
-                            listOfLists
+                            handleLink(linkHeader, url, visited, givenAccessToken, since, until).map { processed ->
+                                val listOfLists = mutableListOf<String>()
+                                listOfLists.addAll(processed)
+                                val res = handleBody2(response, since, until, listOfLists.size, url)
+                                listOfLists.addAll(res)
+                                listOfLists
+                            }
                         }
                 }
         }
@@ -202,7 +204,7 @@ class MastodonService @Autowired constructor(
     ): List<String> {
         val decimalFormat = DecimalFormat("000")
         val simpleDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-        val list = response.body?.reversed()?.mapIndexed { index, tweet ->
+        return response.body?.reversed()?.mapIndexed { index, tweet ->
             val createdAt = LocalDateTime.from(simpleDateFormat.parse(tweet.createdAt.toString()))
             if ((since == null || createdAt.toLocalDate().isAfter(since)) &&
                 (until == null || createdAt.toLocalDate().isBefore(until))
@@ -214,8 +216,6 @@ class MastodonService @Autowired constructor(
                 ).joinToString("\n")
             } else null
         }?.filterNotNull() ?: emptyList()
-        println(list)
-        return list
     }
 
     private fun handleBody2(
@@ -227,7 +227,7 @@ class MastodonService @Autowired constructor(
     ): List<String> {
         val decimalFormat = DecimalFormat("000")
         val simpleDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-        val list = response.body?.reversed()?.mapIndexed { index, tweet ->
+        return response.body?.reversed()?.mapIndexed { index, tweet ->
             try {
                 val tweetCasted = objectMapper.readValue(tweet.asText(), MastodonStatus::class.java)
                 val createdAt = LocalDateTime.from(simpleDateFormat.parse(tweetCasted.createdAt.toString()))
@@ -245,37 +245,27 @@ class MastodonService @Autowired constructor(
                 null
             }
         }?.filterNotNull() ?: emptyList()
-        return list
     }
 
     private fun handleLink(
         linkHeader: MutableList<String>?,
         url: String,
         visited: MutableList<String>,
-        listOfLists: MutableList<String>,
         givenAccessToken: String?,
         since: LocalDate?,
         until: LocalDate?,
-        currentSize: Int
-    ): Int {
-        var currentSize1 = currentSize
+    ): Mono<List<String>> {
         if (linkHeader != null) {
             val parts = linkHeader[0].split(";")
             if (parts.isNotEmpty()) {
                 val prevUrl = parts[0].replace("<", "").replace(">", "")
                 if (prevUrl != url && !visited.contains(prevUrl)) {
                     visited.add(url)
-                    try {
-                        internalStatuses(givenAccessToken, prevUrl, visited, since, until).map { list ->
-                            currentSize1 += list.size; listOfLists.addAll(list); println(list); list
-                        }
-                    } catch (e: Exception) {
-                        println(e.message)
-                    }
+                    return internalStatuses(givenAccessToken, prevUrl, visited, since, until)
                 }
             }
         }
-        return currentSize1
+        return Mono.just(emptyList())
     }
 
     fun listLikes(

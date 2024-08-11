@@ -15,3 +15,8 @@ springdoc:
     path: /api-json
   swagger-ui:
     path: /docs
+
+spring:
+  mvc:
+    async:
+      request-timeout: 300000

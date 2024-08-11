@@ -41,7 +41,7 @@ data class MastodonStatus(
     val tags: List<*>?,
     val emojis: List<*>?,
     val card: MastodonCard?,
-    val poll: String?,
+    val poll: Any?,
 )
 
 @JsonIgnoreProperties(ignoreUnknown = true)
