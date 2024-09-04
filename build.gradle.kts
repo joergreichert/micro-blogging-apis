@@ -31,7 +31,7 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:_")
     implementation("com.twitter:twitter-api-java-sdk:_")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:_")
-    implementation("io.netty:netty-resolver-dns-native-macos:4.1.112.Final:osx-aarch_64")
+    implementation("io.netty:netty-resolver-dns-native-macos:4.1.113.Final:osx-aarch_64")
 
     testImplementation(Testing.junit.jupiter.api)
     testRuntimeOnly(Testing.junit.jupiter.engine)
