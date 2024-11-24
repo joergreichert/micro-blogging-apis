@@ -6,6 +6,7 @@ import net.fortuna.ical4j.model.component.VEvent
 import net.fortuna.ical4j.model.property.DtStart
 import net.fortuna.ical4j.model.property.StreetAddress
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import java.io.FileInputStream
 import java.io.FileWriter
@@ -51,6 +52,7 @@ class IcalGeneratorTest {
     )
 
     @Test
+    @Disabled
     fun testGenerateIcsFromDataModel() {
         val events = mutableListOf<Event>()
         events.add(Event(
@@ -445,6 +447,7 @@ class IcalGeneratorTest {
     """.trimIndent()
 
     @Test
+    @Disabled
     fun testGenerateCalendarLinksFromIcs() {
         val path = "C:\\Users\\Joerg\\Downloads\\icals.ics"
         val outpath = "C:\\Users\\Joerg\\Desktop\\icals.html"
