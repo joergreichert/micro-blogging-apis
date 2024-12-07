@@ -2,7 +2,9 @@ package de.l.joergreichert.outintheopen
 
 import net.fortuna.ical4j.data.CalendarBuilder
 import net.fortuna.ical4j.model.Calendar
+import net.fortuna.ical4j.model.component.CalendarComponent
 import net.fortuna.ical4j.model.component.VEvent
+import net.fortuna.ical4j.model.component.VLocation
 import net.fortuna.ical4j.model.property.DtStart
 import net.fortuna.ical4j.model.property.StreetAddress
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -53,303 +55,380 @@ class IcalGeneratorTest {
 
     @Test
     @Disabled
-    fun testGenerateIcsFromDataModel() {
-        val events = mutableListOf<Event>()
-        events.add(Event(
-            from = LocalDateTime.of(2024, 11, 1, 10, 0, 0),
-            to = LocalDateTime.of(2024, 11, 3, 20, 0, 0),
-            location = Location(
-                name = "Jugendzentrum Nord",
-                street = "Lintforter Straße",
-                houseNumber = "132",
-                city = "Moers",
-                zipCode = "47445",
-                lat = 51.4894376,
-                lon = 6.6069422,
-            ),
-            title = "Community Hackday",
-            link = "https://www.codeforniederrhein.de/2024/10/09/community-hackday-am-1-3-november-im-juno/"
-        ))
-
-        events.add(Event(
-            from = LocalDateTime.of(2024, 11, 4, 10, 30, 0),
-            to = LocalDateTime.of(2024, 11, 6, 13, 30, 0),
-            location = Location(
-                online = true,
-                name = "Wiener Stadt- und Landesarchiv, Gasometer D",
-                street = "Guglgasse",
-                houseNumber = "14",
-                zipCode = "1110",
-                city = "Wien"
-            ),
-            title = "MediaWiki Users and Developers Conference 2024",
-            link = "https://conference.knowledge.wiki/"
-        ))
-        events.add(Event(
-            from = LocalDateTime.of(2024, 11, 5, 9, 30, 0),
-            to = LocalDateTime.of(2024, 11, 5, 17, 30, 0),
-            title = "Reusing data: Bridging the distance between data consumers and producers",
-            location = Location(
-                name = "Academy Building, Raum Telders",
-                        street = "Rapenburg", houseNumber = "73",
-                        zipCode = "2311 GJ", city = "Leiden"
-            ),
-            link = "https://www.universiteitleiden.nl/en/events/2024/11/reusing-data-bridging-the-distance-between-data-consumers-and-producers"
-        ))
-        events.add(Event(
-            from = LocalDateTime.of(2024, 11, 5, 14, 0, 0),
-            to = LocalDateTime.of(2024, 11, 5, 14, 45, 0),
-            location = Location(online = true),
-            title = "CorrelCompact: Mission Datenqualität - vom Rohmaterial zum Datengold",
-            link = "https://www.correlaid.org/veranstaltungen/correlcompact-datenqualit%C3%A4t"
-        ))
-        events.add(Event(
-            from = LocalDateTime.of(2024, 11,5, 15, 0, 0),
-            to = LocalDateTime.of(2024, 11,5, 17, 0, 0),
-            location = Location(online = true),
-            title = "Civic Data Lab - Mit Daten überzeugen: Wirkung erfolgreich kommunizieren",
-            link = "https://www.correlaid.org/veranstaltungen/cdl-wirkung-kommunizieren"
-        ))
-        events.add(Event(
-            from = LocalDateTime.of(2024, 11, 6, 15, 0, 0),
-            to = LocalDateTime.of(2024, 11, 6, 18, 0, 0),
-            location = Location(online = true),
-            title = "Civic Data Lab - Gemeinsam Machen 3: Infos und Beratung fürs Ankommen in Deutschland: Faktenbasiert, Vernetzt, Lösungsorientiert",
-            link = "https://www.correlaid.org/veranstaltungen/cdl-gemeinsam-machen-3"
-        ))
-        events.add(Event(
-            from = LocalDateTime.of(2024, 11, 7, 9, 0, 0),
-            to = LocalDateTime.of(2024, 11, 7, 17, 30, 0),
-            location = Location(
-                name = "Zukunft – Umwelt – Gesellschaft (ZUG) gGmbH",
-                street = "Stresemannstraße",
-                houseNumber = "69-71",
-                zipCode = "10963",
-                city = "Berlin"
-            ),
-            title = "AI Conference: Mit Künstlicher Intelligenz zu mehr Nachhaltigkeit?",
-            link = "https://www.ki-ideenwerkstatt.de/veranstaltungen/ai-conference-mit-kuenstlicher-intelligenz-zu-mehr-nachhaltigkeit/"
-        ))
-        events.add(Event(
-            from = LocalDateTime.of(2024, 11, 7, 18, 0, 0),
-            to = LocalDateTime.of(2024, 11, 7, 21, 0, 0),
-            location = Location(
-                name = "WikiBär",
-                street = "Köpenicker Straße",
-                houseNumber = "45",
-                zipCode = "10179",
-                city = "Berlin"
-            ),
-            title = "Jugend editiert",
-            link = "https://www.wikimedia.de/veranstaltungen/jugend-editiert/"
-        ))
-        events.add(Event(
-            from = LocalDateTime.of(2024, 11, 8, 10, 0, 0),
-            to = LocalDateTime.of(2024, 11, 8, 17, 0, 0),
-            location = Location(
-                name = "Moritzbastei",
-                street = "Kurt-Masur-Platz",
-                houseNumber = "1",
-                zipCode = "04109",
-                city = "Leipzig"
-            ),
-            title = "Public Service Lab Day 2024",
-            link = "https://www.eventbrite.de/e/public-service-lab-day-2024-tickets-941917569807"
-        ))
-        events.add(Event(
-            from = LocalDateTime.of(2024, 11, 8, 18, 0, 0),
-            to = LocalDateTime.of(2024, 11, 9, 22, 45, 0),
-            location = Location(
-                name = "Audimax der Uni Lübeck",
-                street = "Mönkhofer Weg",
-                houseNumber = "245",
-                zipCode = "23562",
-                city = "Lübeck"
-            ),
-            title = "Nights of Open Knowledge (NooK)",
-            link = "https://events.ccc.de/2024/07/17/nook/"
-        ))
-        events.add(Event(
-            from = LocalDateTime.of(2024, 11, 11, 19, 0, 0),
-            to = LocalDateTime.of(2024, 11, 11, 22, 0, 0),
-            location = Location(
-                name = "WikiBär",
-                street = "Köpenicker Straße",
-                houseNumber = "45",
-                zipCode = "10179",
-                city = "Berlin"
-            ),
-            title = "Code for Berlin",
-            link = "https://www.meetup.com/ok-lab-berlin/events/304012491/"
-        ))
-        events.add(Event(
-            from = LocalDateTime.of(2024, 11, 11, 19, 0, 0),
-            to = LocalDateTime.of(2024, 11, 11, 21, 0, 0),
-            location = Location(
-                name = "Impact Hub",
-                street = "Kaiserstr",
-                houseNumber = "97",
-                zipCode = "76131",
-                city = "Karlsruhe"
-            ),
-            title = "Code for Karlsruhe",
-            link = "https://ok-lab-karlsruhe.de/mitmachen/#schedule"
-        ))
-        events.add(Event(
-            from = LocalDateTime.of(2024, 11, 12, 12, 0, 0),
-            to = LocalDateTime.of(2024, 11, 12, 12, 45, 0),
-            location = Location(online = true),
-            title = "Civic Data Lab - Espresso Talk: Your Emotional City",
-            link = "https://www.correlaid.org/veranstaltungen/cdl-espressotalk-staedte"
-        ))
-        events.add(Event(
-            from = LocalDateTime.of(2024, 11, 12, 14, 0, 0),
-            to = LocalDateTime.of(2024, 11, 12, 21, 0, 0),
-            location = Location(
-                name = "KINDL - Zentrum für zeitgenössische Kunst GmbH",
-                street = "Am Sudhaus",
-                houseNumber = "3",
-                zipCode = "12053",
-                city = "Berlin"
-            ),
-            title = "Festival der KI-Ideenwerkstatt für Umweltschutz",
-            link = "https://www.ki-ideenwerkstatt.de/veranstaltungen/festival-der-ki-ideenwerkstatt-fuer-umweltschutz/"
-        ))
-        events.add(Event(
-            from = LocalDateTime.of(2024, 11, 12, 10, 0, 0),
-            to = LocalDateTime.of(2024, 11, 12, 11, 30, 0),
-            title = "Open-Data-Netzwerktreffen",
-            location = Location(online = true),
-            registration = Registration(
-                required = true,
-                link = "https://www.bertelsmann-stiftung.de/de/open-data-netzwerk"
-            ),
-            link = "https://www.bertelsmann-stiftung.de/de/unsere-projekte/daten-fuer-die-gesellschaft/projektnachrichten/das-kommunale-open-data-netzwerktreffen#c222695"
-        ))
-        events.add(Event(
-            from = LocalDateTime.of(2024, 11, 13, 10, 0, 0),
-            to = LocalDateTime.of(2024, 11, 13, 12, 30, 0),
-            location = Location(online = true),
-            title = "Aarhus Digital: Public Participation Portals in Environmental Matters",
-            link = "https://www.ufu.de/aarhus-digital-webinar/"
-        ))
-        events.add(Event(
-            from = LocalDateTime.of(2024, 11, 13, 10, 30, 0),
-            to = LocalDateTime.of(2024, 11, 13, 17, 30, 0),
-            location = Location(
-                name = "Unperfekthaus Essen",
-                street = "Friedrich-Ebert-Straße",
-                houseNumber = "18-20",
-                zipCode = "45127",
-                city = "Essen"
-            ),
-            registration = Registration(
-                required = true,
-                to = LocalDateTime.of(2024, 11, 4, 0, 0, 0),
-                link = "https://civicrm.eine-welt-netz-nrw.de/civicrm/event/register?id=6&reset=1"
-            ),
-            title = "Bits und Bäume NRW Vernetzungstreffen",
-            link = "https://nrw.bits-und-baeume.org"
-        ))
-        events.add(Event(
-            from = LocalDateTime.of(2024, 11, 15, 15, 0, 0),
-            to = LocalDateTime.of(2024, 11, 17, 16, 30, 0),
-            location = Location(
-                name = "Amerikahaus",
-                street = "Karolinenplatz",
-                houseNumber = "3",
-                zipCode = "80333",
-                city = "München"
-            ),
-            title = "Jugend hackt",
-            link = "https://jugendhackt.org/events/muenchen/"
-        ))
-        events.add(Event(
-            from = LocalDateTime.of(2024, 11, 16, 0, 0, 0),
-            to = LocalDateTime.of(2024, 11, 17, 0, 0, 0),
-            location = Location(city = "Hannover"),
-            registration = Registration(
-                required = true,
-                link = "https://cloud.okfn.de/apps/forms/s/iq4fbzdL7CW39aS8HBjA7Xam"
-            ),
-            title = "Umweltdatenwerkstatt",
-            link = "https://datenschule.de/workshops/umweltdatenwerkstatt/"
-        ))
-        events.add(Event(
-            from = LocalDateTime.of(2024, 11, 19, 11, 30, 0),
-            to = LocalDateTime.of(2024, 11, 19, 12, 15, 0),
-            location = Location(online = true),
-            title = "CorrelCompact: Data Storytelling - Daten sprechen lassen!",
-            link = "https://www.correlaid.org/veranstaltungen/correlcompact-datastorytelling"
-        ))
-        events.add(Event(
-            from = LocalDateTime.of(2024, 11, 21, 19, 0, 0),
-            to = LocalDateTime.of(2024, 11, 21, 22, 0, 0),
-            location = Location(
-                name = "Karl der Grosse",
-                street = "Kirchgasse",
-                houseNumber = "14",
-                zipCode = "8001",
-                city = "Zürich"
-            ),
-            title = "Netzpolitischer Abend zu \"Datenethik in der Schweiz\"",
-            link = "https://www.digitale-gesellschaft.ch/event/netzpolitischer-abend-zu-datenethik-in-der-schweiz/"
-        ))
-        events.add(Event(
-            from = LocalDateTime.of(2024, 11, 23, 9, 0, 0),
-            to = LocalDateTime.of(2024, 11, 23, 16, 30, 0),
-            registration = Registration(
-                required = true,
-                link = "https://oknrw.de/veranstaltungen/anmeldung/"
-            ),
-            location = Location(
-                name = "Bergische Volkshochschule",
-                street = "Auer Schulstraße",
-                houseNumber = "20",
-                zipCode = "42103",
-                city = "Wuppertal"
-            ),
-            title = "OKNRW–Barcamp 2024",
-            link = "https://oknrw.de/veranstaltungen/offene-kommunen-nrw-2024/"
-        ))
-        events.add(Event(
-            from = LocalDateTime.of(2024, 11, 25, 17, 0, 0),
-            to = LocalDateTime.of(2024, 11, 25, 21, 0, 0),
-            location = Location(
-                name = "Anwendungslabor für Künstliche Intelligenz und Big Data am Umweltbundesamt",
-                street = "Alte Messe",
-                houseNumber = "6",
-                zipCode = "04103",
-                city = "Leipzig"
-            ),
-            title = "Workshop umwelt.info, Teil 1",
-            link = "https://mvp.umwelt.info/sites/default/files/2024-10/Einladung_Workshop_umwelt.info_Leipzig.pdf"
-        ))
-        events.add(Event(
-            from = LocalDateTime.of(2024, 12, 2, 17, 0, 0),
-            to = LocalDateTime.of(2024, 12, 2, 21, 0, 0),
-            location = Location(
-                name = "Anwendungslabor für Künstliche Intelligenz und Big Data am Umweltbundesamt",
-                street = "Alte Messe",
-                houseNumber = "6",
-                zipCode = "04103",
-                city = "Leipzig"
-            ),
-            title = "Workshop umwelt.info, Teil 2",
-            link = "https://mvp.umwelt.info/sites/default/files/2024-10/Einladung_Workshop_umwelt.info_Leipzig.pdf"
-        ))
-        events.add(Event(
-            from = LocalDateTime.of(2024, 12, 3, 14, 0,0),
-            to = LocalDateTime.of(2024, 12, 3, 14, 45, 0),
-            location = Location(online = true),
-            title = "CorrelCompact: Diskriminierung durch Daten und Algorithmen",
-            link = "https://www.correlaid.org/veranstaltungen/correlcompact-datenethik"
-        ))
+    fun testGenerateNovemberIcsFromDataModel() {
+        val events = createNovemberEvents()
         val actual = events.joinToString("\n") { generateEventLink(it) }
         assertEquals(expected(), actual)
     }
 
-    fun generateEventLink(event: Event) = "* ${dateStr(event)}, ${locationStr(event.location)}: **${event.title}**\n  * ${event.link}"
+    @Test
+    @Disabled
+    fun testGenerateDecemberIcsFromDataModel() {
+        val events = createDecemberEvents()
+        val actual = events.joinToString("\n") { generateEventLink(it) }
+        assertEquals(expected(), actual)
+    }
+
+    private fun createDecemberEvents(): MutableList<Event> {
+        val events = mutableListOf<Event>()
+        events.add(
+            Event(
+                from = LocalDateTime.of(2024, 12, 3, 14, 0, 0),
+                to = LocalDateTime.of(2024, 12, 3, 14, 45, 0),
+                location = Location(online = true),
+                title = "CorrelCompact: Diskriminierung durch Daten und Algorithmen",
+                link = "https://www.correlaid.org/veranstaltungen/correlcompact-datenethik"
+            )
+        )
+        return events
+    }
+
+    private fun createNovemberEvents(): MutableList<Event> {
+        val events = mutableListOf<Event>()
+        events.add(
+            Event(
+                from = LocalDateTime.of(2024, 11, 1, 10, 0, 0),
+                to = LocalDateTime.of(2024, 11, 3, 20, 0, 0),
+                location = Location(
+                    name = "Jugendzentrum Nord",
+                    street = "Lintforter Straße",
+                    houseNumber = "132",
+                    city = "Moers",
+                    zipCode = "47445",
+                    lat = 51.4894376,
+                    lon = 6.6069422,
+                ),
+                title = "Community Hackday",
+                link = "https://www.codeforniederrhein.de/2024/10/09/community-hackday-am-1-3-november-im-juno/"
+            )
+        )
+
+        events.add(
+            Event(
+                from = LocalDateTime.of(2024, 11, 4, 10, 30, 0),
+                to = LocalDateTime.of(2024, 11, 6, 13, 30, 0),
+                location = Location(
+                    online = true,
+                    name = "Wiener Stadt- und Landesarchiv, Gasometer D",
+                    street = "Guglgasse",
+                    houseNumber = "14",
+                    zipCode = "1110",
+                    city = "Wien"
+                ),
+                title = "MediaWiki Users and Developers Conference 2024",
+                link = "https://conference.knowledge.wiki/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2024, 11, 5, 9, 30, 0),
+                to = LocalDateTime.of(2024, 11, 5, 17, 30, 0),
+                title = "Reusing data: Bridging the distance between data consumers and producers",
+                location = Location(
+                    name = "Academy Building, Raum Telders",
+                    street = "Rapenburg", houseNumber = "73",
+                    zipCode = "2311 GJ", city = "Leiden"
+                ),
+                link = "https://www.universiteitleiden.nl/en/events/2024/11/reusing-data-bridging-the-distance-between-data-consumers-and-producers"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2024, 11, 5, 14, 0, 0),
+                to = LocalDateTime.of(2024, 11, 5, 14, 45, 0),
+                location = Location(online = true),
+                title = "CorrelCompact: Mission Datenqualität - vom Rohmaterial zum Datengold",
+                link = "https://www.correlaid.org/veranstaltungen/correlcompact-datenqualit%C3%A4t"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2024, 11, 5, 15, 0, 0),
+                to = LocalDateTime.of(2024, 11, 5, 17, 0, 0),
+                location = Location(online = true),
+                title = "Civic Data Lab - Mit Daten überzeugen: Wirkung erfolgreich kommunizieren",
+                link = "https://www.correlaid.org/veranstaltungen/cdl-wirkung-kommunizieren"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2024, 11, 6, 15, 0, 0),
+                to = LocalDateTime.of(2024, 11, 6, 18, 0, 0),
+                location = Location(online = true),
+                title = "Civic Data Lab - Gemeinsam Machen 3: Infos und Beratung fürs Ankommen in Deutschland: Faktenbasiert, Vernetzt, Lösungsorientiert",
+                link = "https://www.correlaid.org/veranstaltungen/cdl-gemeinsam-machen-3"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2024, 11, 7, 9, 0, 0),
+                to = LocalDateTime.of(2024, 11, 7, 17, 30, 0),
+                location = Location(
+                    name = "Zukunft – Umwelt – Gesellschaft (ZUG) gGmbH",
+                    street = "Stresemannstraße",
+                    houseNumber = "69-71",
+                    zipCode = "10963",
+                    city = "Berlin"
+                ),
+                title = "AI Conference: Mit Künstlicher Intelligenz zu mehr Nachhaltigkeit?",
+                link = "https://www.ki-ideenwerkstatt.de/veranstaltungen/ai-conference-mit-kuenstlicher-intelligenz-zu-mehr-nachhaltigkeit/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2024, 11, 7, 18, 0, 0),
+                to = LocalDateTime.of(2024, 11, 7, 21, 0, 0),
+                location = Location(
+                    name = "WikiBär",
+                    street = "Köpenicker Straße",
+                    houseNumber = "45",
+                    zipCode = "10179",
+                    city = "Berlin"
+                ),
+                title = "Jugend editiert",
+                link = "https://www.wikimedia.de/veranstaltungen/jugend-editiert/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2024, 11, 8, 10, 0, 0),
+                to = LocalDateTime.of(2024, 11, 8, 17, 0, 0),
+                location = Location(
+                    name = "Moritzbastei",
+                    street = "Kurt-Masur-Platz",
+                    houseNumber = "1",
+                    zipCode = "04109",
+                    city = "Leipzig"
+                ),
+                title = "Public Service Lab Day 2024",
+                link = "https://www.eventbrite.de/e/public-service-lab-day-2024-tickets-941917569807"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2024, 11, 8, 18, 0, 0),
+                to = LocalDateTime.of(2024, 11, 9, 22, 45, 0),
+                location = Location(
+                    name = "Audimax der Uni Lübeck",
+                    street = "Mönkhofer Weg",
+                    houseNumber = "245",
+                    zipCode = "23562",
+                    city = "Lübeck"
+                ),
+                title = "Nights of Open Knowledge (NooK)",
+                link = "https://events.ccc.de/2024/07/17/nook/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2024, 11, 11, 19, 0, 0),
+                to = LocalDateTime.of(2024, 11, 11, 22, 0, 0),
+                location = Location(
+                    name = "WikiBär",
+                    street = "Köpenicker Straße",
+                    houseNumber = "45",
+                    zipCode = "10179",
+                    city = "Berlin"
+                ),
+                title = "Code for Berlin",
+                link = "https://www.meetup.com/ok-lab-berlin/events/304012491/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2024, 11, 11, 19, 0, 0),
+                to = LocalDateTime.of(2024, 11, 11, 21, 0, 0),
+                location = Location(
+                    name = "Impact Hub",
+                    street = "Kaiserstr",
+                    houseNumber = "97",
+                    zipCode = "76131",
+                    city = "Karlsruhe"
+                ),
+                title = "Code for Karlsruhe",
+                link = "https://ok-lab-karlsruhe.de/mitmachen/#schedule"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2024, 11, 12, 12, 0, 0),
+                to = LocalDateTime.of(2024, 11, 12, 12, 45, 0),
+                location = Location(online = true),
+                title = "Civic Data Lab - Espresso Talk: Your Emotional City",
+                link = "https://www.correlaid.org/veranstaltungen/cdl-espressotalk-staedte"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2024, 11, 12, 14, 0, 0),
+                to = LocalDateTime.of(2024, 11, 12, 21, 0, 0),
+                location = Location(
+                    name = "KINDL - Zentrum für zeitgenössische Kunst GmbH",
+                    street = "Am Sudhaus",
+                    houseNumber = "3",
+                    zipCode = "12053",
+                    city = "Berlin"
+                ),
+                title = "Festival der KI-Ideenwerkstatt für Umweltschutz",
+                link = "https://www.ki-ideenwerkstatt.de/veranstaltungen/festival-der-ki-ideenwerkstatt-fuer-umweltschutz/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2024, 11, 12, 10, 0, 0),
+                to = LocalDateTime.of(2024, 11, 12, 11, 30, 0),
+                title = "Open-Data-Netzwerktreffen",
+                location = Location(online = true),
+                registration = Registration(
+                    required = true,
+                    link = "https://www.bertelsmann-stiftung.de/de/open-data-netzwerk"
+                ),
+                link = "https://www.bertelsmann-stiftung.de/de/unsere-projekte/daten-fuer-die-gesellschaft/projektnachrichten/das-kommunale-open-data-netzwerktreffen#c222695"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2024, 11, 13, 10, 0, 0),
+                to = LocalDateTime.of(2024, 11, 13, 12, 30, 0),
+                location = Location(online = true),
+                title = "Aarhus Digital: Public Participation Portals in Environmental Matters",
+                link = "https://www.ufu.de/aarhus-digital-webinar/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2024, 11, 13, 10, 30, 0),
+                to = LocalDateTime.of(2024, 11, 13, 17, 30, 0),
+                location = Location(
+                    name = "Unperfekthaus Essen",
+                    street = "Friedrich-Ebert-Straße",
+                    houseNumber = "18-20",
+                    zipCode = "45127",
+                    city = "Essen"
+                ),
+                registration = Registration(
+                    required = true,
+                    to = LocalDateTime.of(2024, 11, 4, 0, 0, 0),
+                    link = "https://civicrm.eine-welt-netz-nrw.de/civicrm/event/register?id=6&reset=1"
+                ),
+                title = "Bits und Bäume NRW Vernetzungstreffen",
+                link = "https://nrw.bits-und-baeume.org"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2024, 11, 15, 15, 0, 0),
+                to = LocalDateTime.of(2024, 11, 17, 16, 30, 0),
+                location = Location(
+                    name = "Amerikahaus",
+                    street = "Karolinenplatz",
+                    houseNumber = "3",
+                    zipCode = "80333",
+                    city = "München"
+                ),
+                title = "Jugend hackt",
+                link = "https://jugendhackt.org/events/muenchen/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2024, 11, 16, 0, 0, 0),
+                to = LocalDateTime.of(2024, 11, 17, 0, 0, 0),
+                location = Location(city = "Hannover"),
+                registration = Registration(
+                    required = true,
+                    link = "https://cloud.okfn.de/apps/forms/s/iq4fbzdL7CW39aS8HBjA7Xam"
+                ),
+                title = "Umweltdatenwerkstatt",
+                link = "https://datenschule.de/workshops/umweltdatenwerkstatt/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2024, 11, 19, 11, 30, 0),
+                to = LocalDateTime.of(2024, 11, 19, 12, 15, 0),
+                location = Location(online = true),
+                title = "CorrelCompact: Data Storytelling - Daten sprechen lassen!",
+                link = "https://www.correlaid.org/veranstaltungen/correlcompact-datastorytelling"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2024, 11, 21, 19, 0, 0),
+                to = LocalDateTime.of(2024, 11, 21, 22, 0, 0),
+                location = Location(
+                    name = "Karl der Grosse",
+                    street = "Kirchgasse",
+                    houseNumber = "14",
+                    zipCode = "8001",
+                    city = "Zürich"
+                ),
+                title = "Netzpolitischer Abend zu \"Datenethik in der Schweiz\"",
+                link = "https://www.digitale-gesellschaft.ch/event/netzpolitischer-abend-zu-datenethik-in-der-schweiz/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2024, 11, 23, 9, 0, 0),
+                to = LocalDateTime.of(2024, 11, 23, 16, 30, 0),
+                registration = Registration(
+                    required = true,
+                    link = "https://oknrw.de/veranstaltungen/anmeldung/"
+                ),
+                location = Location(
+                    name = "Bergische Volkshochschule",
+                    street = "Auer Schulstraße",
+                    houseNumber = "20",
+                    zipCode = "42103",
+                    city = "Wuppertal"
+                ),
+                title = "OKNRW–Barcamp 2024",
+                link = "https://oknrw.de/veranstaltungen/offene-kommunen-nrw-2024/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2024, 11, 25, 17, 0, 0),
+                to = LocalDateTime.of(2024, 11, 25, 21, 0, 0),
+                location = Location(
+                    name = "Anwendungslabor für Künstliche Intelligenz und Big Data am Umweltbundesamt",
+                    street = "Alte Messe",
+                    houseNumber = "6",
+                    zipCode = "04103",
+                    city = "Leipzig"
+                ),
+                title = "Workshop umwelt.info, Teil 1",
+                link = "https://mvp.umwelt.info/sites/default/files/2024-10/Einladung_Workshop_umwelt.info_Leipzig.pdf"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2024, 12, 2, 17, 0, 0),
+                to = LocalDateTime.of(2024, 12, 2, 21, 0, 0),
+                location = Location(
+                    name = "Anwendungslabor für Künstliche Intelligenz und Big Data am Umweltbundesamt",
+                    street = "Alte Messe",
+                    houseNumber = "6",
+                    zipCode = "04103",
+                    city = "Leipzig"
+                ),
+                title = "Workshop umwelt.info, Teil 2",
+                link = "https://mvp.umwelt.info/sites/default/files/2024-10/Einladung_Workshop_umwelt.info_Leipzig.pdf"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2024, 12, 3, 14, 0, 0),
+                to = LocalDateTime.of(2024, 12, 3, 14, 45, 0),
+                location = Location(online = true),
+                title = "CorrelCompact: Diskriminierung durch Daten und Algorithmen",
+                link = "https://www.correlaid.org/veranstaltungen/correlcompact-datenethik"
+            )
+        )
+        return events
+    }
+
+    fun generateEventLink(event: Event) = "* ${dateStr(event)}, ${locationStr(event.location)}: **${event.title}** ${calLink(event)}\n  * ${event.link}"
 
     private fun dateStr(event: Event): String {
         val weekDayFrom = event.from.dayOfWeek.getDisplayName(TextStyle.FULL_STANDALONE, Locale.GERMAN)
@@ -386,10 +465,26 @@ class IcalGeneratorTest {
     }
 
     private fun calLink(event: Event): String {
+        val location = net.fortuna.ical4j.model.property.Location().apply {
+            value = locationStr(event.location)
+        }
+        val link = net.fortuna.ical4j.model.property.Link().apply {
+            value = event.link
+        }
+        val description = net.fortuna.ical4j.model.property.Description().apply {
+            value = event.comments.joinToString("; ")
+        }
+        val vevent = VEvent(event.from, event.to, event.title)
+            .withProperty(location)
+            .withProperty(link)
+            .withProperty(description)
+            .fluentTarget as CalendarComponent
         val calendar = Calendar()
             .withDefaults()
-            .withProdId("-//Out in the Open Oktober 2024//iCal4j 1.0//EN")
-        val base64 = ""
+            .withProdId("-//${event.title}//iCal4j 1.0//EN")
+            .withComponent(vevent)
+            .fluentTarget
+        val base64 = Base64.getEncoder().encodeToString(calendar.toString().toByteArray())
         return "<a title='Kalendereintrag ${event.title}' download='event.ics' href=\"data:text/calendar;base64,${base64}\">&#x1F4C5;</a>"
     }
 

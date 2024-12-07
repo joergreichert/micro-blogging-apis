@@ -62,6 +62,7 @@ class MastodonService @Autowired constructor(
 
     fun listFollowers(
         givenAccessToken: String? = null,
+        // https://<instance-host-name>/api/v1/accounts/lookup?acct=<username>
         userId: String? = null,
         targetFile: String? = null
     ): Mono<List<String>> {
