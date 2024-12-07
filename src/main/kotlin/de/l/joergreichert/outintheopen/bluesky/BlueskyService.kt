@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.*
+import org.springframework.web.reactive.function.client.WebClientResponseException.BadRequest
 import reactor.core.publisher.Mono
 import java.io.File
 import java.io.FileWriter
@@ -48,7 +49,7 @@ class BlueskyService @Autowired constructor(
     fun getProfile(givenAccessToken: String? = null, userId: String? = null): Mono<Profile>? {
         return getAccessToken(givenAccessToken).flatMap { accessToken ->
             val actor = userId ?: appProperties.bluesky.accountId
-            val url = "https://public.api.bsky.app/xrpc/app.bsky.actor.getProfile?actor=${actor}"
+            val url = "https://bsky.social/xrpc/app.bsky.actor.getProfile?actor=${actor}"
             webClientBuilder
                 .filter(ExchangeFilterFunction.ofRequestProcessor {
                     clientRequest -> println(clientRequest.url());
@@ -76,7 +77,7 @@ class BlueskyService @Autowired constructor(
             }
         }
         return genericCall(
-            pathSegment = "getFollowers",
+            pathSegment = "app.bsky.graph.getFollowers",
             returnType = Followers::class.java,
             processBody = processBody,
             givenAccessToken = givenAccessToken,
@@ -100,7 +101,7 @@ class BlueskyService @Autowired constructor(
             }
         }
         return genericCall(
-            pathSegment = "getFollows",
+            pathSegment = "app.bsky.graph.getFollows",
             returnType = Follows::class.java,
             processBody = processBody,
             givenAccessToken = givenAccessToken,
@@ -125,7 +126,7 @@ class BlueskyService @Autowired constructor(
             }
         }
         return genericCall(
-            pathSegment = "getAuthorFeed",
+            pathSegment = "app.bsky.feed.getAuthorFeed",
             returnType = Feeds::class.java,
             processBody = processBody,
             givenAccessToken = givenAccessToken,
@@ -146,11 +147,11 @@ class BlueskyService @Autowired constructor(
     ): Mono<Likes?> {
         val processBody: Consumer<Likes> = Consumer { body: Likes ->
             FileWriter(File(targetFile ?: "${rootFolder()}/bluesky-likes.txt")).use { fw ->
-                body.likes?.let { fw.write(body.likes.joinToString("\n")) }
+                body.feed?.let { fw.write(body.feed.joinToString("\n")) }
             }
         }
         return genericCall(
-            pathSegment = "getActorLikes",
+            pathSegment = "app.bsky.feed.getActorLikes",
             returnType = Likes::class.java,
             processBody = processBody,
             givenAccessToken = givenAccessToken,
@@ -176,13 +177,17 @@ class BlueskyService @Autowired constructor(
                 .filter(ExchangeFilterFunction.ofRequestProcessor {
                         clientRequest -> println(clientRequest.url());
                     clientRequest.headers().forEach { t, u -> println("t: $t, u: $u") };
-                    Mono.just(clientRequest)
+                    try {
+                        Mono.just(clientRequest)
+                    } catch (e: Exception) {
+                        Mono.error(e)
+                    }
                 })
                 .build().get().uri { uriBuilder ->
                 uriBuilder
                     .scheme("https")
-                    .host("public.api.bsky.app")
-                    .path("/xrpc/app.bsky.feed.$pathSegment")
+                    .host("bsky.social")
+                    .path("/xrpc/$pathSegment")
                     .queryParam("actor", (userId ?: appProperties.bluesky.accountId))
                     .queryParam("limit", limit).let {
                         if (cursor != null) it.queryParam("cursor", cursor) else it
@@ -198,6 +203,9 @@ class BlueskyService @Autowired constructor(
                     }
                     body
                 }
+                .onErrorResume { e -> Mono.error(IllegalStateException("request failed: " +
+                        (e as BadRequest).getResponseBodyAsString(
+                    java.nio.charset.Charset.forName("UTF-8")), e)) }
         }
     }
 

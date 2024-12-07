@@ -1,3 +1,2 @@
 # micro blogging APIs
- * reading likes for monthly out in the open blog
- * in future: migrating from Twitter to Mastodon
+Reading bookmarks and likes for monthly out in the open blog
