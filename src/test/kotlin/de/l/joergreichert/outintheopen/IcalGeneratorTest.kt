@@ -80,6 +80,79 @@ class IcalGeneratorTest {
                 link = "https://www.correlaid.org/veranstaltungen/correlcompact-datenethik"
             )
         )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2024, 12, 3, 20, 0, 0),
+                to = LocalDateTime.of(2024, 12, 3, 22, 0, 0),
+                location = Location(
+                    name = "c-base",
+                    street = "Rungestraße",
+                    houseNumber = "20",
+                    zipCode = "10179",
+                    city = "Berlin",
+                    online = true
+                ),
+                title = "142. Netzpolitischer Abend",
+                link = "https://digitalegesellschaft.de/2024/11/142-netzpolitischer-abend/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2024, 12, 5, 9, 0, 0),
+                to = LocalDateTime.of(2024, 12, 5, 18, 0, 0),
+                location = Location(
+                    name = "WikiMUC",
+                    street = "Angertorstraße",
+                    houseNumber = "3",
+                    zipCode = "80469",
+                    city = "München",
+                    online = true
+                ),
+                title = "Federated Queries Workshop",
+                link = "https://de.wikipedia.org/wiki/Wikipedia:WikiMUC/Federated_Queries_Workshop/Agenda"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2024, 12, 9, 19, 0, 0),
+                to = LocalDateTime.of(2024, 12, 9, 20, 0, 0),
+                location = Location(
+                    name = "Wikimedia Deutschland e. V.",
+                    street = "Tempelhofer Ufer",
+                    houseNumber = "23-24",
+                    zipCode = "10963",
+                    city = "Berlin",
+                    online = false
+                ),
+                title = "Monsters of Law: Rechtsgeschichte der Wikipedia",
+                link = "https://www.wikimedia.de/veranstaltungen/rechtsgeschichte-der-wikipedia/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2024, 12, 10, 15, 0, 0),
+                to = LocalDateTime.of(2024, 12, 10, 17, 0, 0),
+                location = Location(online = true),
+                title = "Wikidata for legal historians",
+                link = "https://www.lhlt.mpg.de/events/40121/2078412"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2024, 12, 12, 9, 30, 0),
+                to = LocalDateTime.of(2024, 12, 12, 17, 0, 0),
+                location = Location(
+                    name = "Universitätsclub Bonn",
+                    street = "Konviktstraße",
+                    houseNumber = "9",
+                    zipCode = "53113",
+                    city = "Bonn",
+                    online = true
+                ),
+                title = "Where2B - Die Open-Source-GIS-Konferenz",
+                link = "https://where2b-conference.com"
+            )
+        )
         return events
     }
 
@@ -465,15 +538,9 @@ class IcalGeneratorTest {
     }
 
     private fun calLink(event: Event): String {
-        val location = net.fortuna.ical4j.model.property.Location().apply {
-            value = locationStr(event.location)
-        }
-        val link = net.fortuna.ical4j.model.property.Link().apply {
-            value = event.link
-        }
-        val description = net.fortuna.ical4j.model.property.Description().apply {
-            value = event.comments.joinToString("; ")
-        }
+        val location = net.fortuna.ical4j.model.property.Location(locationStr(event.location))
+        val link = net.fortuna.ical4j.model.property.Link(event.link)
+        val description = net.fortuna.ical4j.model.property.Description(event.comments.joinToString("; "))
         val vevent = VEvent(event.from, event.to, event.title)
             .withProperty(location)
             .withProperty(link)
