@@ -15,6 +15,7 @@ import org.springframework.web.reactive.function.client.WebClientResponseExcepti
 import reactor.core.publisher.Mono
 import java.io.File
 import java.io.FileWriter
+import java.net.URI
 import java.text.DecimalFormat
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -140,7 +141,7 @@ class BlueskyService @Autowired constructor(
             until
         ).map { list ->
             FileWriter(File(targetFile ?: "${rootFolder()}/bluesky-statuses.txt")).use {
-                it.write(list.joinToString("\n"))
+                it.write(list.joinToString("\n\n"))
             }
             list
         }
@@ -160,7 +161,7 @@ class BlueskyService @Autowired constructor(
             until
         ).map { list ->
             FileWriter(File(targetFile ?: "${rootFolder()}/bluesky-likes.txt")).use {
-                it.write(list.joinToString("\n"))
+                it.write(list.joinToString("\n\n"))
             }
             list
         }
@@ -286,7 +287,7 @@ class BlueskyService @Autowired constructor(
                 listOfNotNull(
                     "${decimalFormat.format(currentSize + index + 1)}. ${tweet.post?.record?.createdAt}: ${tweet.post?.record?.text}",
                     tweet.post?.record?.text,
-                    tweet.post?.uri
+                    "https://bsky.app/profile/${tweet.post?.author?.handle}/post/${URI.create(tweet.post?.uri.toString()).path.split("/").last()}"
                 ).joinToString("\n")
             } else null
         }?.filterNotNull() ?: emptyList()
@@ -311,7 +312,7 @@ class BlueskyService @Autowired constructor(
                     listOfNotNull(
                         "${decimalFormat.format(currentSize + index + 1)}. ${tweetCasted.post?.record?.createdAt}: ${tweetCasted.post?.record?.text}",
                         tweetCasted.post?.record?.text,
-                        tweetCasted.post?.uri
+                        "https://bsky.app/profile/${tweetCasted.post?.author?.handle}/post/${URI.create(tweetCasted.post?.uri.toString()).path.split("/").last()}"
                     ).joinToString("\n")
                 } else null
             } catch (e3: Exception) {

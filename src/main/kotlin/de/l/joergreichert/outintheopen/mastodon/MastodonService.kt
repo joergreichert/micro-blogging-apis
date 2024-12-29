@@ -126,7 +126,7 @@ class MastodonService @Autowired constructor(
             until
         ).map { list ->
             FileWriter(File(targetFile ?: "${rootFolder()}/mastodon-statuses.txt")).use {
-                it.write(list.joinToString("\n"))
+                it.write(list.joinToString("\n\n"))
             }
             list
         }
@@ -147,7 +147,7 @@ class MastodonService @Autowired constructor(
             until
         ).map { list ->
             FileWriter(File(targetFile ?: "${rootFolder()}/mastodon-bookmarks.txt")).use {
-                it.write(list.joinToString("\n"))
+                it.write(list.joinToString("\n\n"))
             }
             list
         }
