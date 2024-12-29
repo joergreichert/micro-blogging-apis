@@ -1,17 +1,24 @@
 package de.l.joergreichert.outintheopen.bluesky
 
+import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.type.CollectionType
 import de.l.joergreichert.outintheopen.bluesky.to.*
 import de.l.joergreichert.outintheopen.config.AppProperties
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.core.ParameterizedTypeReference
 import org.springframework.http.MediaType
+import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.*
 import org.springframework.web.reactive.function.client.WebClientResponseException.BadRequest
 import reactor.core.publisher.Mono
 import java.io.File
 import java.io.FileWriter
+import java.text.DecimalFormat
 import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.function.Consumer
 
 
@@ -21,6 +28,13 @@ class BlueskyService @Autowired constructor(
     val objectMapper: ObjectMapper,
     val appProperties: AppProperties
 ) {
+
+    fun getUserId(username: String): Mono<String> {
+        val name = if (username.endsWith(".bsky.social")) username else "$username.bsky.social"
+        return webClientBuilder.build().get().uri(
+            "https://bsky.social/xrpc/com.atproto.identity.resolveHandle?handle=${name}"
+        ).retrieve().bodyToMono(String::class.java)
+    }
 
     fun getAppAccessToken(): Mono<String> {
         val body = objectMapper.writeValueAsString(
@@ -83,8 +97,7 @@ class BlueskyService @Autowired constructor(
             givenAccessToken = givenAccessToken,
             userId = userId,
             limit = limit,
-            cursor = cursor,
-            since = null
+            cursor = cursor
         )
     }
 
@@ -107,8 +120,7 @@ class BlueskyService @Autowired constructor(
             givenAccessToken = givenAccessToken,
             userId = userId,
             limit = limit,
-            cursor = cursor,
-            since = null
+            cursor = cursor
         )
     }
 
@@ -116,50 +128,42 @@ class BlueskyService @Autowired constructor(
         givenAccessToken: String? = null,
         userId: String? = null,
         targetFile: String? = null,
-        limit: Int? = 50,
-        cursor: String? = null,
-        since: LocalDate?
-    ): Mono<Feeds?> {
-        val processBody: Consumer<Feeds> = Consumer { body: Feeds ->
-            FileWriter(File(targetFile ?: "${rootFolder()}/bluesky-feeds.txt")).use { fw ->
-                body.feed?.let { fw.write(body.feed.joinToString("\n")) }
+        since: LocalDate?,
+        until: LocalDate?
+    ): Mono<List<String>> {
+        return internalStatuses(
+            userId,
+            givenAccessToken,
+            "app.bsky.feed.getAuthorFeed",
+            mutableListOf(),
+            since,
+            until
+        ).map { list ->
+            FileWriter(File(targetFile ?: "${rootFolder()}/bluesky-statuses.txt")).use {
+                it.write(list.joinToString("\n"))
             }
+            list
         }
-        return genericCall(
-            pathSegment = "app.bsky.feed.getAuthorFeed",
-            returnType = Feeds::class.java,
-            processBody = processBody,
-            givenAccessToken = givenAccessToken,
-            userId = userId,
-            limit = limit,
-            cursor = cursor,
-            since = null
-        )
     }
 
     // https://docs.bsky.app/docs/api/app-bsky-feed-get-actor-likes
     fun listLikes(
-        givenAccessToken: String? = null,
-        userId: String? = null, targetFile: String? = null,
-        limit: Int? = 50,
-        cursor: String? = null,
-        since: LocalDate?
-    ): Mono<Likes?> {
-        val processBody: Consumer<Likes> = Consumer { body: Likes ->
-            FileWriter(File(targetFile ?: "${rootFolder()}/bluesky-likes.txt")).use { fw ->
-                body.feed?.let { fw.write(body.feed.joinToString("\n")) }
+        givenAccessToken: String? = null, userId: String? = null, targetFile: String? = null,
+        since: LocalDate?, until: LocalDate?
+    ): Mono<List<String>> {
+        return internalStatuses(
+            userId,
+            givenAccessToken,
+            "app.bsky.feed.getActorLikes",
+            mutableListOf(),
+            since,
+            until
+        ).map { list ->
+            FileWriter(File(targetFile ?: "${rootFolder()}/bluesky-likes.txt")).use {
+                it.write(list.joinToString("\n"))
             }
+            list
         }
-        return genericCall(
-            pathSegment = "app.bsky.feed.getActorLikes",
-            returnType = Likes::class.java,
-            processBody = processBody,
-            givenAccessToken = givenAccessToken,
-            userId = userId,
-            limit = limit,
-            cursor = cursor,
-            since = null
-        )
     }
 
     private fun <T> genericCall(
@@ -169,8 +173,7 @@ class BlueskyService @Autowired constructor(
         givenAccessToken: String? = null,
         userId: String? = null,
         limit: Int? = 50,
-        cursor: String? = null,
-        since: LocalDate?,
+        cursor: String? = null
     ): Mono<T?> {
         return getAccessToken(givenAccessToken).flatMap { accessToken ->
             webClientBuilder
@@ -207,6 +210,137 @@ class BlueskyService @Autowired constructor(
                         (e as BadRequest).getResponseBodyAsString(
                     java.nio.charset.Charset.forName("UTF-8")), e)) }
         }
+    }
+
+    private fun internalStatuses(
+        userId: String? = null,
+        givenAccessToken: String? = null,
+        pathSegment: String,
+        visited: MutableList<String>,
+        since: LocalDate?,
+        until: LocalDate?,
+    ): Mono<List<String>> {
+        return getAccessToken(givenAccessToken).flatMap { accessToken ->
+            webClientBuilder.build().get().uri { uriBuilder ->
+                uriBuilder
+                    .scheme("https")
+                    .host("bsky.social")
+                    .path("/xrpc/$pathSegment")
+                    .queryParam("actor", (userId ?: appProperties.bluesky.accountId))
+                    .queryParam("limit", 50)
+                    .build()
+            }
+                .headers { h -> h.setBearerAuth(accessToken) }
+                .retrieve()
+                .toEntity(Likes::class.java).flatMap { response ->
+                    val linkHeader = response.headers["Link"]
+                    handleLink((userId ?: appProperties.bluesky.accountId), linkHeader, pathSegment, visited, givenAccessToken, since, until).map { processed ->
+                        val listOfLists = mutableListOf<String>()
+                        listOfLists.addAll(processed)
+                        val res = handleBody(response, since, until, listOfLists.size)
+                        listOfLists.addAll(res)
+                        listOfLists
+                    }
+                }.doOnError {
+                    val type2: CollectionType = objectMapper.typeFactory.constructCollectionType(
+                        MutableList::class.java, JsonNode::class.java
+                    )
+                    val paramType2: ParameterizedTypeReference<MutableList<JsonNode>> =
+                        ParameterizedTypeReference.forType(type2)
+                    webClientBuilder.build().get().uri { uriBuilder ->
+                        uriBuilder
+                            .scheme("https")
+                            .host("bsky.social")
+                            .path("/xrpc/$pathSegment")
+                            .queryParam("actor", (userId ?: appProperties.bluesky.accountId))
+                            .queryParam("limit", 50)
+                            .build()
+                    }.headers { h -> h.setBearerAuth(accessToken) }.retrieve()
+                        .toEntity(paramType2).flatMap { response ->
+                            val linkHeader = response.headers["Link"]
+                            handleLink((userId ?: appProperties.bluesky.accountId), linkHeader, pathSegment, visited, givenAccessToken, since, until).map { processed ->
+                                val listOfLists = mutableListOf<String>()
+                                listOfLists.addAll(processed)
+                                val res = handleBody2(response, since, until, listOfLists.size, pathSegment)
+                                listOfLists.addAll(res)
+                                listOfLists
+                            }
+                        }
+                }
+        }
+    }
+
+    private fun handleBody(
+        response: ResponseEntity<Likes>,
+        since: LocalDate?,
+        until: LocalDate?,
+        currentSize: Int
+    ): List<String> {
+        val decimalFormat = DecimalFormat("000")
+        val simpleDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+        return response.body?.feed?.reversed()?.mapIndexed { index, tweet ->
+            val createdAt = LocalDateTime.from(simpleDateFormat.parse(tweet.post?.record?.createdAt.toString()))
+            if ((since == null || createdAt.toLocalDate().isAfter(since)) &&
+                (until == null || createdAt.toLocalDate().isBefore(until))
+            ) {
+                listOfNotNull(
+                    "${decimalFormat.format(currentSize + index + 1)}. ${tweet.post?.record?.createdAt}: ${tweet.post?.record?.text}",
+                    tweet.post?.record?.text,
+                    tweet.post?.uri
+                ).joinToString("\n")
+            } else null
+        }?.filterNotNull() ?: emptyList()
+    }
+
+    private fun handleBody2(
+        response: ResponseEntity<MutableList<JsonNode>>,
+        since: LocalDate?,
+        until: LocalDate?,
+        currentSize: Int,
+        url: String
+    ): List<String> {
+        val decimalFormat = DecimalFormat("000")
+        val simpleDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+        return response.body?.reversed()?.mapIndexed { index, tweet ->
+            try {
+                val tweetCasted = objectMapper.readValue(tweet.asText(), Feed::class.java)
+                val createdAt = LocalDateTime.from(simpleDateFormat.parse(tweetCasted.post?.record?.createdAt.toString()))
+                if ((since == null || createdAt.toLocalDate().isAfter(since)) &&
+                    (until == null || createdAt.toLocalDate().isBefore(until))
+                ) {
+                    listOfNotNull(
+                        "${decimalFormat.format(currentSize + index + 1)}. ${tweetCasted.post?.record?.createdAt}: ${tweetCasted.post?.record?.text}",
+                        tweetCasted.post?.record?.text,
+                        tweetCasted.post?.uri
+                    ).joinToString("\n")
+                } else null
+            } catch (e3: Exception) {
+                println("Parse error for " + url + ": " + e3.message)
+                null
+            }
+        }?.filterNotNull() ?: emptyList()
+    }
+
+    private fun handleLink(
+        userId: String,
+        linkHeader: MutableList<String>?,
+        url: String,
+        visited: MutableList<String>,
+        givenAccessToken: String?,
+        since: LocalDate?,
+        until: LocalDate?,
+    ): Mono<List<String>> {
+        if (linkHeader != null) {
+            val parts = linkHeader[0].split(";")
+            if (parts.isNotEmpty()) {
+                val prevUrl = parts[0].replace("<", "").replace(">", "")
+                if (prevUrl != url && !visited.contains(prevUrl)) {
+                    visited.add(url)
+                    return internalStatuses(userId, givenAccessToken, prevUrl, visited, since, until)
+                }
+            }
+        }
+        return Mono.just(emptyList())
     }
 
     private fun rootFolder() = "/tmp"

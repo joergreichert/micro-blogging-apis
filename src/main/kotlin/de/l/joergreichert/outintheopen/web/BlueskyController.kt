@@ -13,6 +13,9 @@ class BlueskyController @Autowired constructor(val blueskyService: BlueskyServic
     @PostMapping("appAccessToken")
     fun appAccessToken() = blueskyService.getAppAccessToken()
 
+    @GetMapping("userId")
+    fun getUserId(@RequestParam userName: String) = blueskyService.getUserId(userName)
+
     @GetMapping("profile")
     fun getProfile(
         @RequestParam(required = false) accessToken: String? = null,
@@ -24,23 +27,21 @@ class BlueskyController @Autowired constructor(val blueskyService: BlueskyServic
     fun getLikes(
         @RequestParam(required = false) accessToken: String? = null,
         @RequestParam(required = false) userId: String? = null,
-        @RequestParam(required = false) limit: Int? = 50,
-        @RequestParam(required = false) cursor: String? = null,
         @RequestParam(required = false) targetFile: String? = null,
-        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) since: LocalDate? = null
+        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) since: LocalDate? = null,
+        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) until: LocalDate? = null
     ) =
-        blueskyService.listLikes(accessToken, userId, targetFile, limit, cursor, since)
+        blueskyService.listLikes(accessToken, userId, targetFile, since, until)
 
     @GetMapping("statuses")
     fun getStatuses(
         @RequestParam(required = false) accessToken: String? = null,
         @RequestParam(required = false) userId: String? = null,
-        @RequestParam(required = false) limit: Int? = 50,
-        @RequestParam(required = false) cursor: String? = null,
         @RequestParam(required = false) targetFile: String? = null,
-        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) since: LocalDate? = null
+        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) since: LocalDate? = null,
+        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) until: LocalDate? = null
     ) =
-        blueskyService.listStatuses(accessToken, userId, targetFile, limit, cursor, since)
+        blueskyService.listStatuses(accessToken, userId, targetFile, since, until)
 
     @GetMapping("followers")
     fun getFollowers(
