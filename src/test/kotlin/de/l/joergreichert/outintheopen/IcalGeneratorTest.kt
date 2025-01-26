@@ -71,6 +71,306 @@ class IcalGeneratorTest {
         assertEquals(expected(), actual)
     }
 
+    @Test
+    @Disabled
+    fun testGenerateFebruary2025IcsFromDataModel() {
+        val events = createFebruary2025Events()
+        val actual = events.joinToString("\n") { generateEventLink(it) }
+        assertEquals(expected(), actual)
+    }
+
+    private fun createFebruary2025Events(): MutableList<Event> {
+        val events = mutableListOf<Event>()
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 2, 1, 9, 0, 0),
+                to = LocalDateTime.of(2025, 2, 2, 17, 0, 0),
+                location = Location(
+                    name = "Université libre de Bruxelles (ULB) Solbosch Campus",
+                    street = "Avenue Franklin Roosevelt",
+                    houseNumber = "50",
+                    zipCode = "1050",
+                    city = "Brüssel",
+                    online = true,
+                    onlineLink = "https://live.fosdem.org/",
+                    lon = 4.436951259577029,
+                    lat = 50.468529174564935
+                ),
+                title = "Free and Open Source Developers European Meeting (FOSDEM 2025)",
+                link = "https://fosdem.org/2025/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 2, 4, 20, 0, 0),
+                to = LocalDateTime.of(2025, 2, 4, 22, 0, 0),
+                location = Location(
+                    name = "c-base",
+                    street = "Rungestraße",
+                    houseNumber = "20",
+                    zipCode = "10179",
+                    city = "Berlin",
+                    online = true
+                ),
+                title = "143. Netzpolitischer Abend",
+                link = "https://chaos.social/@digiges/113883154062123648"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 2, 4, 10, 0, 0),
+                to = LocalDateTime.of(2025, 2, 4, 14, 0, 0),
+                location = Location(
+                    name = "Einstein Center Digital Future (ECDF)",
+                    street = "Wilhelmstraße",
+                    houseNumber = "67",
+                    zipCode = "10117",
+                    city = "Berlin",
+                    online = false,
+                    lat = 52.5183956,
+                    lon = 13.3806021
+                ),
+                title = "Ist die deutsche Wissenschaftslandschaft ein starker Motor für Open Science?",
+                link = "https://www.ibi.hu-berlin.de/de/forschung/infomanagement/events/open-science-als-handlungsfeld-fuer-wissenschaftliche-einrichtungen"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 2, 6, 18, 0, 0),
+                to = LocalDateTime.of(2025, 2, 6, 21, 0, 0),
+                location = Location(
+                    name = "WikiBär Wikipedia",
+                    street = "Köpenicker Straße",
+                    houseNumber = "45",
+                    zipCode = "10179",
+                    city = "Berlin",
+                    lon = 13.439250348721544,
+                    lat = 52.50267706293607
+                ),
+                title = "Jugend editiert",
+                link = "https://www.wikimedia.de/veranstaltungen/jugend-editiert/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 2, 6, 19, 31, 0),
+                to = LocalDateTime.of(2025, 2, 6, 20, 30, 0),
+                location = Location(
+                    online = true,
+                    onlineLink = "https://bbb.tu-dresden.de/rooms/qje-7si-xu1-lul/join"
+                ),
+                title = "Bits & Bäume Community Vernetzungstreffen",
+                link = "https://discourse.bits-und-baeume.org/tag/vernetzungstreffen"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 2, 10, 9, 0, 0),
+                to = LocalDateTime.of(2025, 2, 14, 15, 0, 0),
+                location = Location(
+                    online = true,
+                ),
+                title = "forschungsdaten.info Love Data Week 2025",
+                link = "https://forschungsdaten.info/fdm-im-deutschsprachigen-raum/love-data-week-2025/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 2, 11, 14, 0, 0),
+                to = LocalDateTime.of(2025, 2, 11, 15, 30, 0),
+                location = Location(online = true),
+                title = "Offenheit reicht nicht aus – Auf dem Weg zu einer lebendigen Datenkultur",
+                link = "https://blogs.fu-berlin.de/open-access-berlin/2024/12/16/quo-vadis-4-offene-datenkultur/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 2, 11, 10, 0, 0),
+                to = LocalDateTime.of(2025, 2, 11, 12, 0, 0),
+                location = Location(online = true),
+                title = "17. Open Data Netzwerktreffen",
+                link = "https://www.bertelsmann-stiftung.de/de/unsere-projekte/daten-fuer-die-gesellschaft/projektnachrichten/das-kommunale-open-data-netzwerktreffen"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 2, 13, 11, 0, 0),
+                to = LocalDateTime.of(2025, 2, 13, 12, 0, 0),
+                location = Location(online = true),
+                title = "Barrierefrei unterwegs: Wo stehen wir bei der Umsetzung des BehiG im Open Data-Bereich und welche Fortschritte gibt es bei Aufzugstörungen?",
+                link = "https://barrierefrei-open-data-aufzugsdaten.event.sbb.ch"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 2, 13, 18, 0, 0),
+                to = LocalDateTime.of(2025, 2, 13, 21, 0, 0),
+                location = Location(
+                    name = "Weizenbaum-Institut",
+                    street = "Hardenbergstr.",
+                    houseNumber = "32",
+                    zipCode = "10623",
+                    city = "Berlin",
+                    lon = 13.3292227,
+                    lat = 52.5081411
+                ),
+                title = "Watching You – Die Welt von Palantir und Alex Karp",
+                link = "https://www.weizenbaum-institut.de/veranstaltungen/detailseite/screening-watching-you-die-welt-von-palantir-und-alex-karp/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 2, 14, 18, 0, 0),
+                to = LocalDateTime.of(2025, 2, 16, 21, 0, 0),
+                location = Location(
+                    name = "Wikimedia Deutschland e. V.",
+                    street = "Tempelhofer Ufer",
+                    houseNumber = "23-24",
+                    zipCode = "10963",
+                    city = "Berlin",
+                    online = false,
+                    lat = 52.4984142,
+                    lon = 13.3810486
+                ),
+                title = "Berlinale Edit-a-thon 2025",
+                link = "https://www.wikimedia.de/veranstaltungen/berlinale-edit-a-thon-2025/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 2, 14, 19, 0, 0),
+                to = LocalDateTime.of(2025, 2, 16, 21, 0, 0),
+                location = Location(
+                    name = "Jugendzentrum Nord (JuNo)",
+                    street = "Lintforter Straße",
+                    houseNumber = "132",
+                    zipCode = "47445",
+                    city = "Moers",
+                    online = false,
+                    lat = 51.489544949999996,
+                    lon = 6.607030129498574,
+                ),
+                title = "I Love Free Software Day Community-Hackday",
+                link = "https://osmcal.org/event/3312/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 2, 14, 18, 0, 0),
+                to = LocalDateTime.of(2025, 2, 16, 21, 0, 0),
+                location = Location(
+                    name = "Geofabrik",
+                    street = "Amalienstraße",
+                    houseNumber = "44",
+                    zipCode = "76133",
+                    city = "Karlsruhe",
+                    online = false,
+                    lat = 49.009606,
+                    lon = 8.3902072,
+                ),
+                title = "Karlsruhe Hack Weekend February 2025",
+                link = "https://wiki.openstreetmap.org/wiki/Karlsruhe_Hack_Weekend_February_2025"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 2, 21, 10, 0, 0),
+                to = LocalDateTime.of(2025, 2, 22, 16, 0, 0),
+                location = Location(
+                    name = "OpenSource Science B.V.",
+                    street = "Etnastraat",
+                    houseNumber = "20",
+                    zipCode = "4814AA",
+                    city = "Breda (Niederlande)",
+                    online = true,
+                    lat = 51.5926406,
+                    lon = 4.7693296,
+                ),
+                title = "Foss FEST 2025: International Hackathon",
+                link = "https://os-sci.com/event/foss-fest-2025-international-hackathon-14/register"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 2, 25, 17, 30, 0),
+                to = LocalDateTime.of(2025, 2, 25, 20, 30, 0),
+                location = Location(
+                    name = "KI-Ideenwerkstatt für Umweltschutz",
+                    street = "Rollbergstr.",
+                    houseNumber = "28A",
+                    zipCode = "12053",
+                    city = "Berlin",
+                    lat = 51.5926406,
+                    lon = 4.7693296,
+                ),
+                title = "Unterwegs in die Kreislaufgesellschaft: Wie kann KI Bürger*innen dabei helfen, Stoffkreisläufe zu schließen?",
+                link = "https://www.ki-ideenwerkstatt.de/veranstaltungen/themenabend-unterwegs-in-die-kreislaufgesellschaft/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 2, 25, 19, 30, 0),
+                to = LocalDateTime.of(2025, 2, 25, 21, 0, 0),
+                location = Location(online = true),
+                title = "Unterwegs in die Kreislaufgesellschaft: Wie kann KI Bürger*innen dabei helfen, Stoffkreisläufe zu schließen?",
+                link = "https://wiki.openstreetmap.org/wiki/Verkehrswende-Meetup#Meetups"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 2, 27, 14, 0, 0),
+                to = LocalDateTime.of(2025, 2, 27, 15, 0, 0),
+                location = Location(online = true),
+                title = "CorrelCompact: So lügt man mit Statistik",
+                link = "https://www.correlaid.org/veranstaltungen/correlcompact-statistik-25-1?viewType=list"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 2, 28, 19, 0, 0),
+                to = LocalDateTime.of(2025, 3, 1, 21, 0, 0),
+                location = Location(
+                    name = "Casinotheater Winterthur",
+                    street = "Stadthausstrasse",
+                    houseNumber = "119",
+                    zipCode = "8400",
+                    city = "Winterthur (Schweiz)",
+                    lat = 47.49970345,
+                    lon = 8.726622163758583,
+                ),
+                title = "Winterkongress der Digitalen Gesellschaft Schweiz",
+                link = "https://winterkongress.ch/2025/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 2, 28, 19, 0, 0),
+                to = LocalDateTime.of(2025, 3, 1, 21, 0, 0),
+                location = Location(
+                    name = "WIR-Haus",
+                    street = "Wilhelmstraße",
+                    houseNumber = "189",
+                    zipCode = "42489",
+                    city = "Wülfrath",
+                    lon = 4.436951259577029,
+                    lat = 50.468529174564935
+                ),
+                title = "Hack im Pott",
+                link = "https://hackimpott.de"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 3, 1, 0, 0, 0),
+                to = LocalDateTime.of(2025, 3, 8, 23, 59, 59),
+                location = Location(online=true),
+                title = "Open Data Day 2025",
+                link = "https://opendataday.org/de/events/2025/"
+            )
+        )
+        return events
+    }
+
     private fun createJanuary2025Events(): MutableList<Event> {
         val events = mutableListOf<Event>()
         events.add(
@@ -184,23 +484,6 @@ class IcalGeneratorTest {
         )
         events.add(
             Event(
-                from = LocalDateTime.of(2025, 1, 31, 18, 42, 0),
-                to = LocalDateTime.of(2025, 2, 2, 16, 0, 0),
-                location = Location(
-                    name = "WIR-Haus",
-                    street = "Wilhelmstraße",
-                    houseNumber = "189",
-                    zipCode = "42489",
-                    city = "Wülfrath",
-                    lon = 4.436951259577029,
-                    lat = 50.468529174564935
-                ),
-                title = "Hack im Pott",
-                link = "https://hackimpott.de"
-            )
-        )
-        events.add(
-            Event(
                 from = LocalDateTime.of(2025, 2, 1, 9, 0, 0),
                 to = LocalDateTime.of(2025, 2, 2, 17, 0, 0),
                 location = Location(
@@ -268,6 +551,22 @@ class IcalGeneratorTest {
         )
         events.add(
             Event(
+                from = LocalDateTime.of(2024, 12, 4, 14, 15, 0),
+                to = LocalDateTime.of(2024, 12, 4, 16, 15, 0),
+                location = Location(
+                    name = "Paul-Löbe-Haus, Sitzungssaal E.600",
+                    street = "Konrad-Adenauer-Straße",
+                    houseNumber = "1",
+                    zipCode = "10557",
+                    city = "Berlin",
+                    online = true
+                ),
+                title = "Anhörung zum Thema „Open Source“",
+                link = "https://www.bundestag.de/ausschuesse/a23_digitales/Anhoerungen/1024966-1024966"
+            )
+        )
+        events.add(
+            Event(
                 from = LocalDateTime.of(2024, 12, 5, 9, 0, 0),
                 to = LocalDateTime.of(2024, 12, 5, 18, 0, 0),
                 location = Location(
@@ -321,6 +620,47 @@ class IcalGeneratorTest {
                 ),
                 title = "Where2B - Die Open-Source-GIS-Konferenz",
                 link = "https://where2b-conference.com"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2024, 12, 16, 17, 0, 0),
+                to = LocalDateTime.of(2024, 12, 16, 18, 0, 0),
+                location = Location(online = true),
+                title = "Prototype Fund Fragestunde",
+                link = "https://mastodon.social/@PrototypeFund/113635049516024292"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2024, 12, 27, 10, 30, 0),
+                to = LocalDateTime.of(2024, 12, 30, 18, 30, 0),
+                location = Location(
+                    name = "Congress Center Hamburg (CCH)",
+                    street = "Congressplatz",
+                    houseNumber = "1",
+                    zipCode = "20355",
+                    city = "Hamburg",
+                    online = true
+                ),
+                title = "38C3",
+                link = "https://fahrplan.events.ccc.de/congress/2024/fahrplan/schedule/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 1, 16, 9, 0, 0),
+                to = LocalDateTime.of(2025, 1, 16, 18, 0, 0),
+                location = Location(
+                    name = "Wilhelm von Humboldt-Saal im Haus Unter den Linden der Staatsbibliothek zu Berlin",
+                    street = "Unter den Linden",
+                    houseNumber = "8",
+                    zipCode = "10117",
+                    city = "Berlin",
+                    online = true
+                ),
+                title = "Initiative News-Infographics-Analytics-Maps (NIAM 2025)",
+                link = "https://news-infographics-analytics-maps.media"
             )
         )
         return events
@@ -793,7 +1133,7 @@ class IcalGeneratorTest {
                     .withProdId("-//Out in the Open September 2024//iCal4j 1.0//EN")
                 calendar.withComponent(event)
                 val base64 = Base64.getEncoder().encodeToString(calendar.toString().toByteArray())
-                links.add("<a title='Kalendereintrag ${event.summary.get().value}' download='event.ics' href=\"data:text/calendar;base64,${base64}\">&#x1F4C5;</a>")
+                links.add("<a title='Kalendereintrag ${event.summary.value}' download='event.ics' href=\"data:text/calendar;base64,${base64}\">&#x1F4C5;</a>")
             }
         }
         FileWriter(outpath).use { out ->
