@@ -136,6 +136,7 @@ class BlueskyService @Autowired constructor(
             userId,
             givenAccessToken,
             "app.bsky.feed.getAuthorFeed",
+            null,
             mutableListOf(),
             since,
             until
@@ -156,6 +157,7 @@ class BlueskyService @Autowired constructor(
             userId,
             givenAccessToken,
             "app.bsky.feed.getActorLikes",
+            null,
             mutableListOf(),
             since,
             until
@@ -217,6 +219,7 @@ class BlueskyService @Autowired constructor(
         userId: String? = null,
         givenAccessToken: String? = null,
         pathSegment: String,
+        cursor: String?,
         visited: MutableList<String>,
         since: LocalDate?,
         until: LocalDate?,
@@ -228,19 +231,24 @@ class BlueskyService @Autowired constructor(
                     .host("bsky.social")
                     .path("/xrpc/$pathSegment")
                     .queryParam("actor", (userId ?: appProperties.bluesky.accountId))
+                    .queryParam("cursor", cursor)
                     .queryParam("limit", 50)
                     .build()
             }
                 .headers { h -> h.setBearerAuth(accessToken) }
                 .retrieve()
                 .toEntity(Likes::class.java).flatMap { response ->
-                    val linkHeader = response.headers["Link"]
-                    handleLink((userId ?: appProperties.bluesky.accountId), linkHeader, pathSegment, visited, givenAccessToken, since, until).map { processed ->
-                        val listOfLists = mutableListOf<String>()
-                        listOfLists.addAll(processed)
-                        val res = handleBody(response, since, until, listOfLists.size)
-                        listOfLists.addAll(res)
-                        listOfLists
+                    val cursor = response.body.cursor
+                    if (response.body.feed?.isNotEmpty() == true) {
+                        handleLink((userId ?: appProperties.bluesky.accountId), cursor, pathSegment, visited, givenAccessToken, since, until).map { processed ->
+                            val listOfLists = mutableListOf<String>()
+                            listOfLists.addAll(processed)
+                            val res = handleBody(response, since, until, listOfLists.size)
+                            listOfLists.addAll(res)
+                            listOfLists
+                        }
+                    } else {
+                        Mono.just(emptyList<String>())
                     }
                 }.doOnError {
                     val type2: CollectionType = objectMapper.typeFactory.constructCollectionType(
@@ -258,13 +266,17 @@ class BlueskyService @Autowired constructor(
                             .build()
                     }.headers { h -> h.setBearerAuth(accessToken) }.retrieve()
                         .toEntity(paramType2).flatMap { response ->
-                            val linkHeader = response.headers["Link"]
-                            handleLink((userId ?: appProperties.bluesky.accountId), linkHeader, pathSegment, visited, givenAccessToken, since, until).map { processed ->
-                                val listOfLists = mutableListOf<String>()
-                                listOfLists.addAll(processed)
-                                val res = handleBody2(response, since, until, listOfLists.size, pathSegment)
-                                listOfLists.addAll(res)
-                                listOfLists
+                            val cursor = response.body.filter { it.get("cursor") != null }.map { it.get("cursor").asText() }.firstOrNull()
+                            if (response.body.filter { it.get("feeds") != null }.map { it.get("feeds") }.firstOrNull() !== null) {
+                                handleLink((userId ?: appProperties.bluesky.accountId), cursor, pathSegment, visited, givenAccessToken, since, until).map { processed ->
+                                    val listOfLists = mutableListOf<String>()
+                                    listOfLists.addAll(processed)
+                                    val res = handleBody2(response, since, until, listOfLists.size, pathSegment)
+                                    listOfLists.addAll(res)
+                                    listOfLists
+                                }
+                            } else {
+                                Mono.just(emptyList<String>())
                             }
                         }
                 }
@@ -280,9 +292,13 @@ class BlueskyService @Autowired constructor(
         val decimalFormat = DecimalFormat("000")
         val simpleDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
         return response.body?.feed?.reversed()?.mapIndexed { index, tweet ->
-            val createdAt = LocalDateTime.from(simpleDateFormat.parse(tweet.post?.record?.createdAt.toString()))
-            if ((since == null || createdAt.toLocalDate().isAfter(since)) &&
-                (until == null || createdAt.toLocalDate().isBefore(until))
+            val createdAt = try {
+                LocalDateTime.from(simpleDateFormat.parse(tweet.post?.record?.createdAt.toString()))
+            } catch (_: Exception) {
+                null
+            }
+            if (createdAt != null && ((since == null || createdAt.toLocalDate().isAfter(since)) &&
+                (until == null || createdAt.toLocalDate().isBefore(until)))
             ) {
                 listOfNotNull(
                     "${decimalFormat.format(currentSize + index + 1)}. ${tweet.post?.record?.createdAt}: ${tweet.post?.record?.text}",
@@ -324,22 +340,15 @@ class BlueskyService @Autowired constructor(
 
     private fun handleLink(
         userId: String,
-        linkHeader: MutableList<String>?,
+        cursor: String?,
         url: String,
         visited: MutableList<String>,
         givenAccessToken: String?,
         since: LocalDate?,
         until: LocalDate?,
     ): Mono<List<String>> {
-        if (linkHeader != null) {
-            val parts = linkHeader[0].split(";")
-            if (parts.isNotEmpty()) {
-                val prevUrl = parts[0].replace("<", "").replace(">", "")
-                if (prevUrl != url && !visited.contains(prevUrl)) {
-                    visited.add(url)
-                    return internalStatuses(userId, givenAccessToken, prevUrl, visited, since, until)
-                }
-            }
+        if (cursor != null) {
+            return internalStatuses(userId, givenAccessToken, url, cursor, visited, since, until)
         }
         return Mono.just(emptyList())
     }

@@ -31,7 +31,7 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:_")
     implementation("org.mnode.ical4j:ical4j:_")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:_")
-    implementation("io.netty:netty-resolver-dns-native-macos:_")
+    implementation("io.netty:netty-resolver-dns-native-macos:_:osx-aarch_64")
 
     testImplementation(Testing.junit.jupiter)
     testRuntimeOnly("org.junit.platform:junit-platform-launcher:_")
