@@ -540,8 +540,8 @@ class IcalGeneratorTest {
                     houseNumber = "2",
                     zipCode = "48149",
                     city = "Münster",
-                    lat = 51.4176519,
-                    lon = 9.6535408
+                    lat = 51.96360715,
+                    lon = 7.613135742994505
                 ),
                 title = "FOSSGIS",
                 link = "https://fossgis-konferenz.de/2025/"
@@ -739,8 +739,8 @@ class IcalGeneratorTest {
                     houseNumber = "28A",
                     zipCode = "12053",
                     city = "Berlin",
-                    lat = 51.5926406,
-                    lon = 4.7693296,
+                    lat = 52.4790412,
+                    lon = 13.4319106,
                 ),
                 title = "Rethink Recycling: KI in der Praxis",
                 link = "https://www.ki-ideenwerkstatt.de/veranstaltungen/themenabend-rethink-recycling-ki-in-der-praxis/"
