@@ -1908,9 +1908,9 @@ class IcalGeneratorTest {
     private fun recurrentEvents(): List<CalendarComponent> {
         val events = mutableListOf<CalendarComponent>()
         val everySecondMonday =
-            RRule(Recur<LocalDateTime>("RRULE:FREQ=WEEKLY;INTERVAL=2;BYDAY=MO;UNTIL=20251231000000Z"))
-        val everyTuesday = RRule(Recur<LocalDateTime>("RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=TU;UNTIL=20251231000000Z"))
-        val everyWednesday = RRule(Recur<LocalDateTime>("RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=WE;UNTIL=20251231000000Z"))
+            RRule(Recur<LocalDateTime>("FREQ=WEEKLY;INTERVAL=2;BYDAY=MO;UNTIL=20251231"))
+        val everyTuesday = RRule(Recur<LocalDateTime>("FREQ=WEEKLY;INTERVAL=1;BYDAY=TU;UNTIL=20251231"))
+        val everyWednesday = RRule(Recur<LocalDateTime>("FREQ=WEEKLY;INTERVAL=1;BYDAY=WE;UNTIL=20251231"))
         events.add(
             createCalendarComponent(
                 Event(
