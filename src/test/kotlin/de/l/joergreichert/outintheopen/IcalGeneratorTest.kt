@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import java.io.FileInputStream
 import java.io.FileWriter
+import java.math.BigDecimal
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
@@ -1898,11 +1899,16 @@ class IcalGeneratorTest {
         val location = net.fortuna.ical4j.model.property.Location(locationStr(event.location))
         val link = net.fortuna.ical4j.model.property.Link(event.link)
         val description = net.fortuna.ical4j.model.property.Description(event.comments.joinToString("; "))
-        return VEvent(event.from, event.to, event.title)
-            .withProperty(location)
+        var vevent = VEvent(event.from, event.to, event.title)
             .withProperty(link)
             .withProperty(description)
-            .fluentTarget as CalendarComponent
+            .withProperty(location)
+        if (event.location.lat != null && event.location.lon != null) {
+            val geo = net.fortuna.ical4j.model.property.Geo(
+                BigDecimal.valueOf(event.location.lat), BigDecimal.valueOf(event.location.lon))
+            vevent = vevent.withProperty(geo)
+        }
+        return vevent.fluentTarget as CalendarComponent
     }
 
     private fun recurrentEvents(): List<CalendarComponent> {

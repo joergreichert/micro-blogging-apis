@@ -3,476 +3,509 @@ CALSCALE:GREGORIAN
 VERSION:2.0
 PRODID:-//Out In The Open Feburar 2025//iCal4j 1.0//EN
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250301T000000
 DTEND:20250308T235959
 SUMMARY:Open Data Day 2025
-LOCATION:online
 LINK;VALUE=UID:https://opendataday.org/de/events/2025/
 DESCRIPTION:
+LOCATION:online
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250301T090000
 DTEND:20250301T160000
 SUMMARY:Open Data Day 2025 in München
-LOCATION:IT-Referat der Stadt München\, Qubes Gebäude\, Agnes-Pockels-Bogen 33\, 80992 München
 LINK;VALUE=UID:https://muenchen.digital/veranstaltungen/open-data-day-2025.html
 DESCRIPTION:
+LOCATION:IT-Referat der Stadt München\, Qubes Gebäude\, Agnes-Pockels-Bogen 33\, 80992 München
+GEO:48.17402935;11.533678297485846
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250301T100000
 DTEND:20250301T210000
 SUMMARY:Open Data Day Flensburg 2025
-LOCATION:Aktivitetshuset\, Norderstraße 49\, 24939 Flensburg
 LINK;VALUE=UID:https://opendataday-flensburg.de
 DESCRIPTION:
+LOCATION:Aktivitetshuset\, Norderstraße 49\, 24939 Flensburg
+GEO:54.791591785985844;9.431249601609665
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250303T110000
 DTEND:20250303T173000
 SUMMARY:Prototype Fund: Demo Day der Förderrunde 16
-LOCATION:bUm – Raum für solidarisches Miteinander\, Paul-Lincke-Ufer 21\, 10999 Berlin
 LINK;VALUE=UID:https://prototypefund.de/demo-day/
 DESCRIPTION:
+LOCATION:bUm – Raum für solidarisches Miteinander\, Paul-Lincke-Ufer 21\, 10999 Berlin
+GEO:52.4937932;13.4296611
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250304T200000
 DTEND:20250304T220000
 SUMMARY:144. Netzpolitischer Abend
-LOCATION:c-base\, Rungestraße 20\, 10179 Berlin und auch online
 LINK;VALUE=UID:https://digitalegesellschaft.de/2025/02/144-netzpolitischer-abend/
 DESCRIPTION:
+LOCATION:c-base\, Rungestraße 20\, 10179 Berlin und auch online
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250305T090000
 DTEND:20250305T150000
 SUMMARY:Open Data Expo 2025
-LOCATION:FH Technikum Wien\, Höchstädtplatz 6\, 1200 Wien
 LINK;VALUE=UID:https://digitales.wien.gv.at/open-data-expo-2025/
 DESCRIPTION:
+LOCATION:FH Technikum Wien\, Höchstädtplatz 6\, 1200 Wien
+GEO:48.2391664;16.3774409
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250305T180000
 DTEND:20250305T193000
 SUMMARY:Künstliche Intelligenz und Urheberrecht
-LOCATION:Wikimedia Deutschland e. V.\, Tempelhofer Ufer 23-24\, 10963 Berlin
 LINK;VALUE=UID:https://www.wikimedia.de/veranstaltungen/monsters-of-law-kuenstliche-intelligenz-und-urheberrecht/
 DESCRIPTION:
+LOCATION:Wikimedia Deutschland e. V.\, Tempelhofer Ufer 23-24\, 10963 Berlin
+GEO:52.4984142;13.3810486
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250306T140000
 DTEND:20250306T160000
 SUMMARY:Einführung in die digitale Erschließung
-LOCATION:online
 LINK;VALUE=UID:https://www.digis-berlin.de/einfuehrung-in-die-digitale-erschliessung-am-6-3/
 DESCRIPTION:
+LOCATION:online
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250306T180000
 DTEND:20250306T210000
 SUMMARY:Jugend editiert
-LOCATION:WikiBär Wikipedia\, Köpenicker Straße 45\, 10179 Berlin
 LINK;VALUE=UID:https://www.wikimedia.de/veranstaltungen/jugend-editiert/
 DESCRIPTION:
+LOCATION:WikiBär Wikipedia\, Köpenicker Straße 45\, 10179 Berlin
+GEO:52.50267706293607;13.439250348721544
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250306T173000
 DTEND:20250306T210000
 SUMMARY:Bits & Bäume Policy Lab - Digitale Souveränität für eine wehrhafte Demokratie
-LOCATION:Weizenbaum-Institut\, Hardenbergstr. 32\, 10623 Berlin
 LINK;VALUE=UID:https://www.weizenbaum-institut.de/news/detail/bits-baeume-policy-lab-2025/
 DESCRIPTION:
+LOCATION:Weizenbaum-Institut\, Hardenbergstr. 32\, 10623 Berlin
+GEO:52.5081411;13.3292227
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250306T193100
 DTEND:20250306T203000
 SUMMARY:Bits & Bäume Community Vernetzungstreffen
-LOCATION:online
 LINK;VALUE=UID:https://discourse.bits-und-baeume.org/t/2025-03-06-online-community-treffen-19-31-uhr/1602
 DESCRIPTION:
+LOCATION:online
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250307T190000
 DTEND:20250309T210000
 SUMMARY:Community-Hackday: Starke Frauen\, Brot und Rosen
-LOCATION:Jugendzentrum Nord (JuNo)\, Lintforter Straße 132\, 47445 Moers
 LINK;VALUE=UID:https://osmcal.org/event/3436/
 DESCRIPTION:
+LOCATION:Jugendzentrum Nord (JuNo)\, Lintforter Straße 132\, 47445 Moers
+GEO:51.489544949999996;6.607030129498574
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250310T190000
 DTEND:20250310T220000
 SUMMARY:Code for Berlin
-LOCATION:WikiBär Wikipedia\, Köpenicker Straße 45\, 10179 Berlin
 LINK;VALUE=UID:https://www.meetup.com/ok-lab-berlin/events/306493396/
 DESCRIPTION:
+LOCATION:WikiBär Wikipedia\, Köpenicker Straße 45\, 10179 Berlin
+GEO:52.50267706293607;13.439250348721544
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250311T170000
 DTEND:20250311T190000
 SUMMARY:Interactive Meetup: AI Insights and Workshop on local LLMs
-LOCATION:SCADS.AI Dresden/Leipzig\, Humboldtstr. 25\, 04105 Leipzig
 LINK;VALUE=UID:https://scads.ai/event/meetup/
 DESCRIPTION:
+LOCATION:SCADS.AI Dresden/Leipzig\, Humboldtstr. 25\, 04105 Leipzig
+GEO:51.3466504;12.3740462
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250311T180000
 DTEND:20250311T193000
 SUMMARY:ChatGPT: Wie veränderst du die Wissenschaft?
-LOCATION:online
 LINK;VALUE=UID:https://www.weizenbaum-institut.de/veranstaltungen/detailseite/chatgpt-wie-veraenderst-du-die-wissenschaft/
 DESCRIPTION:
+LOCATION:online
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250312T173000
 DTEND:20250312T190000
 SUMMARY:Künstliche Intelligenz im freiwilligen sozialen Engagement
-LOCATION:online
 LINK;VALUE=UID:https://www.charta28.de/kommunikationsorte/ki-in-der-sozialwirtschaft
 DESCRIPTION:
+LOCATION:online
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250313T110000
 DTEND:20250313T163000
 SUMMARY:#D21talk – Digitale Gesellschaft 2030: Gerechtigkeit\, Teilhabe und Verantwortung
-LOCATION:Deutscher Sparkassen- und Giroverband\,  Charlottenstraße 47\, 10117 Berlin
 LINK;VALUE=UID:https://initiatived21.de/veranstaltungen/d21talk-digitale-gesellschaft-2030-gerechtigkeit-teilhabe-und-verantwortung
 DESCRIPTION:
+LOCATION:Deutscher Sparkassen- und Giroverband\,  Charlottenstraße 47\, 10117 Berlin
+GEO:52.5160623;13.3906284
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250313T113000
 DTEND:20250313T123000
 SUMMARY:CorrelCompact: KI-Kickstart - Grundlagen und Chancen für Non-Profits
-LOCATION:online
 LINK;VALUE=UID:https://www.correlaid.org/veranstaltungen/correlcompact-ki-25-1
 DESCRIPTION:
+LOCATION:online
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250313T160000
 DTEND:20250313T170000
 SUMMARY:Civic Coding-Forum: Ethischer KI-Einsatz - Erfolgsmodelle aus der Praxis
-LOCATION:online
 LINK;VALUE=UID:https://forum-ethischer-ki-einsatz.anmeldung-events.de
 DESCRIPTION:
+LOCATION:online
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250314T170000
 DTEND:20250315T200000
 SUMMARY:Open Data HackDays 2025 in Karlsruhe
-LOCATION:House of Living Labs\, FZI | Forschungszentrum Informatik Karlsruhe\, Haid-und-Neu-Straße 10-14\, 76131 Karlsruhe
 LINK;VALUE=UID:https://karlsruhe.digital/2025/02/open-data-hackdays-karlsruhe/
 DESCRIPTION:
+LOCATION:House of Living Labs\, FZI | Forschungszentrum Informatik Karlsruhe\, Haid-und-Neu-Straße 10-14\, 76131 Karlsruhe
+GEO:49.012037649999996;8.424695475549498
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250314T170000
 DTEND:20250315T180000
 SUMMARY:Datendialog
-LOCATION:Bertelsmann Stiftung Berlin\, Werderscher Markt 6\, 10117 Berlin
 LINK;VALUE=UID:https://www.bertelsmann-stiftung.de/de/unsere-projekte/data-science/projektnachrichten/agenda-datendialog
 DESCRIPTION:
+LOCATION:Bertelsmann Stiftung Berlin\, Werderscher Markt 6\, 10117 Berlin
+GEO:52.5158087;13.3979948
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250319T100000
 DTEND:20250319T130000
 SUMMARY:KI-Workshop Lokales Retrieval-Augmented-Generation-System: Effizientes Abfragen von Informationen aus Dokumenten
-LOCATION:KI-Servicezentrum Berlin-Brandenburg am HPI\, Raum: HE.52\, Prof.-Dr.-Helmert-Straße 2-3\, 14482 Potsdam
 LINK;VALUE=UID:https://www.eventbrite.de/e/effizientes-abfragen-von-informationen-aus-dokumenten-tickets-1219326160369
 DESCRIPTION:
+LOCATION:KI-Servicezentrum Berlin-Brandenburg am HPI\, Raum: HE.52\, Prof.-Dr.-Helmert-Straße 2-3\, 14482 Potsdam
+GEO:52.3933919;13.13156397679563
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250320T110000
 DTEND:20250320T120000
 SUMMARY:openCode Connect März 2025
-LOCATION:online
 LINK;VALUE=UID:https://opencode.de/de/aktuelles/opencode-connect-am-27-02-2520
 DESCRIPTION:
+LOCATION:online
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250321T100000
 DTEND:20250322T170000
 SUMMARY:Open Farming Hackdays
-LOCATION:Landwirtschaftliches Zentrum Liebegg\, Liebegg 1\, 5722 Gränichen (Aargau\, Schweiz)
 LINK;VALUE=UID:https://www.farming-hackdays.ch
 DESCRIPTION:
+LOCATION:Landwirtschaftliches Zentrum Liebegg\, Liebegg 1\, 5722 Gränichen (Aargau\, Schweiz)
+GEO:47.3397455;8.119092826447094
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250321T100000
 DTEND:20250322T170000
 SUMMARY:Smart Regio Lab Lenzburg Seetal 2025
-LOCATION:Aula Schulhaus Bleicherain\, Angelrainstrasse 19\, 5600 Lenzburg (Aargau\, Schweiz)
 LINK;VALUE=UID:https://opendata.ch/de/events/smart-regio-lab-lenzburg-seetal-2025/
 DESCRIPTION:
+LOCATION:Aula Schulhaus Bleicherain\, Angelrainstrasse 19\, 5600 Lenzburg (Aargau\, Schweiz)
+GEO:47.3867937;8.17474378762245
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250322T090000
 DTEND:20250323T180000
 SUMMARY:Chemnitzer Linux-Tage
-LOCATION:Technische Universität Chemnitz\, Straße der Nationen 62\, 09111 Chemnitz
 LINK;VALUE=UID:https://chemnitzer.linux-tage.de/2025/de
 DESCRIPTION:
+LOCATION:Technische Universität Chemnitz\, Straße der Nationen 62\, 09111 Chemnitz
+GEO:50.813566;12.929715
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250325T113000
 DTEND:20250325T123000
 SUMMARY:CorrelCompact: Mission Datenqualität - vom Rohmaterial zum Datengold
-LOCATION:online
 LINK;VALUE=UID:https://www.correlaid.org/veranstaltungen/correlcompact-datenqualitaet-25-1
 DESCRIPTION:
+LOCATION:online
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250325T100000
 DTEND:20250325T200000
 SUMMARY:Yes\, we are open! Künstliche Intelligenz verantwortungsbewusst gestalten
-LOCATION:Weizenbaum-Institut\, Hardenbergstr. 32\, 10623 Berlin
 LINK;VALUE=UID:https://www.weizenbaum-institut.de/veranstaltungen/detailseite/yes-we-are-open-kuenstliche-intelligenz-verantwortungsbewusst-gestalten/
 DESCRIPTION:
+LOCATION:Weizenbaum-Institut\, Hardenbergstr. 32\, 10623 Berlin
+GEO:52.5081411;13.3292227
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250326T090000
 DTEND:20250326T150000
 SUMMARY:Fachtagung: Soziale Dienstleistungen im digitalen Zeitalter: KI als Werkzeug zur Transformation
-LOCATION:Katholische Hochschule für Sozialwesen Berlin\, Köpenicker Allee 39-57\, 10318 Berlin
 LINK;VALUE=UID:https://www.khsb-berlin.de/de/node/990254
 DESCRIPTION:
+LOCATION:Katholische Hochschule für Sozialwesen Berlin\, Köpenicker Allee 39-57\, 10318 Berlin
+GEO:51.4176519;9.6535408
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250326T100000
 DTEND:20250329T164500
 SUMMARY:FOSSGIS
-LOCATION:Schloss Münster\, Schlossplatz 2\, 48149 Münster
 LINK;VALUE=UID:https://fossgis-konferenz.de/2025/
 DESCRIPTION:
+LOCATION:Schloss Münster\, Schlossplatz 2\, 48149 Münster
+GEO:51.4176519;9.6535408
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250327T110000
 DTEND:20250327T120000
 SUMMARY:openCode Community Call
-LOCATION:online
 LINK;VALUE=UID:https://opencode.de/de/aktuelles/events/community-call-2-2524
 DESCRIPTION:
+LOCATION:online
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250328T100000
 DTEND:20250329T170000
 SUMMARY:transform_D Summit 2025
-LOCATION:Colosseum Kino\, Gleimstraße 31\, 10437 Berlin
 LINK;VALUE=UID:https://www.deutsche-stiftung-engagement-und-ehrenamt.de/d-s-e-e-de-summit/
 DESCRIPTION:
+LOCATION:Colosseum Kino\, Gleimstraße 31\, 10437 Berlin
+GEO:52.5477163;13.4121477
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250329T100000
 DTEND:20250329T235959
 SUMMARY:Tag des offenen Hackspace
-LOCATION:
 LINK;VALUE=UID:https://events.ccc.de/2025/02/28/tag-des-offenen-hackspace-2025/
 DESCRIPTION:
+LOCATION:
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250329T110000
 DTEND:20250329T214500
 SUMMARY:Acht Jahre Prototype Fund
-LOCATION:Festsaal Kreuzberg\, Am Flutgraben 2\, 12435 Berlin
 LINK;VALUE=UID:https://prototypefund.de/acht-jahre/
 DESCRIPTION:
+LOCATION:Festsaal Kreuzberg\, Am Flutgraben 2\, 12435 Berlin
+GEO:52.49682315;13.451555564938815
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250329T193000
 DTEND:20250329T210000
 SUMMARY:Verkehrswende-Meetup
-LOCATION:online
 LINK;VALUE=UID:https://wiki.openstreetmap.org/wiki/Verkehrswende-Meetup#Meetups
 DESCRIPTION:
+LOCATION:online
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250403T080000
 DTEND:20250403T140000
 SUMMARY:Girls'Day Online Events
-LOCATION:online
 LINK;VALUE=UID:https://www.girls-day.de/Radar?lat=0&lon=0&locality=&keywords=programmieren&sortBy=&sortDesc=false&page=1&pageSize=30&radius=20&gkz=&initiativeId=0&categoryIds=&minimumFreePlaces=1&maximumFreePlaces=-1&minimumParticipantsAge=0&onlySubscribable=false&onlyAccessible=false&onlyEmbedded=false&onlyVirtual=true&onlyNonvirtual=false&organizerId=0&freePlaces=mindestens+1&locationType=digital+%2F+vom+Rechner+aus&warmStart=true&for=event
 DESCRIPTION:
+LOCATION:online
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250403T080000
 DTEND:20250403T123000
 SUMMARY:Girls'Day am ZIB
-LOCATION:Freie Universität Berlin - Zuse-Institut Berlin (ZIB)\, Takustraße 9\, 14195 Berlin
 LINK;VALUE=UID:https://www.zib.de/event/girlsday-am-zib-sei-dabei
 DESCRIPTION:
+LOCATION:Freie Universität Berlin - Zuse-Institut Berlin (ZIB)\, Takustraße 9\, 14195 Berlin
+GEO:52.4559809;13.297162523268483
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250403T100000
 DTEND:20250403T183000
 SUMMARY:Girls Day 2025 im CityLAB – Zukunftsjobs mit Daten!
-LOCATION:Technologiestiftung Berlin - CityLAB\, Platz der Luftbrücke 4\, 12101 Berlin
 LINK;VALUE=UID:https://citylab-berlin.org/de/events/zukunftstag-2025-im-citylab-tauche-ein-in-die-welt-der-daten/
 DESCRIPTION:
+LOCATION:Technologiestiftung Berlin - CityLAB\, Platz der Luftbrücke 4\, 12101 Berlin
+GEO:52.4838796;13.3885778
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250404T093000
 DTEND:20250405T183000
 SUMMARY:10 Jahre Hackday Moers
-LOCATION:Rathaus Moers\, Rathausplatz 1\, 47441 Moers
 LINK;VALUE=UID:https://www.moers.de/veranstaltungen/hackday-2025
 DESCRIPTION:
+LOCATION:Rathaus Moers\, Rathausplatz 1\, 47441 Moers
+GEO:51.4532487;6.626686
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250404T180000
 DTEND:20250406T130000
 SUMMARY:FemNetzCon 2025
-LOCATION:temporärhaus\, Augsburger Straße 23–25\, 89231 Neu-Ulm
 LINK;VALUE=UID:https://de.wikipedia.org/wiki/Wikipedia:WikiProjekt_FemNetz/FemNetzCon_2025
 DESCRIPTION:
+LOCATION:temporärhaus\, Augsburger Straße 23–25\, 89231 Neu-Ulm
+GEO:52.49682315;13.451555564938815
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250407T140000
 DTEND:20250407T150000
 SUMMARY:CorrelCompact: Data Storytelling - Daten sprechen lassen!
-LOCATION:online
 LINK;VALUE=UID:https://www.correlaid.org/veranstaltungen/correlcompact-storytelling-25-1
 DESCRIPTION:
+LOCATION:online
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250408T090000
 DTEND:20250408T120000
 SUMMARY:AI Impact - KI und Nachhaltigkeit
-LOCATION:online
 LINK;VALUE=UID:https://www.erwachsenenbildung-ekhn.de/programm/kw/bereich/kursdetails/kurs/2025-D-033/kursname/Online%20AI%20Impact%20-%20KI%20und%20Nachhaltigkeit/kategorie-id/5/
 DESCRIPTION:
+LOCATION:online
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250408T110000
 DTEND:20250408T120000
 SUMMARY:Ope Parl Data: Public Meeting #4
-LOCATION:online
 LINK;VALUE=UID:https://opendata.ch/de/events/open-parl-data-public-meeting-4/
 DESCRIPTION:
+LOCATION:online
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250409T090000
 DTEND:20250409T160000
 SUMMARY:4. Open Data Barcamp 2025
-LOCATION:Kaisersaal\, Futterstraße 15/16\, 99084 Erfurt
 LINK;VALUE=UID:https://www.bertelsmann-stiftung.de/de/unsere-projekte/daten-fuer-die-gesellschaft/projektnachrichten/4-open-data-barcamp-2025-einladungsseite
 DESCRIPTION:
+LOCATION:Kaisersaal\, Futterstraße 15/16\, 99084 Erfurt
+GEO:50.97936970000001;11.033602232239485
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250409T173000
 DTEND:20250409T203000
 SUMMARY:Rethink Recycling: KI in der Praxis
-LOCATION:KI-Ideenwerkstatt für Umweltschutz\, Rollbergstr. 28A\, 12053 Berlin
 LINK;VALUE=UID:https://www.ki-ideenwerkstatt.de/veranstaltungen/themenabend-rethink-recycling-ki-in-der-praxis/
 DESCRIPTION:
+LOCATION:KI-Ideenwerkstatt für Umweltschutz\, Rollbergstr. 28A\, 12053 Berlin
+GEO:51.5926406;4.7693296
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250409T093000
 DTEND:20250409T110000
 SUMMARY:KI in Pflege und Betreuung am Beispiel von CareMates
-LOCATION:online
 LINK;VALUE=UID:https://www.charta28.de/kommunikationsorte/ki-in-der-sozialwirtschaft
 DESCRIPTION:
+LOCATION:online
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250410T093000
 DTEND:20250410T183000
 SUMMARY:Who Owns Free Knowledge? Examining Power\, Platformization\, and the Promise of the Commons
-LOCATION:Weizenbaum-Institut\, Hardenbergstr. 32\, 10623 Berlin
 LINK;VALUE=UID:https://www.weizenbaum-institut.de/conference-who-owns-free-knowledge/
 DESCRIPTION:
+LOCATION:Weizenbaum-Institut\, Hardenbergstr. 32\, 10623 Berlin
+GEO:52.5081411;13.3292227
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250305T180000
 DTEND:20250305T210000
 SUMMARY:OKLab Flensburg
-LOCATION:Aktivitetshuset\, Norderstraße 49\, 24939 Flensburg
 LINK;VALUE=UID:https://codefor.de/flensburg/
 DESCRIPTION:
+LOCATION:Aktivitetshuset\, Norderstraße 49\, 24939 Flensburg
+GEO:54.791591785985844;9.431249601609665
 RRULE:FREQ=WEEKLY;UNTIL=20251231;INTERVAL=1;BYDAY=WE
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250303T190000
 DTEND:20250303T220000
 SUMMARY:Code for Cologne
-LOCATION:Wikipedia Lokal K\, Hackländerstr 2\, 50825 Köln
 LINK;VALUE=UID:https://www.meetup.com/de-DE/codeforcologne/
 DESCRIPTION:
+LOCATION:Wikipedia Lokal K\, Hackländerstr 2\, 50825 Köln
+GEO:50.9556011;6.910391
 RRULE:FREQ=WEEKLY;UNTIL=20251231;INTERVAL=2;BYDAY=MO
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250305T190000
 DTEND:20250305T220000
 SUMMARY:OKLab Leipzig
-LOCATION:Basislager Coworking Leipzig\, Peterssteinweg 14\, 04107 Leipzig
 LINK;VALUE=UID:https://www.meetup.com/de-DE/oklab-leipzig/
 DESCRIPTION:
+LOCATION:Basislager Coworking Leipzig\, Peterssteinweg 14\, 04107 Leipzig
+GEO:51.3320744;12.3735399
 RRULE:FREQ=WEEKLY;UNTIL=20251231;INTERVAL=1;BYDAY=WE
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250304T193000
 DTEND:20250304T220000
 SUMMARY:Code for Münster
-LOCATION:Café Drei:klang\, Wolbeckerstr 36\, 48155 Münster
 LINK;VALUE=UID:https://www.meetup.com/de-DE/code-for-munster/
 DESCRIPTION:
+LOCATION:Café Drei:klang\, Wolbeckerstr 36\, 48155 Münster
+GEO:51.9576369;7.6398118
 RRULE:FREQ=WEEKLY;UNTIL=20251231;INTERVAL=1;BYDAY=TU
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250308T160500Z
+DTSTAMP:20250308T164502Z
 DTSTART:20250304T200000
 DTEND:20250304T220000
 SUMMARY:Code for Niederrhein
-LOCATION:online
 LINK;VALUE=UID:https://www.codeforniederrhein.de/termine/
 DESCRIPTION:
+LOCATION:online
 RRULE:FREQ=WEEKLY;UNTIL=20251231;INTERVAL=1;BYDAY=TU
 END:VEVENT
 END:VCALENDAR
