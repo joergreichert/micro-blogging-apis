@@ -65,6 +65,10 @@
 
         <script>
             const eventsUrl = 'https://joergreichert.github.io/micro-blogging-apis/ics/events.ics'
+            var eventIcon = L.icon({
+                iconUrl: 'js/images/event.png',
+                iconSize: [16, 16],
+            });
           document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -111,16 +115,22 @@
               var vevents = new ICAL.Component(ICAL.parse(icalStr)).getAllSubcomponents('vevent');
               for (var vevent of vevents) {
                   var event = new ICAL.Event(vevent);
-                  if (event.geo) {
-                      var loc = event.geo.split(';');
-                      var lat = parseFloat(loc[0]);
-                      var lon = parseFloat(loc[1]);
-                      if (!isNaN(lat) && isNaN(lon)) {
+                  var geos = vevent.jCal && vevent.jCal.length > 1 && vevent.jCal[1]
+                    && vevent.jCal[1].filter(arr => arr[0] == 'geo');
+                  var geo = geos && geos.length > 0 && geos[0];
+                  var coords = geo && geo.length > 3 && geo[3];
+                  if (coords && coords.length == 2) {
+                      if (!isNaN(coords[0]) && !isNaN(coords[1])) {
+                          var links = vevent.jCal && vevent.jCal.length > 1 && vevent.jCal[1]
+                            && vevent.jCal[1].filter(arr => arr[0] == 'link');
+                          var linkObj = links && links.length > 0 && links[0];
+                          var link = linkObj && linkObj.length > 3 && linkObj[3];
                           events.push({
                               summary: event.summary,
                               start: event.startDate.toJSDate(),
                               end: event.endDate.toJSDate(),
-                              coords: [lat, lon]
+                              link,
+                              coords
                           });
                       }
                   }
@@ -128,14 +138,21 @@
               showEvents(events);
           };
           var eventDetails = (evt) => {
-              var content = "<b>" + event.summary + "</b>";
-
+              var day = evt.start.getDay() + "." + (evt.start.getMonth() + 1);
+              var content = "<b>" + day + ": " + evt.summary + "</b>";
+              if (evt.link) {
+                content += "<br /><a target='_blank' href='" + evt.link + "'>Mehr Infos</a>";
+              }
               return content;
           };
           var showEvents = (evts) => {
               for (var evt of evts) {
                 if (evt.coords) {
-                    L.marker(evt.coords).addTo(map).bindPopup(eventDetails(evt));
+                    const marker = L.marker(evt.coords, {icon: eventIcon}).addTo(map)
+                        .bindPopup(eventDetails(evt))
+                    marker.on('mouseover',function(ev) {
+                       marker.openPopup();
+                    });
                 }
               }
           };
