@@ -2,8 +2,10 @@ package de.l.joergreichert.outintheopen
 
 import net.fortuna.ical4j.data.CalendarBuilder
 import net.fortuna.ical4j.model.Calendar
+import net.fortuna.ical4j.model.Recur
 import net.fortuna.ical4j.model.component.CalendarComponent
 import net.fortuna.ical4j.model.component.VEvent
+import net.fortuna.ical4j.model.property.RRule
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -80,11 +82,23 @@ class IcalGeneratorTest {
     }
 
     @Test
-    @Disabled
+    //@Disabled
     fun testGenerateMarch2025IcsFromDataModel() {
         val events = createMarch2025Events()
         val actual = events.joinToString("\n") { generateEventLink(it) }
+        FileWriter(System.getProperty("user.dir") + "/docs/ics/events.ics").use { out ->
+            out.write(createIcsForMonth("Out In The Open Feburar 2025", events))
+        }
         assertEquals(expected(), actual)
+    }
+
+    private fun createIcsForMonth(monthTitle: String, events: List<Event>): String {
+        val calendar = events.fold(
+            Calendar().withDefaults().withProdId("-//${monthTitle}//iCal4j 1.0//EN")
+        ) { cal, event -> cal.withComponent(createCalendarComponent(event)); cal }
+        val calendarWithCodeforEvents = recurrentEvents()
+            .fold(calendar) { cal, event -> cal.withComponent(event) }
+        return calendarWithCodeforEvents.toString()
     }
 
     private fun createMarch2025Events(): MutableList<Event> {
@@ -93,7 +107,7 @@ class IcalGeneratorTest {
             Event(
                 from = LocalDateTime.of(2025, 3, 1, 0, 0, 0),
                 to = LocalDateTime.of(2025, 3, 8, 23, 59, 59),
-                location = Location(online=true),
+                location = Location(online = true),
                 title = "Open Data Day 2025",
                 link = "https://opendataday.org/de/events/2025/"
             )
@@ -275,6 +289,41 @@ class IcalGeneratorTest {
         )
         events.add(
             Event(
+                from = LocalDateTime.of(2025, 3, 10, 19, 0, 0),
+                to = LocalDateTime.of(2025, 3, 10, 22, 0, 0),
+                location = Location(
+                    name = "WikiBär Wikipedia",
+                    street = "Köpenicker Straße",
+                    houseNumber = "45",
+                    zipCode = "10179",
+                    city = "Berlin",
+                    lon = 13.439250348721544,
+                    lat = 52.50267706293607
+                ),
+                title = "Code for Berlin",
+                link = "https://www.meetup.com/ok-lab-berlin/events/306493396/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 3, 11, 17, 0, 0),
+                to = LocalDateTime.of(2025, 3, 11, 19, 0, 0),
+                location = Location(
+                    name = "SCADS.AI Dresden/Leipzig",
+                    street = "Humboldtstr.",
+                    houseNumber = "25",
+                    zipCode = "04105",
+                    city = "Leipzig",
+                    online = false,
+                    lat = 51.3466504,
+                    lon = 12.3740462,
+                ),
+                title = "Interactive Meetup: AI Insights and Workshop on local LLMs",
+                link = "https://scads.ai/event/meetup/"
+            )
+        )
+        events.add(
+            Event(
                 from = LocalDateTime.of(2025, 3, 11, 18, 0, 0),
                 to = LocalDateTime.of(2025, 3, 11, 19, 30, 0),
                 location = Location(online = true),
@@ -286,7 +335,7 @@ class IcalGeneratorTest {
             Event(
                 from = LocalDateTime.of(2025, 3, 12, 17, 30, 0),
                 to = LocalDateTime.of(2025, 3, 12, 19, 0, 0),
-                location = Location(online=true),
+                location = Location(online = true),
                 title = "Künstliche Intelligenz im freiwilligen sozialen Engagement",
                 link = "https://www.charta28.de/kommunikationsorte/ki-in-der-sozialwirtschaft"
             )
@@ -321,7 +370,7 @@ class IcalGeneratorTest {
             Event(
                 from = LocalDateTime.of(2025, 3, 13, 16, 0, 0),
                 to = LocalDateTime.of(2025, 3, 13, 17, 0, 0),
-                location = Location(online=true),
+                location = Location(online = true),
                 title = "Civic Coding-Forum: Ethischer KI-Einsatz - Erfolgsmodelle aus der Praxis",
                 link = "https://forum-ethischer-ki-einsatz.anmeldung-events.de"
             )
@@ -381,7 +430,7 @@ class IcalGeneratorTest {
             Event(
                 from = LocalDateTime.of(2025, 3, 20, 11, 0, 0),
                 to = LocalDateTime.of(2025, 3, 20, 12, 0, 0),
-                location = Location(online=true),
+                location = Location(online = true),
                 title = "openCode Connect März 2025",
                 link = "https://opencode.de/de/aktuelles/opencode-connect-am-27-02-2520"
             )
@@ -501,7 +550,7 @@ class IcalGeneratorTest {
             Event(
                 from = LocalDateTime.of(2025, 3, 27, 11, 0, 0),
                 to = LocalDateTime.of(2025, 3, 27, 12, 0, 0),
-                location = Location(online=true),
+                location = Location(online = true),
                 title = "openCode Community Call",
                 link = "https://opencode.de/de/aktuelles/events/community-call-2-2524"
             )
@@ -527,7 +576,7 @@ class IcalGeneratorTest {
             Event(
                 from = LocalDateTime.of(2025, 3, 29, 10, 0, 0),
                 to = LocalDateTime.of(2025, 3, 29, 23, 59, 59),
-                location = Location(name="diverse"),
+                location = Location(name = "diverse"),
                 title = "Tag des offenen Hackspace",
                 link = "https://events.ccc.de/2025/02/28/tag-des-offenen-hackspace-2025/"
             )
@@ -556,6 +605,49 @@ class IcalGeneratorTest {
                 location = Location(online = true),
                 title = "Verkehrswende-Meetup",
                 link = "https://wiki.openstreetmap.org/wiki/Verkehrswende-Meetup#Meetups"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 4, 3, 8, 0, 0),
+                to = LocalDateTime.of(2025, 4, 3, 14, 0, 0),
+                location = Location(online = true),
+                title = "Girls'Day Online Events",
+                link = "https://www.girls-day.de/Radar?lat=0&lon=0&locality=&keywords=programmieren&sortBy=&sortDesc=false&page=1&pageSize=30&radius=20&gkz=&initiativeId=0&categoryIds=&minimumFreePlaces=1&maximumFreePlaces=-1&minimumParticipantsAge=0&onlySubscribable=false&onlyAccessible=false&onlyEmbedded=false&onlyVirtual=true&onlyNonvirtual=false&organizerId=0&freePlaces=mindestens+1&locationType=digital+%2F+vom+Rechner+aus&warmStart=true&for=event"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 4, 3, 8, 0, 0),
+                to = LocalDateTime.of(2025, 4, 3, 12, 30, 0),
+                location = Location(
+                    name = "Freie Universität Berlin - Zuse-Institut Berlin (ZIB)",
+                    street = "Takustraße",
+                    houseNumber = "9",
+                    zipCode = "14195",
+                    city = "Berlin",
+                    lat = 52.4559809,
+                    lon = 13.297162523268483
+                ),
+                title = "Girls'Day am ZIB",
+                link = "https://www.zib.de/event/girlsday-am-zib-sei-dabei"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 4, 3, 10, 0, 0),
+                to = LocalDateTime.of(2025, 4, 3, 18, 30, 0),
+                location = Location(
+                    name = "Technologiestiftung Berlin - CityLAB",
+                    street = "Platz der Luftbrücke",
+                    houseNumber = "4",
+                    zipCode = "12101",
+                    city = "Berlin",
+                    lat = 52.4838796,
+                    lon = 13.3885778
+                ),
+                title = "Girls Day 2025 im CityLAB – Zukunftsjobs mit Daten!",
+                link = "https://citylab-berlin.org/de/events/zukunftstag-2025-im-citylab-tauche-ein-in-die-welt-der-daten/"
             )
         )
         events.add(
@@ -605,7 +697,7 @@ class IcalGeneratorTest {
             Event(
                 from = LocalDateTime.of(2025, 4, 8, 9, 0, 0),
                 to = LocalDateTime.of(2025, 4, 8, 12, 0, 0),
-                location = Location(online=true),
+                location = Location(online = true),
                 title = "AI Impact - KI und Nachhaltigkeit",
                 link = "https://www.erwachsenenbildung-ekhn.de/programm/kw/bereich/kursdetails/kurs/2025-D-033/kursname/Online%20AI%20Impact%20-%20KI%20und%20Nachhaltigkeit/kategorie-id/5/"
             )
@@ -657,7 +749,7 @@ class IcalGeneratorTest {
             Event(
                 from = LocalDateTime.of(2025, 4, 9, 9, 30, 0),
                 to = LocalDateTime.of(2025, 4, 9, 11, 0, 0),
-                location = Location(online=true),
+                location = Location(online = true),
                 title = "KI in Pflege und Betreuung am Beispiel von CareMates",
                 link = "https://www.charta28.de/kommunikationsorte/ki-in-der-sozialwirtschaft"
             )
@@ -1011,7 +1103,7 @@ class IcalGeneratorTest {
             Event(
                 from = LocalDateTime.of(2025, 2, 27, 11, 0, 0),
                 to = LocalDateTime.of(2025, 2, 27, 12, 0, 0),
-                location = Location(online=true),
+                location = Location(online = true),
                 title = "openCode Connect Februar 2025",
                 link = "https://opencode.de/de/aktuelles/events/opencode-connect-februar-2025-2298"
             )
@@ -1063,7 +1155,7 @@ class IcalGeneratorTest {
             Event(
                 from = LocalDateTime.of(2025, 3, 1, 0, 0, 0),
                 to = LocalDateTime.of(2025, 3, 8, 23, 59, 59),
-                location = Location(online=true),
+                location = Location(online = true),
                 title = "Open Data Day 2025",
                 link = "https://opendataday.org/de/events/2025/"
             )
@@ -1754,7 +1846,8 @@ class IcalGeneratorTest {
         return events
     }
 
-    fun generateEventLink(event: Event) = "* ${dateStr(event)}, ${locationStr(event.location)}: **${event.title}** ${calLink(event)}\n  * ${event.link}"
+    fun generateEventLink(event: Event) =
+        "* ${dateStr(event)}, ${locationStr(event.location)}: **${event.title}** ${calLink(event)}\n  * ${event.link}"
 
     private fun dateStr(event: Event): String {
         val weekDayFrom = event.from.dayOfWeek.getDisplayName(TextStyle.FULL_STANDALONE, Locale.GERMAN)
@@ -1791,14 +1884,7 @@ class IcalGeneratorTest {
     }
 
     private fun calLink(event: Event): String {
-        val location = net.fortuna.ical4j.model.property.Location(locationStr(event.location))
-        val link = net.fortuna.ical4j.model.property.Link(event.link)
-        val description = net.fortuna.ical4j.model.property.Description(event.comments.joinToString("; "))
-        val vevent = VEvent(event.from, event.to, event.title)
-            .withProperty(location)
-            .withProperty(link)
-            .withProperty(description)
-            .fluentTarget as CalendarComponent
+        val vevent = createCalendarComponent(event)
         val calendar = Calendar()
             .withDefaults()
             .withProdId("-//${event.title}//iCal4j 1.0//EN")
@@ -1806,6 +1892,113 @@ class IcalGeneratorTest {
             .fluentTarget
         val base64 = Base64.getEncoder().encodeToString(calendar.toString().toByteArray())
         return "<a title='Kalendereintrag ${event.title}' download='event.ics' href=\"data:text/calendar;base64,${base64}\">&#x1F4C5;</a>"
+    }
+
+    private fun createCalendarComponent(event: Event): CalendarComponent {
+        val location = net.fortuna.ical4j.model.property.Location(locationStr(event.location))
+        val link = net.fortuna.ical4j.model.property.Link(event.link)
+        val description = net.fortuna.ical4j.model.property.Description(event.comments.joinToString("; "))
+        return VEvent(event.from, event.to, event.title)
+            .withProperty(location)
+            .withProperty(link)
+            .withProperty(description)
+            .fluentTarget as CalendarComponent
+    }
+
+    private fun recurrentEvents(): List<CalendarComponent> {
+        val events = mutableListOf<CalendarComponent>()
+        val everySecondMonday =
+            RRule(Recur<LocalDateTime>("RRULE:FREQ=WEEKLY;INTERVAL=2;BYDAY=MO;UNTIL=20251231000000Z"))
+        val everyTuesday = RRule(Recur<LocalDateTime>("RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=TU;UNTIL=20251231000000Z"))
+        val everyWednesday = RRule(Recur<LocalDateTime>("RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=WE;UNTIL=20251231000000Z"))
+        events.add(
+            createCalendarComponent(
+                Event(
+                    from = LocalDateTime.of(2025, 3, 5, 18, 0, 0),
+                    to = LocalDateTime.of(2025, 3, 5, 21, 0, 0),
+                    location = Location(
+                        name = "Aktivitetshuset",
+                        street = "Norderstraße",
+                        houseNumber = "49",
+                        zipCode = "24939",
+                        city = "Flensburg",
+                        lon = 9.431249601609665,
+                        lat = 54.791591785985844
+                    ),
+                    title = "OKLab Flensburg",
+                    link = "https://codefor.de/flensburg/"
+                )
+            ).withProperty(everyWednesday).fluentTarget as CalendarComponent
+        )
+        events.add(
+            createCalendarComponent(
+                Event(
+                    from = LocalDateTime.of(2025, 3, 3, 19, 0, 0),
+                    to = LocalDateTime.of(2025, 3, 3, 22, 0, 0),
+                    location = Location(
+                        name = "Wikipedia Lokal K",
+                        street = "Hackländerstr",
+                        houseNumber = "2",
+                        zipCode = "50825",
+                        city = "Köln",
+                        lon = 6.910391,
+                        lat = 50.9556011
+                    ),
+                    title = "Code for Cologne",
+                    link = "https://www.meetup.com/de-DE/codeforcologne/"
+                )
+            ).withProperty(everySecondMonday).fluentTarget as CalendarComponent
+        )
+        events.add(
+            createCalendarComponent(
+                Event(
+                    from = LocalDateTime.of(2025, 3, 5, 19, 0, 0),
+                    to = LocalDateTime.of(2025, 3, 5, 22, 0, 0),
+                    location = Location(
+                        name = "Basislager Coworking Leipzig",
+                        street = "Peterssteinweg",
+                        houseNumber = "14",
+                        zipCode = "04107",
+                        city = "Leipzig",
+                        lon = 12.3735399,
+                        lat = 51.3320744
+                    ),
+                    title = "OKLab Leipzig",
+                    link = "https://www.meetup.com/de-DE/oklab-leipzig/"
+                )
+            ).withProperty(everyWednesday).fluentTarget as CalendarComponent
+        )
+        events.add(
+            createCalendarComponent(
+                Event(
+                    from = LocalDateTime.of(2025, 3, 4, 19, 30, 0),
+                    to = LocalDateTime.of(2025, 3, 4, 22, 0, 0),
+                    location = Location(
+                        name = "Café Drei:klang",
+                        street = "Wolbeckerstr",
+                        houseNumber = "36",
+                        zipCode = "48155",
+                        city = "Münster",
+                        lon = 7.6398118,
+                        lat = 51.9576369
+                    ),
+                    title = "Code for Münster",
+                    link = "https://www.meetup.com/de-DE/code-for-munster/"
+                )
+            ).withProperty(everyTuesday).fluentTarget as CalendarComponent
+        )
+        events.add(
+            createCalendarComponent(
+                Event(
+                    from = LocalDateTime.of(2025, 3, 4, 20, 0, 0),
+                    to = LocalDateTime.of(2025, 3, 4, 22, 0, 0),
+                    location = Location(online = true),
+                    title = "Code for Niederrhein",
+                    link = "https://www.codeforniederrhein.de/termine/"
+                )
+            ).withProperty(everyTuesday).fluentTarget as CalendarComponent
+        )
+        return events
     }
 
     fun expected() = """
@@ -1880,13 +2073,15 @@ class IcalGeneratorTest {
             }
         }
         FileWriter(outpath).use { out ->
-            out.write("""
+            out.write(
+                """
                 <html>
                     <body>
                         ${links.joinToString("\n")}
                     </body>
                 </html>
-            """.trimIndent())
+            """.trimIndent()
+            )
         }
     }
 }
