@@ -307,6 +307,23 @@ class IcalGeneratorTest {
         )
         events.add(
             Event(
+                from = LocalDateTime.of(2025, 3, 11, 9, 0, 0),
+                to = LocalDateTime.of(2025, 3, 13, 16, 0, 0),
+                location = Location(
+                    name = "Charlemagne Building",
+                    street = "Rue de la Loi - Wetstraat",
+                    houseNumber = "170",
+                    zipCode = "1040",
+                    city = "Brüssel",
+                    lon = 4.3802985,
+                    lat = 50.8433926,
+                ),
+                title = "New Techniques and Technologies for official Statistics (NTTS)",
+                link = "https://cros.ec.europa.eu/ntts2025"
+            )
+        )
+        events.add(
+            Event(
                 from = LocalDateTime.of(2025, 3, 11, 17, 0, 0),
                 to = LocalDateTime.of(2025, 3, 11, 19, 0, 0),
                 location = Location(
