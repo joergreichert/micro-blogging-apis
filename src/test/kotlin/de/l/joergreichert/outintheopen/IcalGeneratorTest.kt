@@ -252,7 +252,26 @@ class IcalGeneratorTest {
                 link = "https://www.bertelsmann-stiftung.de/de/unsere-projekte/daten-fuer-die-gesellschaft/projektnachrichten/4-open-data-barcamp-2025-einladungsseite"
             )
         )
-        // https://www.digis-berlin.de/workshop-kontrollierte-vokabulare/
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 4, 9, 9, 30, 0),
+                to = LocalDateTime.of(2025, 4, 9, 11, 0, 0),
+                location = Location(online = true),
+                title = "KI in Pflege und Betreuung am Beispiel von CareMates",
+                link = "https://www.charta28.de/kommunikationsorte/ki-in-der-sozialwirtschaft"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 4, 9, 12, 30, 0),
+                to = LocalDateTime.of(2025, 4, 9, 15, 0, 0),
+                location = Location(
+                    online = true
+                ),
+                title = "Einsatz und Anwendung kontrollierter Vokabulare und Normdaten",
+                link = "https://www.digis-berlin.de/workshop-kontrollierte-vokabulare/"
+            )
+        )
         events.add(
             Event(
                 from = LocalDateTime.of(2025, 4, 9, 17, 30, 0),
@@ -272,11 +291,13 @@ class IcalGeneratorTest {
         )
         events.add(
             Event(
-                from = LocalDateTime.of(2025, 4, 9, 9, 30, 0),
-                to = LocalDateTime.of(2025, 4, 9, 11, 0, 0),
-                location = Location(online = true),
-                title = "KI in Pflege und Betreuung am Beispiel von CareMates",
-                link = "https://www.charta28.de/kommunikationsorte/ki-in-der-sozialwirtschaft"
+                from = LocalDateTime.of(2025, 4, 9, 14, 30, 0),
+                to = LocalDateTime.of(2025, 4, 9, 17, 0, 0),
+                location = Location(
+                    online = true,
+                ),
+                title = "Sovereign. Sustainable. Digital.: Digitale Souveränität nachhaltig stärken",
+                link = "https://www.bmuv.de/veranstaltung/auftaktveranstaltung-der-workshopreihe-sovereign-sustainable-digital-digitale-souveraenitaet-nachhaltig-staerken"
             )
         )
         events.add(
@@ -332,6 +353,24 @@ class IcalGeneratorTest {
         )
         events.add(
             Event(
+                from = LocalDateTime.of(2025, 4, 14, 18, 0, 0),
+                to = LocalDateTime.of(2025, 4, 14, 21, 0, 0),
+                location = Location(
+                    online = true,
+                    name = "TMF e.V.",
+                    street = "Charlottenstraße",
+                    houseNumber = "42",
+                    zipCode = "10117",
+                    city = "Berlin",
+                    lon = 13.3903278,
+                    lat = 52.5185963,
+                ),
+                title = "Health IT-Talk April: Bürgerzentrierte Gesundheitsdaten",
+                link = "https://www.eventbrite.de/e/health-it-talk-april-burgerzentrierte-gesundheitsdaten-tickets-1299431708219"
+            )
+        )
+        events.add(
+            Event(
                 from = LocalDateTime.of(2025, 4, 14, 19, 0, 0),
                 to = LocalDateTime.of(2025, 4, 14, 22, 0, 0),
                 location = Location(
@@ -366,6 +405,17 @@ class IcalGeneratorTest {
         )
         events.add(
             Event(
+                from = LocalDateTime.of(2025, 4, 16, 12, 30, 0),
+                to = LocalDateTime.of(2025, 4, 16, 13, 30, 0),
+                location = Location(
+                    online = true,
+                ),
+                title = "Mit App und Citizen Science zur besseren, individuellen Allergievorhersage",
+                link = "https://www.technologiestiftung-berlin.de/veranstaltungen/soup-science-pollen-im-anflug"
+            )
+        )
+        events.add(
+            Event(
                 from = LocalDateTime.of(2025, 4, 17, 11, 0, 0),
                 to = LocalDateTime.of(2025, 4, 17, 12, 0, 0),
                 location = Location(
@@ -377,8 +427,8 @@ class IcalGeneratorTest {
         )
         events.add(
             Event(
-                from = LocalDateTime.of(2025, 4, 14, 19, 0, 0),
-                to = LocalDateTime.of(2025, 4, 14, 22, 0, 0),
+                from = LocalDateTime.of(2025, 4, 18, 15, 0, 0),
+                to = LocalDateTime.of(2025, 4, 21, 15, 30, 0),
                 location = Location(
                     name = "Kampnagel",
                     street = "Jarrestraße",
@@ -394,16 +444,21 @@ class IcalGeneratorTest {
         )
         events.add(
             Event(
-                from = LocalDateTime.of(2025, 4, 16, 12, 30, 0),
-                to = LocalDateTime.of(2025, 4, 16, 13, 30, 0),
+                from = LocalDateTime.of(2025, 4, 23, 19, 0, 0),
+                to = LocalDateTime.of(2025, 4, 23, 22, 0, 0),
                 location = Location(
-                    online = true,
+                    name = "Hackquarter des Chaos Computer Club Frankfurt e.V.",
+                    street = "Hohenstaufenstraße",
+                    houseNumber = "8",
+                    zipCode = "60327",
+                    city = "Frankfurt am Main",
+                    lon = 8.6565254,
+                    lat = 50.1087657,
                 ),
-                title = "Mit App und Citizen Science zur besseren, individuellen Allergievorhersage",
-                link = "https://www.technologiestiftung-berlin.de/veranstaltungen/soup-science-pollen-im-anflug"
+                title = "Erste Heimautomatisierung User Group",
+                link = "https://ccc-ffm.de/2025/04/mi-23-04-19-uhr-erste-heimautomatisierung-user-group/"
             )
         )
-
         events.add(
             Event(
                 from = LocalDateTime.of(2025, 4, 29, 12, 30, 0),
@@ -413,6 +468,17 @@ class IcalGeneratorTest {
                 ),
                 title = "Gemeinsam Machen 4 | Chatbot, LLM, RAG oder doch klassisches Wiki?",
                 link = "https://app.guestoo.de/public/event/8fcfd801-ba78-4893-b009-101485852f5d?lang=de"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 4, 29, 19, 30, 0),
+                to = LocalDateTime.of(2025, 4, 29, 21, 30, 0),
+                location = Location(
+                    online = true
+                ),
+                title = "OSM Radinfra-Mapping-Abend",
+                link = "https://wiki.openstreetmap.org/wiki/Verkehrswende-Meetup#Meetups"
             )
         )
         events.add(
@@ -430,6 +496,24 @@ class IcalGeneratorTest {
                 ),
                 title = "2. ÖPNV-Zukunftskongress 2025",
                 link = "https://www.zukunftsnetzwerk-oepnv.de/aktuelles/veranstaltungen/2-oepnv-zukunftskongress-2025"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 5, 10, 11, 0, 0),
+                to = LocalDateTime.of(2025, 5, 10, 19, 0, 0),
+                location = Location(
+                    name = "Einstein Center Digital Future (ECDF)",
+                    street = "Wilhelmstraße",
+                    houseNumber = "67",
+                    zipCode = "10117",
+                    city = "Berlin",
+                    online = false,
+                    lat = 52.5183956,
+                    lon = 13.3806021
+                ),
+                title = "Beyond Education: Die Bildungskonferenz von Jugend hackt",
+                link = "https://okfn.de/blog/2025/04/beyond-education-die-bildungskonferenz-von-jugend-hackt/"
             )
         )
         return events
@@ -2330,13 +2414,13 @@ class IcalGeneratorTest {
                     from = LocalDateTime.of(2025, 3, 4, 19, 30, 0),
                     to = LocalDateTime.of(2025, 3, 4, 22, 0, 0),
                     location = Location(
-                        name = "Café Drei:klang",
-                        street = "Wolbeckerstr",
-                        houseNumber = "36",
+                        name = "Cafe SpecOps network",
+                        street = "Aegidiimarkt",
+                        houseNumber = "5",
                         zipCode = "48155",
                         city = "Münster",
-                        lon = 7.6398118,
-                        lat = 51.9576369
+                        lon = 7.6224732,
+                        lat = 51.9607162
                     ),
                     title = "Code for Münster",
                     link = "https://www.meetup.com/de-DE/code-for-munster/"
