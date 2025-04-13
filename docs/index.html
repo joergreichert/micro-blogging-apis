@@ -72,7 +72,7 @@
           document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
             var now = new Date();
-            var initialDate = new Date(now.getFullYear(), now.getMonth(), 1).toISOString().split('T')[0];
+            var initialDate = new Date(now.getFullYear() + "-" + now.getMonth() + "-1");
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 locale: 'de',
                 initialView: 'dayGridMonth',
@@ -100,7 +100,7 @@
               calendar.render();
           });
           var now = new Date();
-          document.getElementById('startdate').value = now.toISOString().split('T')[0];
+          document.getElementById('startdate').value = now.getFullYear() + "-" + now.getMonth()+1 + "-1";
           document.getElementById('enddate').value = new Date(now.getFullYear(), now.getMonth()+1, 1).toISOString().split('T')[0];
           var coords = [ 51.1638175, 10.4478313 ];
           var zoom = 6;
