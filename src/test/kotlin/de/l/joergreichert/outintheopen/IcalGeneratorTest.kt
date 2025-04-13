@@ -274,6 +274,17 @@ class IcalGeneratorTest {
         )
         events.add(
             Event(
+                from = LocalDateTime.of(2025, 4, 9, 14, 30, 0),
+                to = LocalDateTime.of(2025, 4, 9, 17, 0, 0),
+                location = Location(
+                    online = true,
+                ),
+                title = "Sovereign. Sustainable. Digital.: Digitale Souveränität nachhaltig stärken",
+                link = "https://www.bmuv.de/veranstaltung/auftaktveranstaltung-der-workshopreihe-sovereign-sustainable-digital-digitale-souveraenitaet-nachhaltig-staerken"
+            )
+        )
+        events.add(
+            Event(
                 from = LocalDateTime.of(2025, 4, 9, 17, 30, 0),
                 to = LocalDateTime.of(2025, 4, 9, 20, 30, 0),
                 location = Location(
@@ -291,13 +302,13 @@ class IcalGeneratorTest {
         )
         events.add(
             Event(
-                from = LocalDateTime.of(2025, 4, 9, 14, 30, 0),
-                to = LocalDateTime.of(2025, 4, 9, 17, 0, 0),
+                from = LocalDateTime.of(2025, 4, 9, 20, 0, 0),
+                to = LocalDateTime.of(2025, 4, 9, 21, 30, 0),
                 location = Location(
                     online = true,
                 ),
-                title = "Sovereign. Sustainable. Digital.: Digitale Souveränität nachhaltig stärken",
-                link = "https://www.bmuv.de/veranstaltung/auftaktveranstaltung-der-workshopreihe-sovereign-sustainable-digital-digitale-souveraenitaet-nachhaltig-staerken"
+                title = "Wir verteidigen die Informationsfreiheit",
+                link = "https://europe-calling.de/webinar/informationsfreiheit/"
             )
         )
         events.add(
@@ -349,6 +360,17 @@ class IcalGeneratorTest {
                 ),
                 title = "Jugend Hackt Dresden",
                 link = "https://jugendhackt.org/events/dresden/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 4, 14, 16, 0, 0),
+                to = LocalDateTime.of(2025, 4, 14, 18, 0, 0),
+                location = Location(
+                    online = true
+                ),
+                title = "Unabhängig im digitalen Zeitalter: Digitale Souveränität durch Open Source",
+                link = "https://ak-oss.gi.de/veranstaltung/information/unabhaengig-im-digitalen-zeitalter-digitale-souveraenitaet-durch-open-source"
             )
         )
         events.add(
@@ -421,7 +443,7 @@ class IcalGeneratorTest {
                 location = Location(
                     online = true
                 ),
-                title = "openCode Connect April 2025",
+                title = "openCode Connect April 2025: Das KERN Design-System – der Open-Source-Baukasten für barrierefreie und intuitive Verwaltungsleistungen",
                 link = "https://opencode.de/de/aktuelles/events/opencode-connect-april-2025-2702"
             )
         )
@@ -461,6 +483,24 @@ class IcalGeneratorTest {
         )
         events.add(
             Event(
+                from = LocalDateTime.of(2025, 4, 26, 14, 0, 0),
+                to = LocalDateTime.of(2025, 4, 26, 16, 0, 0),
+                location = Location(
+                    online = true,
+                    name = "101LAB",
+                    street = "Skalitzer Str.",
+                    houseNumber = "100",
+                    zipCode = "10997",
+                    city = "Berlin",
+                    lon = 13.428466,
+                    lat = 52.4997077,
+                ),
+                title = "Großer Kickoff zur 101cloud Genossenschaftsgründung",
+                link = "https://101lab.it/101cloud/geno.html"
+            )
+        )
+        events.add(
+            Event(
                 from = LocalDateTime.of(2025, 4, 29, 12, 30, 0),
                 to = LocalDateTime.of(2025, 4, 29, 15, 30, 0),
                 location = Location(
@@ -483,6 +523,17 @@ class IcalGeneratorTest {
         )
         events.add(
             Event(
+                from = LocalDateTime.of(2025, 5, 5, 9, 15, 0),
+                to = LocalDateTime.of(2025, 5, 7, 17, 30, 0),
+                location = Location(
+                    online = true,
+                ),
+                title = "Energietage 2025",
+                link = "https://www.energietage.de/kongress/gesamtprogramm.html"
+            )
+        )
+        events.add(
+            Event(
                 from = LocalDateTime.of(2025, 5, 5, 18, 0, 0),
                 to = LocalDateTime.of(2025, 5, 7, 16, 0, 0),
                 location = Location(
@@ -496,6 +547,17 @@ class IcalGeneratorTest {
                 ),
                 title = "2. ÖPNV-Zukunftskongress 2025",
                 link = "https://www.zukunftsnetzwerk-oepnv.de/aktuelles/veranstaltungen/2-oepnv-zukunftskongress-2025"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 5, 6, 14, 30, 0),
+                to = LocalDateTime.of(2025, 5, 6, 16, 30, 0),
+                location = Location(
+                    online = true,
+                ),
+                title = "Teil 1 der Workshopreihe Sovereign. Sustainable. Digital.: Das Fediverse und seine sozialen Medien",
+                link = "https://www.bmuv.de/veranstaltung/teil-1-der-workshopreihe-sovereign-sustainable-digital-das-fediverse-und-seine-sozialen-medien"
             )
         )
         events.add(
@@ -516,7 +578,26 @@ class IcalGeneratorTest {
                 link = "https://okfn.de/blog/2025/04/beyond-education-die-bildungskonferenz-von-jugend-hackt/"
             )
         )
-        return events
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 5, 9, 17, 0, 0),
+                to = LocalDateTime.of(2025, 5, 11, 15, 45, 0),
+                location = Location(
+                    name = "Universität Erfurt",
+                    street = "Nordhäuser Str.",
+                    houseNumber = "63",
+                    zipCode = "99089",
+                    city = "Erfurt",
+                    online = false,
+                    lat = 50.9909272,
+                    lon = 11.009547426126073
+                ),
+                title = "CORRECTIV.Lokal Konferenz 2025",
+                link = "https://correctiv.org/lokal/konferenz/"
+            )
+        )
+
+        return events.sortedBy { it.from }.toMutableList()
     }
 
     private fun createMarch2025Events(): MutableList<Event> {
@@ -2320,13 +2401,17 @@ class IcalGeneratorTest {
 
     private fun calLink(event: Event): String {
         val vevent = createCalendarComponent(event)
+        return calLink(event.title, vevent)
+    }
+
+    private fun calLink(title: String, vevent: CalendarComponent): String {
         val calendar = Calendar()
             .withDefaults()
-            .withProdId("-//${event.title}//iCal4j 1.0//EN")
+            .withProdId("-//${title}//iCal4j 1.0//EN")
             .withComponent(vevent)
             .fluentTarget
         val base64 = Base64.getEncoder().encodeToString(calendar.toString().toByteArray())
-        return "<a title='Kalendereintrag ${event.title}' download='event.ics' href=\"data:text/calendar;base64,${base64}\">&#x1F4C5;</a>"
+        return "<a title='Kalendereintrag ${title}' download='event.ics' href=\"data:text/calendar;base64,${base64}\">&#x1F4C5;</a>"
     }
 
     private fun createCalendarComponent(event: Event): CalendarComponent {

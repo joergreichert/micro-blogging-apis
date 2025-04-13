@@ -71,11 +71,13 @@
             });
           document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
+            var now = new Date();
+            var initialDate = new Date(now.getFullYear(), now.getMonth(), 1).toISOString().split('T')[0];
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 locale: 'de',
                 initialView: 'dayGridMonth',
                 displayEventTime: true,
-                initialDate: '2025-03-01',
+                initialDate,
                 navLinks: true,
                 dayMaxEvents: true,
                 headerToolbar: {
@@ -138,7 +140,7 @@
               showEvents(events);
           };
           var eventDetails = (evt) => {
-              var day = evt.start.getDay() + "." + (evt.start.getMonth() + 1);
+              var day = evt.start.getDate() + "." + (evt.start.getMonth() + 1);
               var content = "<b>" + day + ": " + evt.summary + "</b>";
               if (evt.link) {
                 content += "<br /><a target='_blank' href='" + evt.link + "'>Mehr Infos</a>";
