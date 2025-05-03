@@ -97,12 +97,11 @@
                     bool ? 'block' : 'none';
                 },
                 eventClick: (info) => {
-    info.jsEvent.preventDefault(); // don't let the browser navigate
-
-    if (info.event.url) {
-      window.open(info.event.url);
-    }
-  }
+                    info.jsEvent.preventDefault();
+                    if (info.event.url) {
+                      window.open(info.event.url);
+                    }
+                }
               });
               calendar.render();
           });
