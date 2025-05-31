@@ -1,321 +1,57 @@
 BEGIN:VCALENDAR
 CALSCALE:GREGORIAN
 VERSION:2.0
-PRODID:-//Out In The Open April 2025//iCal4j 1.0//EN
+PRODID:-//Out In The Open May 2025//iCal4j 1.0//EN
 BEGIN:VEVENT
-DTSTAMP:20250503T152535Z
-DTSTART:20250505T091500
-DTEND:20250507T173000
-SUMMARY:Energietage 2025
-LINK;VALUE=UID:https://www.energietage.de/kongress/gesamtprogramm.html
-DESCRIPTION:
-LOCATION:online
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250503T152535Z
-DTSTART:20250505T180000
-DTEND:20250507T160000
-SUMMARY:2. ÖPNV-Zukunftskongress 2025
-LINK;VALUE=UID:https://www.zukunftsnetzwerk-oepnv.de/aktuelles/veranstaltungen/2-oepnv-zukunftskongress-2025
-DESCRIPTION:
-LOCATION:Kongresszentrum Konzerthaus Freiburg\, Konrad-Adenauer-Platz 1\, 79098 Freiburg
-GEO:47.995716099999996;7.842418268753468
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250503T152535Z
-DTSTART:20250506T100000
-DTEND:20250506T110000
-SUMMARY:The value of EU vocabularies for data spaces
-LINK;VALUE=UID:https://op.europa.eu/en/web/endorse/follow-up-events
-DESCRIPTION:
-LOCATION:online
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250503T152535Z
-DTSTART:20250506T143000
-DTEND:20250506T163000
-SUMMARY:Teil 1 der Workshopreihe Sovereign. Sustainable. Digital.: Das Fediverse und seine sozialen Medien
-LINK;VALUE=UID:https://www.bmuv.de/veranstaltung/teil-1-der-workshopreihe-sovereign-sustainable-digital-das-fediverse-und-seine-sozialen-medien
-DESCRIPTION:
-LOCATION:online
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250503T152535Z
-DTSTART:20250506T200000
-DTEND:20250506T220000
-SUMMARY:146. Netzpolitischer Abend – Digitalpolitische Aspekte des Koalitionsvertrages
-LINK;VALUE=UID:https://digitalegesellschaft.de/2025/04/146-netzpolitischer-abend/
+DTSTAMP:20250531T152805Z
+DTSTART:20250603T200000
+DTEND:20250603T220000
+SUMMARY:147. Netzpolitischer Abend
+LINK;VALUE=UID:https://digitalegesellschaft.de/2025/05/147-netzpolitischer-abend/
 DESCRIPTION:
 LOCATION:c-base\, Rungestraße 20\, 10179 Berlin und auch online
 GEO:52.5129735;13.4201313
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250503T152535Z
-DTSTART:20250507T093000
-DTEND:20250507T163000
-SUMMARY:KEDi Convention
-LINK;VALUE=UID:https://www.kedi-dena.de/veranstaltungen/kedi-convention-2025/
-DESCRIPTION:
-LOCATION:Leopoldina\, Jägerberg 1\, 06108 Halle (Saale) und auch online
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250503T152535Z
-DTSTART:20250508T110000
-DTEND:20250508T123000
-SUMMARY:Eins für Alle: Das Energiewende-Dashboard als Erfolgsbeispiel interkommunaler Kooperation
-LINK;VALUE=UID:https://opencode.de/de/aktuelles/events/opencode-connect-mai-2025-3399
+DTSTAMP:20250531T152805Z
+DTSTART:20250605T110000
+DTEND:20250605T120000
+SUMMARY:openCode Connect Juni 2025: Umweltdaten transparent machen – das bietet die App UmweltNAVI
+LINK;VALUE=UID:https://opencode.de/de/aktuelles/events/opencode-connect-juni-2025-4475
 DESCRIPTION:
 LOCATION:online
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250503T152535Z
-DTSTART:20250508T110000
-DTEND:20250508T120000
-SUMMARY:openCode Connect Mai: Connected Urban Twins – Das Energiewende-Dashboard als Erfolgsbeispiel interkommunaler Kooperation
-LINK;VALUE=UID:https://egovernment-podcast.com/event/opencode-connect-mai-connected-urban-twins-das-energiewende-dashboard-als-erfolgsbeispiel-interkommunaler-kooperation/
+DTSTAMP:20250531T152805Z
+DTSTART:20250604T100000
+DTEND:20250605T160000
+SUMMARY:Weizenbaum Conference 2025: Empowering People in Online Spaces
+LINK;VALUE=UID:https://www.weizenbaum-conference.de
+DESCRIPTION:
+LOCATION:bUm – Raum für solidarisches Miteinander\, Paul-Lincke-Ufer 21\, 10999 Berlin
+GEO:52.4937932;13.4296611
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250531T152805Z
+DTSTART:20250610T100000
+DTEND:20250613T220000
+SUMMARY:Dataweek
+LINK;VALUE=UID:https://2025.dataweek.de
+DESCRIPTION:
+LOCATION:Neues Rathaus\, Martin-Luther-Ring 4-6\, 04109 Leipzig
+GEO:51.3362747589957;12.372519385027744
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250531T152805Z
+DTSTART:20250612T103000
+DTEND:20250612T120000
+SUMMARY:Linked Data im Mobilitätskontext: NOVA-Daten als Open Data nutzen
+LINK;VALUE=UID:https://linked-open-data.event.sbb.ch
 DESCRIPTION:
 LOCATION:online
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250503T152535Z
-DTSTART:20250508T180000
-DTEND:20250508T210000
-SUMMARY:Jugend editiert
-LINK;VALUE=UID:https://www.wikimedia.de/veranstaltungen/jugend-editiert-3/
-DESCRIPTION:
-LOCATION:WikiBär Wikipedia\, Köpenicker Straße 45\, 10179 Berlin
-GEO:52.50267706293607;13.439250348721544
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250503T152535Z
-DTSTART:20250508T183000
-DTEND:20250524T211500
-SUMMARY:Dear Future – Dresdner Nachhaltigkeitsfestival
-LINK;VALUE=UID:https://dearfuturedresden.de
-DESCRIPTION:
-LOCATION:Impact Hub\, Trompeterstraße 5\, 01069 Dresden
-GEO:51.046278;13.7348812
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250503T152535Z
-DTSTART:20250509T110000
-DTEND:20250509T120000
-SUMMARY:Open Access handgemacht – die Entwicklung des Journal Kommunikation@Gesellschaft\, ein Modell für andere?
-LINK;VALUE=UID:https://blog.adlr.link/2025/04/17/online-workshop-reihe-fid-media-bites-startet/
-DESCRIPTION:
-LOCATION:online
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250503T152535Z
-DTSTART:20250509T170000
-DTEND:20250511T154500
-SUMMARY:CORRECTIV.Lokal Konferenz 2025
-LINK;VALUE=UID:https://correctiv.org/lokal/konferenz/
-DESCRIPTION:
-LOCATION:Universität Erfurt\, Nordhäuser Str. 63\, 99089 Erfurt
-GEO:50.9909272;11.009547426126073
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250503T152535Z
-DTSTART:20250510T110000
-DTEND:20250510T190000
-SUMMARY:Beyond Education: Die Bildungskonferenz von Jugend hackt
-LINK;VALUE=UID:https://okfn.de/blog/2025/04/beyond-education-die-bildungskonferenz-von-jugend-hackt/
-DESCRIPTION:
-LOCATION:Einstein Center Digital Future (ECDF)\, Wilhelmstraße 67\, 10117 Berlin
-GEO:52.5183956;13.3806021
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250503T152535Z
-DTSTART:20250510T130000
-DTEND:20250510T190000
-SUMMARY:Potsdamer Tag der Wissenschaft
-LINK;VALUE=UID:https://potsdamertagderwissenschaften.de/
-DESCRIPTION:
-LOCATION:Max-Planck-Campus\, Am Mühlenberg 1\, 14476 Potsdam
-GEO:52.41562675;12.970000479384487
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250503T152535Z
-DTSTART:20250512T100000
-DTEND:20250512T120000
-SUMMARY:Vernetzungsforum: Institutionelle Repositorien und Forschungsdaten
-LINK;VALUE=UID:https://www.ibi.hu-berlin.de/de/forschung/infomanagement/events/prooarde-forschungsdaten/vernetzungsforum-institutionelle-repositorien-und-forschungsdaten
-DESCRIPTION:
-LOCATION:online
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250503T152535Z
-DTSTART:20250512T150000
-DTEND:20250512T160000
-SUMMARY:COMMUNIA Salon: Unfair licensing practices
-LINK;VALUE=UID:https://communia-association.org/event/communia-salon-unfair-licensing-practices/
-DESCRIPTION:
-LOCATION:online
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250503T152535Z
-DTSTART:20250513T100000
-DTEND:20250515T124500
-SUMMARY:Interoperable Europe Academy Seasonal School
-LINK;VALUE=UID:https://interoperable-europe.ec.europa.eu/collection/interoperable-europe-academy/event/seasonal-school-2025
-DESCRIPTION:
-LOCATION:online
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250503T152535Z
-DTSTART:20250514T120000
-DTEND:20250514T130000
-SUMMARY:KI in Digital Health
-LINK;VALUE=UID:https://fg-digital-health.gi.de/veranstaltung/themensalon-digital-health-zum-thema-ki-in-digital-health-stand-der-technik-herausforderungen-und-potenziale-anhand-von-beispielen-aus-forschung-und-praxis
-DESCRIPTION:
-LOCATION:online
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250503T152535Z
-DTSTART:20250515T160000
-DTEND:20250515T173000
-SUMMARY:Open Access meets KI
-LINK;VALUE=UID:https://enable-oa.org/news/open-access-meets-ki
-DESCRIPTION:
-LOCATION:online
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250503T152535Z
-DTSTART:20250515T190000
-DTEND:20250515T220000
-SUMMARY:tech from below #11
-LINK;VALUE=UID:https://www.wikimedia.de/veranstaltungen/tech-from-below-11/
-DESCRIPTION:
-LOCATION:Wikimedia Deutschland e. V.\, Tempelhofer Ufer 23-24\, 10963 Berlin
-GEO:52.4984142;13.3810486
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250503T152535Z
-DTSTART:20250516T090000
-DTEND:20250516T160000
-SUMMARY:Berlin Open Data Day 2025
-LINK;VALUE=UID:https://daten.berlin.de/artikel/berlin-open-data-day-2025
-DESCRIPTION:
-LOCATION:ALICE Rooftop & Garden\, Kantstraße 17\, 10623 Berlin
-GEO:52.5060665;13.3245821
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250503T152535Z
-DTSTART:20250516T100000
-DTEND:20250516T110000
-SUMMARY:Open judicial data\, AI\, and transparency in the digital age
-LINK;VALUE=UID:https://dataeuropaacademy.clickmeeting.com/webinar-open-judicial-data-ai-and-transparency-in-the-digital-age-/register
-DESCRIPTION:
-LOCATION:online
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250503T152535Z
-DTSTART:20250516T190000
-DTEND:20250518T130000
-SUMMARY:FOSSGIS-OSM-Communitytreffen im Linuxhotel
-LINK;VALUE=UID:https://www.fossgis.de/wiki/FOSSGIS_OSM_Communitytreffen_2025_Nummer_23
-DESCRIPTION:
-LOCATION:Linuxhotel\, Antonienallee 3\, 45279 Essen
-GEO:51.43071555;7.112465469856769
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250503T152535Z
-DTSTART:20250518T110000
-DTEND:20250518T180000
-SUMMARY:Underständ the Länd (im Rahmen vom Wissenschaftsfestival EFFEKTE)
-LINK;VALUE=UID:https://ok-lab-karlsruhe.de/projekte/effekte25/
-DESCRIPTION:
-LOCATION:Am Karlsruher Schloss und stadtweit\, Schlossbezirk 1\, 76131 Karlsruhe
-GEO:49.0135248;8.40435918703854
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250503T152535Z
-DTSTART:20250519T160000
-DTEND:20250519T180000
-SUMMARY:Intelligente Zukunft: Open Source KI und Ethik im Fokus
-LINK;VALUE=UID:https://ak-oss.gi.de/veranstaltung/detail/intelligente-zukunft-open-source-ki-und-ethik-im-fokus
-DESCRIPTION:
-LOCATION:online
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250503T152535Z
-DTSTART:20250521T123000
-DTEND:20250522T143000
-SUMMARY:Umweltinformationssysteme 2025
-LINK;VALUE=UID:https://fa-ui.gi.de/veranstaltung/umweltinformationssysteme-2025-gesellschaftliche-transformation-durch-umweltinformationssysteme-digitale-innovationen-fuer-eine-nachhaltige-zukunft
-DESCRIPTION:
-LOCATION:Hochschule Merseburg\, Eberhard-Leibnitz-Straße 2\, 06217 Merseburg und auch online
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250503T152535Z
-DTSTART:20250522T093000
-DTEND:20250522T163000
-SUMMARY:Civic Data Camp - Das Barcamp für Civic Data Explorer
-LINK;VALUE=UID:https://civic-data.de/barcamp/
-DESCRIPTION:
-LOCATION:Internationales Caritas-Zentrum Sülz\, Zülpicher Str. 273b\, 50937 Köln
-GEO:50.92206535;6.922585712580955
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250503T152535Z
-DTSTART:20250522T100000
-DTEND:20250522T120000
-SUMMARY:Wikidata für Kulturerbeeinrichtungen
-LINK;VALUE=UID:https://www.digis-berlin.de/veranstaltungen/workshops/
-DESCRIPTION:
-LOCATION:online
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250503T152535Z
-DTSTART:20250523T140000
-DTEND:20250523T154000
-SUMMARY:Open Access as a Business Model: Practical Insights and Disciplinary Comparisons
-LINK;VALUE=UID:https://events.gwdg.de/event/1077/overview
-DESCRIPTION:
-LOCATION:online
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250503T152535Z
-DTSTART:20250523T160000
-DTEND:20250525T235900
-SUMMARY:jetzt9 Geekend
-LINK;VALUE=UID:https://tickets.chaos.jetzt/jetzt9/
-DESCRIPTION:
-LOCATION:online
-GEO:51.346432;12.3962347
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250503T152535Z
-DTSTART:20250526T123000
-DTEND:20250528T170000
-SUMMARY:re:publica 25
-LINK;VALUE=UID:https://re-publica.com/de/news/save-date-republica-25-26-28-mai-2025-station-berlin
-DESCRIPTION:
-LOCATION:STATION Berlin\, Luckenwalder Straße 4-6\, 10963 Berlin
-GEO:52.49868925;13.374857573182297
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250503T152535Z
-DTSTART:20250527T093000
-DTEND:20250527T133000
-SUMMARY:Biobasierte Kunststoffe - Praxisworkshop
-LINK;VALUE=UID:https://www.dbfz.de/praxisworkshop-biobasierte-kunststoffe/start
-DESCRIPTION:
-LOCATION:online
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250503T152535Z
-DTSTART:20250529T180000
-DTEND:20250601T160000
-SUMMARY:Chaos Singularity (CoSin) 2025
-LINK;VALUE=UID:https://cosin.ch/de/
-DESCRIPTION:
-LOCATION:Villa Ritter\, Juravorstadt 36\, 2502 Biel (Schweiz)
-GEO:47.1442554;7.249968954367201
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250503T152535Z
+DTSTAMP:20250531T152805Z
 DTSTART:20250604T130000
 DTEND:20250604T140000
 SUMMARY:GIS@Lunch-Webinar: Open Data-Angebot des BKG
@@ -324,18 +60,301 @@ DESCRIPTION:
 LOCATION:online
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250503T152535Z
+DTSTAMP:20250531T152805Z
 DTSTART:20250607T100000
 DTEND:20250607T170000
 SUMMARY:Kartenwerkstatt Augustusburg
 LINK;VALUE=UID:https://www.aufweiterflur.org/event-details/kartenwerkstatt-mit-openstreetmap
 DESCRIPTION:
 LOCATION:Lehngericht Augustusburg\, Markt 14\, 09573 Augustusburg und auch online
+GEO:50.814184600000004;13.099928202926208
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250503T152535Z
-DTSTART:20250305T180000
-DTEND:20250305T210000
+DTSTAMP:20250531T152805Z
+DTSTART:20250704T091500
+DTEND:20250706T173000
+SUMMARY:Chaos Feminist Convention
+LINK;VALUE=UID:https://events.haecksen.org/cfc25/
+DESCRIPTION:
+LOCATION:Kulturhaus Eidelstedt\, Alte Elbgaustraße 12\, 22523 Hamburg
+GEO:53.6073818;9.9032184
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250531T152805Z
+DTSTART:20250624T193000
+DTEND:20250624T210000
+SUMMARY:OSM Radinfra-Mapathon #2
+LINK;VALUE=UID:https://osmcal.org/event/3692/
+DESCRIPTION:
+LOCATION:online
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250531T152805Z
+DTSTART:20250619T140000
+DTEND:20250622T140000
+SUMMARY:23. Gulaschprogrammiernacht (GPN)
+LINK;VALUE=UID:https://entropia.de/GPN23
+DESCRIPTION:
+LOCATION:Zentrum für Kunst und Medien (ZKM)\, Lorenzstr. 15\, 76133 Karlsruhe
+GEO:49.0020695;8.383668296343833
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250531T152805Z
+DTSTART:20250618T090000
+DTEND:20250618T220000
+SUMMARY:CityLAB Sommerkonferenz 2025
+LINK;VALUE=UID:https://citylab-berlin.org/de/events/citylab-sommerkonferenz-2025/
+DESCRIPTION:
+LOCATION:Umweltforum\, Pufendorfstraße 11\, 10249 Berlin
+GEO:52.520961;13.4382144
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250531T152805Z
+DTSTART:20250627T090000
+DTEND:20250628T190000
+SUMMARY:Hack and Harvest Hackathon
+LINK;VALUE=UID:https://correlaid.org/veranstaltungen/hack-and-harvest-2025
+DESCRIPTION:
+LOCATION:farm (Shedhalle)\, Bücklestraße 3\, 78467 Konstanz
+GEO:47.676813100000004;9.169326478244056
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250531T152805Z
+DTSTART:20250704T173000
+DTEND:20250706T120000
+SUMMARY:CorrelCon 2025 + 10 Jahre CorrelAid
+LINK;VALUE=UID:https://correlaid.org/veranstaltungen/correlcon2025/
+DESCRIPTION:
+LOCATION:Jugendherberge Otto-Moericke-Turm Konstanz\, Zur Allmannshöhe 16\, 78464 Konstanz
+GEO:47.6871632;9.2033462
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250531T152805Z
+DTSTART:20250616T110000
+DTEND:20250616T160000
+SUMMARY:Offene KI in der Schule
+LINK;VALUE=UID:https://www.wikimedia.de/veranstaltungen/offene-ki-in-der-schule/
+DESCRIPTION:
+LOCATION:MEDIAN Hotel Hannover Lehrte\, Zum Blauen See 3\, 31275 Lehrte
+GEO:52.3880356;9.9696623
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250531T152805Z
+DTSTART:20250605T180000
+DTEND:20250605T210000
+SUMMARY:Jugend editiert
+LINK;VALUE=UID:https://www.wikimedia.de/veranstaltungen/jugend-editiert/
+DESCRIPTION:
+LOCATION:WikiBär Wikipedia\, Köpenicker Straße 45\, 10179 Berlin
+GEO:52.50267706293607;13.439250348721544
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250531T152805Z
+DTSTART:20250613T180000
+DTEND:20250613T220000
+SUMMARY:Populismus\, Desinformation und Manipulation: Wie retten wir valides Wissen im Netz?
+LINK;VALUE=UID:https://www.wikimedia.de/veranstaltungen/populismus-desinformation-und-manipulation/
+DESCRIPTION:
+LOCATION:Wikimedia Deutschland e. V.\, Tempelhofer Ufer 23-24\, 10963 Berlin
+GEO:52.4984142;13.3810486
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250531T152805Z
+DTSTART:20250627T070000
+DTEND:20250627T190000
+SUMMARY:Digitaltag 2025
+LINK;VALUE=UID:https://digitaltag.eu
+DESCRIPTION:
+LOCATION:online
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250531T152805Z
+DTSTART:20250605T100000
+DTEND:20250605T160000
+SUMMARY:14. Betrieblichen Umweltinformationssystem-(BUIS)-Tage: Smarte und Nachhaltige Infrastrukturen
+LINK;VALUE=UID:https://buis-tage25.vlba.net
+DESCRIPTION:
+LOCATION:ecos work spaces\, Gottorpstraße 8\, 26122 Oldenburg
+GEO:53.1420309;8.217251048461254
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250531T152805Z
+DTSTART:20250611T180000
+DTEND:20250611T190000
+SUMMARY:STEM GIrls 2025: Green IT: Wie kann ich meinen Beitrag zu einer nachhaltigen IT leisten?
+LINK;VALUE=UID:https://junge.gi.de/veranstaltung/green-it-wie-kann-ich-meinen-beitrag-zu-einer-nachhaltigen-it-leisten
+DESCRIPTION:
+LOCATION:online
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250531T152805Z
+DTSTART:20250704T160000
+DTEND:20250706T180000
+SUMMARY:FAT25 - Always watching
+LINK;VALUE=UID:https://hackwerk.fun/start
+DESCRIPTION:
+LOCATION:Aaccelerator\, Blezingerstraße 15\, 73430 Aalen
+GEO:48.8544329;10.0906347
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250531T152805Z
+DTSTART:20250701T090000
+DTEND:20250705T180000
+SUMMARY:Hacken Open Air 2::25
+LINK;VALUE=UID:https://hackenopenair.de/index.html
+DESCRIPTION:
+LOCATION:Pfadfinderheim Welfenhof\, III. Koppelweg 6\, 38518 Gifhorn
+GEO:52.46289915;10.604584416286588
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250531T152805Z
+DTSTART:20250615T143000
+DTEND:20250617T173000
+SUMMARY:Berlin Buzzwords
+LINK;VALUE=UID:https://2025.berlinbuzzwords.de
+DESCRIPTION:
+LOCATION:Kulturbrauerei\, Schönhauser Allee 36-39\, 10435 Berlin und auch online
+GEO:52.5392251;13.4136688
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250531T152805Z
+DTSTART:20250620T170000
+DTEND:20250620T220000
+SUMMARY:Lange Nacht der Wissenschaften am ScaDS.AI Dresden/Leipzig
+LINK;VALUE=UID:https://scads.ai/event/lange-nacht-der-wissenschaften/long-night-of-science-leipzig-2025/
+DESCRIPTION:
+LOCATION:ScaDS.AI Dresden/Leipzig\, Humboldtstr. 25\, 04105 Leipzig
+GEO:51.3466504;12.3740462
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250531T152805Z
+DTSTART:20250619T130000
+DTEND:20250620T160000
+SUMMARY:QUADRIGA Jahrestagung 2025 und Barcamp "Data Literacy"
+LINK;VALUE=UID:https://www.quadriga-dk.de/de/quadriga-jahresveranstaltung-2025/call
+DESCRIPTION:
+LOCATION:Brandenburg Museum für Zukunft\, Gegenwart und Geschichte\, Am Neuen Markt 9\, 14467 Potsdam
+GEO:52.3959751;13.0566354
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250531T152805Z
+DTSTART:20250623T160000
+DTEND:20250623T180000
+SUMMARY:Over the fence: Digitale Souveränität und Open Source in Europa
+LINK;VALUE=UID:https://ak-oss.gi.de/veranstaltung/detail/over-the-fence-digitale-souveraenitaet-und-open-source-in-europa
+DESCRIPTION:
+LOCATION:online
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250531T152805Z
+DTSTART:20250605T193100
+DTEND:20250623T193100
+SUMMARY:Bits und Bäume Community Treffen
+LINK;VALUE=UID:https://bits-und-baeume.org/termine/
+DESCRIPTION:
+LOCATION:online
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250531T152805Z
+DTSTART:20250626T103000
+DTEND:20250626T124500
+SUMMARY:Digital Souverän – Jetzt erst recht
+LINK;VALUE=UID:https://www.digitaler-staat.online/events/digitalsouveraen/
+DESCRIPTION:
+LOCATION:online
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250531T152805Z
+DTSTART:20250619T180000
+DTEND:20250619T220000
+SUMMARY:Public Sector & Friends // Hamburg
+LINK;VALUE=UID:https://egovernment-podcast.com/event/govtech-goes-public-sector-friends-hamburg-volume-3-2025/
+DESCRIPTION:
+LOCATION:Mitten in Hamburg (die genaue Location erhaltet Ihr nach Anmeldung)\, Hamburg
+GEO:53.550341;10.000654
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250531T152805Z
+DTSTART:20250618T100000
+DTEND:20250618T170000
+SUMMARY:Barcamp Open Science
+LINK;VALUE=UID:https://www.barcamp-open-science.eu
+DESCRIPTION:
+LOCATION:Wikimedia Deutschland e. V.\, Tempelhofer Ufer 23-24\, 10963 Berlin
+GEO:52.4984142;13.3810486
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250531T152805Z
+DTSTART:20250701T100000
+DTEND:20250701T163000
+SUMMARY:Klimaaktiv-Event – Barcamp kommunaler Klimaschutz
+LINK;VALUE=UID:https://difu.de/veranstaltungen/2025-07-01/klimaaktiv-event-barcamp-kommunaler-klimaschutz
+DESCRIPTION:
+LOCATION:Startplatz Köln\, Im Mediapark 5\, 50670 Köln
+GEO:50.9486808;6.9447581
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250531T152805Z
+DTSTART:20250625T200000
+DTEND:20250625T213000
+SUMMARY:Open Transport Meetup: Michael Lorenzen (VBB) - DELFI GTFS-RT
+LINK;VALUE=UID:https://hackmd.okfn.de/opentransportmeetup
+DESCRIPTION:
+LOCATION:online
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250531T152805Z
+DTSTART:20250709T200000
+DTEND:20250709T213000
+SUMMARY:Open Transport Meetup: Holger Bruch - Deutschlandweiter GTFS Feed aus DELFI NeTEx Daten
+LINK;VALUE=UID:https://hackmd.okfn.de/opentransportmeetup
+DESCRIPTION:
+LOCATION:online
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250531T152805Z
+DTSTART:20250614T140000
+DTEND:20250614T180000
+SUMMARY:KI-Ideenwerkstatt beim Langen Tag der StadtNatur
+LINK;VALUE=UID:https://www.ki-ideenwerkstatt.de/veranstaltungen/ki-ideenwerkstatt-beim-langen-tag-der-stadtnatur/
+DESCRIPTION:
+LOCATION:KI-Ideenwerkstatt für Umweltschutz\, Rollbergstr. 28A\, 12053 Berlin
+GEO:52.4790412;13.4319106
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250531T152805Z
+DTSTART:20250618T100000
+DTEND:20250618T120000
+SUMMARY:KI trifft Biodiversitätsforschung: Datengewinnung aus Sammlungsetiketten
+LINK;VALUE=UID:https://www.ki-ideenwerkstatt.de/veranstaltungen/ki-trifft-biodiversitaetsforschung-datengewinnung-aus-sammlungsetiketten/
+DESCRIPTION:
+LOCATION:Museum für Naturkunde Berlin\,\, Invalidenstraße 43\, 10115 Berlin und auch online
+GEO:52.5304903;13.3791152
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250531T152805Z
+DTSTART:20250606T150000
+DTEND:20250608T170000
+SUMMARY:Jugend Hackt Frankfurt
+LINK;VALUE=UID:https://jugendhackt.org/events/frankfurt/
+DESCRIPTION:
+LOCATION:Jugendhaus Riedberg\, Friedrich-Dessauer-Straße 4-6\, 60438 Frankfurt am Main
+GEO:50.1786142;8.625099866085272
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250531T152805Z
+DTSTART:20250605T090000
+DTEND:20250605T190000
+SUMMARY:Creative Bureaucracy Festival
+LINK;VALUE=UID:https://creativebureaucracy.org/de/festival
+DESCRIPTION:
+LOCATION:Festsaal Kreuzberg\, Am Flutgraben 2\, 12435 Berlin und auch online
+GEO:52.49682315;13.451555564938815
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250531T152805Z
+DTSTART:20250604T180000
+DTEND:20250304T210000
 SUMMARY:OKLab Flensburg
 LINK;VALUE=UID:https://codefor.de/flensburg/
 DESCRIPTION:
@@ -344,20 +363,20 @@ GEO:54.791591785985844;9.431249601609665
 RRULE:FREQ=WEEKLY;UNTIL=20251231;INTERVAL=1;BYDAY=WE
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250503T152535Z
-DTSTART:20250303T190000
-DTEND:20250303T220000
+DTSTAMP:20250531T152805Z
+DTSTART:20250602T190000
+DTEND:20250602T220000
 SUMMARY:Code for Cologne
 LINK;VALUE=UID:https://www.meetup.com/de-DE/codeforcologne/
 DESCRIPTION:
 LOCATION:Wikipedia Lokal K\, Hackländerstr 2\, 50825 Köln
 GEO:50.9556011;6.910391
-RRULE:FREQ=WEEKLY;UNTIL=20251231;INTERVAL=2;BYDAY=MO
+RRULE:FREQ=MONTHLY;UNTIL=20251231;INTERVAL=1;BYDAY=MO
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250503T152535Z
-DTSTART:20250305T190000
-DTEND:20250305T220000
+DTSTAMP:20250531T152805Z
+DTSTART:20250604T190000
+DTEND:20250604T220000
 SUMMARY:OKLab Leipzig
 LINK;VALUE=UID:https://www.meetup.com/de-DE/oklab-leipzig/
 DESCRIPTION:
@@ -366,8 +385,8 @@ GEO:51.3320744;12.3735399
 RRULE:FREQ=WEEKLY;UNTIL=20251231;INTERVAL=1;BYDAY=WE
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250503T152535Z
-DTSTART:20250304T193000
+DTSTAMP:20250531T152805Z
+DTSTART:20250603T193000
 DTEND:20250304T220000
 SUMMARY:Code for Münster
 LINK;VALUE=UID:https://www.meetup.com/de-DE/code-for-munster/
@@ -377,9 +396,9 @@ GEO:51.9607162;7.6224732
 RRULE:FREQ=WEEKLY;UNTIL=20251231;INTERVAL=1;BYDAY=TU
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250503T152535Z
-DTSTART:20250304T200000
-DTEND:20250304T220000
+DTSTAMP:20250531T152805Z
+DTSTART:20250603T200000
+DTEND:20250603T220000
 SUMMARY:Code for Niederrhein
 LINK;VALUE=UID:https://www.codeforniederrhein.de/termine/
 DESCRIPTION:
