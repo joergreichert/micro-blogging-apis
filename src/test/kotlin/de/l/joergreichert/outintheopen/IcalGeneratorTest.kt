@@ -538,6 +538,15 @@ class IcalGeneratorTest {
         )
         events.add(
             Event(
+                from = LocalDateTime.of(2025, 7, 17, 10, 0, 0),
+                to = LocalDateTime.of(2025, 7, 17, 11, 0, 0),
+                location = Location(online = true),
+                title = "Nutzung von freien Geodaten zur Parkraumanalyse",
+                link = "https://www.mundialis.de/effiziente-parkraumanalyse-mit-freien-geodaten-einladung-zum-webinar/"
+            )
+        )
+        events.add(
+            Event(
                 from = LocalDateTime.of(2025, 7, 17, 18, 0, 0),
                 to = LocalDateTime.of(2025, 7, 20, 13, 30, 0),
                 location = Location(
