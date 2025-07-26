@@ -125,8 +125,9 @@ class MastodonService @Autowired constructor(
             since,
             until
         ).map { list ->
+            val df = DecimalFormat("000")
             FileWriter(File(targetFile ?: "${rootFolder()}/mastodon-statuses.txt")).use {
-                it.write(list.joinToString("\n\n"))
+                it.write(list.mapIndexed { index, string -> df.format(index) + ". " + string }.joinToString("\n\n"))
             }
             list
         }
@@ -146,8 +147,9 @@ class MastodonService @Autowired constructor(
             since,
             until
         ).map { list ->
+            val df = DecimalFormat("000")
             FileWriter(File(targetFile ?: "${rootFolder()}/mastodon-bookmarks.txt")).use {
-                it.write(list.joinToString("\n\n"))
+                it.write(list.reversed().mapIndexed { index, string -> df.format(index) + ". " + string }.joinToString("\n\n"))
             }
             list
         }
@@ -165,16 +167,20 @@ class MastodonService @Autowired constructor(
         )
         val paramType: ParameterizedTypeReference<MutableList<MastodonStatus>> =
             ParameterizedTypeReference.forType(type)
+        val listOfLists = mutableListOf<String>()
         return getAccessToken(givenAccessToken).flatMap { accessToken ->
             webClientBuilder.build().get().uri(url).headers { h -> h.setBearerAuth(accessToken) }.retrieve()
                 .toEntity(paramType).flatMap { response ->
                     val linkHeader = response.headers["Link"]
-                    handleLink(linkHeader, url, visited, givenAccessToken, since, until).map { processed ->
-                        val listOfLists = mutableListOf<String>()
-                        listOfLists.addAll(processed)
-                        val res = handleBody(response, since, until, listOfLists.size)
+                    val res = handleBody(response, since, until)
+                    if (res.isNotEmpty()) {
                         listOfLists.addAll(res)
-                        listOfLists
+                        handleLink(linkHeader, url, visited, givenAccessToken, since, until).map { processed ->
+                            listOfLists.addAll(processed)
+                            listOfLists
+                        }
+                    } else {
+                        Mono.just(listOfLists)
                     }
                 }.doOnError {
                     val type2: CollectionType = objectMapper.typeFactory.constructCollectionType(
@@ -184,14 +190,19 @@ class MastodonService @Autowired constructor(
                         ParameterizedTypeReference.forType(type2)
                     webClientBuilder.build().get().uri(url).headers { h -> h.setBearerAuth(accessToken) }.retrieve()
                         .toEntity(paramType2).flatMap { response ->
-                            val linkHeader = response.headers["Link"]
-                            handleLink(linkHeader, url, visited, givenAccessToken, since, until).map { processed ->
-                                val listOfLists = mutableListOf<String>()
-                                listOfLists.addAll(processed)
-                                val res = handleBody2(response, since, until, listOfLists.size, url)
+                            val res = handleBody2(response, since, until, url)
+                            if (res.isNotEmpty()) {
                                 listOfLists.addAll(res)
-                                listOfLists
+                                val linkHeader = response.headers["Link"]
+                                handleLink(linkHeader, url, visited, givenAccessToken, since, until).map { processed ->
+                                    listOfLists.addAll(processed)
+                                    listOfLists
+                                }
+                            } else {
+                                Mono.just(listOfLists)
                             }
+                        }.doOnError {
+                            listOfLists
                         }
                 }
         }
@@ -200,18 +211,16 @@ class MastodonService @Autowired constructor(
     private fun handleBody(
         response: ResponseEntity<MutableList<MastodonStatus>>,
         since: LocalDate?,
-        until: LocalDate?,
-        currentSize: Int
+        until: LocalDate?
     ): List<String> {
-        val decimalFormat = DecimalFormat("000")
         val simpleDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-        return response.body?.reversed()?.mapIndexed { index, tweet ->
+        return response.body?.mapIndexed { index, tweet ->
             val createdAt = LocalDateTime.from(simpleDateFormat.parse(tweet.createdAt.toString()))
             if ((since == null || createdAt.toLocalDate().isAfter(since)) &&
                 (until == null || createdAt.toLocalDate().isBefore(until))
             ) {
                 listOfNotNull(
-                    "${decimalFormat.format(currentSize + index + 1)}. ${tweet.createdAt}: ${tweet.content}",
+                    "${tweet.createdAt}: ${tweet.content}",
                     tweet.reblog?.content ?: tweet.content,
                     tweet.reblog?.uri ?: tweet.uri
                 ).joinToString("\n")
@@ -223,12 +232,10 @@ class MastodonService @Autowired constructor(
         response: ResponseEntity<MutableList<JsonNode>>,
         since: LocalDate?,
         until: LocalDate?,
-        currentSize: Int,
         url: String
     ): List<String> {
-        val decimalFormat = DecimalFormat("000")
         val simpleDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-        return response.body?.reversed()?.mapIndexed { index, tweet ->
+        return response.body?.mapIndexed { index, tweet ->
             try {
                 val tweetCasted = objectMapper.readValue(tweet.asText(), MastodonStatus::class.java)
                 val createdAt = LocalDateTime.from(simpleDateFormat.parse(tweetCasted.createdAt.toString()))
@@ -236,7 +243,7 @@ class MastodonService @Autowired constructor(
                     (until == null || createdAt.toLocalDate().isBefore(until))
                 ) {
                     listOfNotNull(
-                        "${decimalFormat.format(currentSize + index + 1)}. ${tweetCasted.createdAt}: ${tweetCasted.content}",
+                        "${tweetCasted.createdAt}: ${tweetCasted.content}",
                         tweetCasted.reblog?.content ?: tweetCasted.content,
                         tweetCasted.reblog?.uri ?: tweetCasted.uri
                     ).joinToString("\n")
@@ -280,8 +287,9 @@ class MastodonService @Autowired constructor(
             since,
             until
         ).map { list ->
+            val df = DecimalFormat("000")
             FileWriter(File(targetFile ?: "${rootFolder()}/mastodon-likes.txt")).use {
-                it.write(list.joinToString("\n"))
+                it.write(list.mapIndexed { index, string -> df.format(index) + ". " + string }.joinToString("\n"))
             }
             list
         }

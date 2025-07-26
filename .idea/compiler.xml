@@ -4,10 +4,6 @@
     <bytecodeTargetLevel target="23" />
   </component>
   <component name="JavacSettings">
-    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="micro-blogging-apis" options="-parameters" />
-      <module name="micro-blogging-apis.main" options="-parameters" />
-      <module name="micro-blogging-apis.test" options="-parameters" />
-    </option>
+    <option name="ADDITIONAL_OPTIONS_STRING" value="-parameters" />
   </component>
 </project>
