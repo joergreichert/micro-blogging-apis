@@ -53,90 +53,6 @@ class IcalGeneratorTest {
 
     @Test
     @Disabled
-    fun testGenerateNovember2024IcsFromDataModel() {
-        val events = createNovember2024Events()
-        val actual = events.joinToString("\n") { generateEventLink(it) }
-        assertEquals(expected(), actual)
-    }
-
-    @Test
-    @Disabled
-    fun testGenerateDecember2024IcsFromDataModel() {
-        val events = createDecember2024Events()
-        val actual = events.joinToString("\n") { generateEventLink(it) }
-        assertEquals(expected(), actual)
-    }
-
-    @Test
-    @Disabled
-    fun testGenerateJanuary2025IcsFromDataModel() {
-        val events = createJanuary2025Events()
-        val actual = events.joinToString("\n") { generateEventLink(it) }
-        assertEquals(expected(), actual)
-    }
-
-    @Test
-    @Disabled
-    fun testGenerateFebruary2025IcsFromDataModel() {
-        val events = createFebruary2025Events()
-        val actual = events.joinToString("\n") { generateEventLink(it) }
-        assertEquals(expected(), actual)
-    }
-
-    @Test
-    @Disabled
-    fun testGenerateMarch2025IcsFromDataModel() {
-        val events = createMarch2025Events()
-        val actual = events.joinToString("\n") { generateEventLink(it) }
-        FileWriter(System.getProperty("user.dir") + "/docs/ics/events.ics").use { out ->
-            out.write(createIcsForMonth("Out In The Open Feburar 2025", events))
-        }
-        assertEquals(expected(), actual)
-    }
-
-    @Test
-    @Disabled
-    fun testGenerateApril2025IcsFromDataModel() {
-        val events = createApril2025Events()
-        val actual = events.joinToString("\n") { generateEventLink(it) }
-        FileWriter(System.getProperty("user.dir") + "/docs/ics/events.ics").use { out ->
-            out.write(createIcsForMonth("Out In The Open März 2025", events))
-        }
-        assertEquals(expected(), actual)
-    }
-
-    @Test
-    @Disabled
-    fun testGenerateMay2025IcsFromDataModel() {
-        val events = createMay2025Events()
-        val actual = events.joinToString("\n") { generateEventLink(it) }
-        FileWriter(System.getProperty("user.dir") + "/docs/ics/events.ics").use { out ->
-            out.write(createIcsForMonth("Out In The Open April 2025", events))
-        }
-        assertEquals(expected(), actual)
-    }
-
-    @Test
-    @Disabled
-    fun testGenerateJune2025IcsFromDataModel() {
-        val events = createJune2025Events()
-        val actual = events.sortedBy { it.from }.joinToString("\n") { generateEventLink(it) }
-        FileWriter(System.getProperty("user.dir") + "/docs/ics/events.ics").use { out ->
-            out.write(createIcsForMonth("Out In The Open May 2025", events))
-        }
-        assertEquals(expected(), actual)
-    }
-
-    @Test
-    @Disabled
-    fun testGenerateJuly2025IcsFromDataModel() {
-        val events = createJuly2025Events()
-        val actual = events.sortedBy { it.from }.joinToString("\n") { generateEventLink(it) }
-        assertEquals(expected(), actual)
-    }
-
-    @Test
-    @Disabled
     fun testGenerateAugust2025IcsFromDataModel() {
         val events = createAugust2025Events()
         val actual = events.sortedBy { it.from }.joinToString("\n") { generateEventLink(it) }
@@ -197,8 +113,8 @@ class IcalGeneratorTest {
                     lat = 52.5129735,
                     lon = 13.4201313
                 ),
-                title = "Netzpolitischer Abend",
-                link = "https://digitalegesellschaft.de/featured_item/netzpolitischer-abend/"
+                title = "Netzpolitisches Grillen",
+                link = "https://digitalegesellschaft.de/2025/07/netzpolitisches-grillen-2/"
             )
         )
         events.add(
@@ -350,6 +266,19 @@ class IcalGeneratorTest {
                 link = "https://correlaid.org/veranstaltungen/cc25-opendata?viewType=list"
             )
         )
+
+
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 8, 26, 10, 0, 0),
+                to = LocalDateTime.of(2025, 8, 26, 11, 0, 0),
+                location = Location(
+                    online = true,
+                ),
+                title = "SCS-Standards in der Praxis: Von der Umsetzung zur Zertifizierung",
+                link = "https://events.sovereigncloudstack.org/webinar/"
+            )
+        )
         events.add(
             Event(
                 from = LocalDateTime.of(2025, 8, 26, 19, 30, 0),
@@ -404,6 +333,57 @@ class IcalGeneratorTest {
                 ),
                 title = "WAMP - Das Camp im Westerwald",
                 link = "https://thereisno.camp"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 9, 5, 12, 0, 0),
+                to = LocalDateTime.of(2025, 9, 7, 12, 0, 0),
+                location = Location(
+                    name = "La Grange e.V.",
+                    street = "Gingster Chaussee",
+                    houseNumber = "6",
+                    zipCode = "18528",
+                    city = "Bergen auf Rügen",
+                    lat = 54.424704,
+                    lon = 13.415565
+                ),
+                title = "InselChaos 2025",
+                link = "https://inselchaos.de"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 9, 5, 10, 0, 0),
+                to = LocalDateTime.of(2025, 9, 6, 15, 0, 0),
+                location = Location(
+                    name = "Erich-Brost-Institut für Internationalen Journalismus auf dem Campus Nord der TU Dortmund",
+                    street = "Otto-Hahn-Straße",
+                    houseNumber = "2",
+                    zipCode = "44227",
+                    city = "Dortmund",
+                    lat = 51.491149199999995,
+                    lon = 7.415581198534301
+                ),
+                title = "SciCAR 2025",
+                link = "https://netzwerkrecherche.org/wir-vernetzen/scicar/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 9, 12, 13, 30, 0),
+                to = LocalDateTime.of(2025, 9, 14, 15, 30, 0),
+                location = Location(
+                    name = "Piloty-Gebäude (S2|02), TU Darmstadt",
+                    street = "Hochschulstraße",
+                    houseNumber = "10",
+                    zipCode = "64289",
+                    city = "Darmstadt",
+                    lat = 49.877509149999995,
+                    lon = 8.654546299588523
+                ),
+                title = "Meta-Rhein-Main-Chaos-Days (MRMCD) 2025",
+                link = "https://2025.mrmcd.net/de/"
             )
         )
         return events
