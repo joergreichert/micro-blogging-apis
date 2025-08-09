@@ -165,6 +165,15 @@ class IcalGeneratorTest {
         )
         events.add(
             Event(
+                from = LocalDateTime.of(2025, 8, 13, 18, 0, 0),
+                to = LocalDateTime.of(2025, 8, 13, 19, 0, 0),
+                location = Location(online = true),
+                title = "Datawrapper maps: Deep dive",
+                link = "https://streamyard.com/watch/y55ugdhB6uqE"
+            )
+        )
+        events.add(
+            Event(
                 from = LocalDateTime.of(2025, 8, 15, 16, 0, 0),
                 to = LocalDateTime.of(2025, 8, 17, 16, 0, 0),
                 location = Location(
@@ -195,6 +204,15 @@ class IcalGeneratorTest {
                 ),
                 title = "FrOSCon",
                 link = "https://froscon.org"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 8, 21, 14, 30, 0),
+                to = LocalDateTime.of(2025, 8, 21, 16, 30, 0),
+                location = Location(online = true),
+                title = "Teil 4 der Workshopreihe Sovereign. Sustainable. Digital.: Wie grün ist unsere Cloud? Nachhaltige Infrastruktur, Rechenzentren",
+                link = "https://www.bundesumweltministerium.de/veranstaltung/bmukn-community-nachhaltige-digitalisierung-teil-4-der-workshopreihe-sovereign-sustainable-digital"
             )
         )
         events.add(
@@ -281,6 +299,15 @@ class IcalGeneratorTest {
         )
         events.add(
             Event(
+                from = LocalDateTime.of(2025, 8, 26, 18, 0, 0),
+                to = LocalDateTime.of(2025, 8, 26, 19, 0, 0),
+                location = Location(online = true),
+                title = "Getting started with Datawrapper",
+                link = "https://streamyard.com/watch/W5dzprKiUXGT"
+            )
+        )
+        events.add(
+            Event(
                 from = LocalDateTime.of(2025, 8, 26, 19, 30, 0),
                 to = LocalDateTime.of(2025, 8, 26, 21, 0, 0),
                 location = Location(
@@ -305,6 +332,23 @@ class IcalGeneratorTest {
                 ),
                 title = "thereisno.camp",
                 link = "https://thereisno.camp"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 8, 27, 10, 0, 0),
+                to = LocalDateTime.of(2025, 8, 28, 15, 30, 0),
+                location = Location(
+                    name = "Hochschule Merseburg (Hauptgebäude)",
+                    street = "Eberhard-Leibnitz-Straße",
+                    houseNumber = "2",
+                    zipCode = "06217",
+                    city = "Merseburg",
+                    lat = 51.3436547,
+                    lon = 11.974483708704984
+                ),
+                title = "Merseburger Digitaltage 2025",
+                link = "https://www.merseburger-digitaltage.de/de/startseite-mdt.html"
             )
         )
         events.add(
