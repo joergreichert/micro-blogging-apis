@@ -237,7 +237,7 @@ class IcalGeneratorTest {
                     lat = 50.681084,
                     lon = 7.133399
                 ),
-                title = "Hack'n'Sun",
+                title = "Hack and Sun",
                 link = "https://teckids.org/blog/2025/03/hacknsun/"
             )
         )
@@ -284,8 +284,6 @@ class IcalGeneratorTest {
                 link = "https://correlaid.org/veranstaltungen/cc25-opendata?viewType=list"
             )
         )
-
-
         events.add(
             Event(
                 from = LocalDateTime.of(2025, 8, 26, 10, 0, 0),
@@ -381,6 +379,35 @@ class IcalGeneratorTest {
         )
         events.add(
             Event(
+                from = LocalDateTime.of(2025, 9, 4, 18, 0, 0),
+                to = LocalDateTime.of(2025, 9, 4, 21, 0, 0),
+                location = Location(
+                    name = "WikiBär Wikipedia",
+                    street = "Köpenicker Straße",
+                    houseNumber = "45",
+                    zipCode = "10179",
+                    city = "Berlin",
+                    lon = 13.439250348721544,
+                    lat = 52.50267706293607
+                ),
+                title = "Jugend editiert",
+                link = "https://www.wikimedia.de/veranstaltungen/jugend-editiert/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 9, 4, 19, 31, 0),
+                to = LocalDateTime.of(2025, 9, 4, 19, 31, 0),
+                location = Location(
+                    online = true,
+                    onlineLink = "https://bits-und-baeume.org/bbb/community"
+                ),
+                title = "Bits und Bäume Community Treffen",
+                link = "https://bits-und-baeume.org/termine/"
+            )
+        )
+        events.add(
+            Event(
                 from = LocalDateTime.of(2025, 9, 5, 12, 0, 0),
                 to = LocalDateTime.of(2025, 9, 7, 12, 0, 0),
                 location = Location(
@@ -411,6 +438,17 @@ class IcalGeneratorTest {
                 ),
                 title = "SciCAR 2025",
                 link = "https://netzwerkrecherche.org/wir-vernetzen/scicar/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 9, 11, 11, 0, 0),
+                to = LocalDateTime.of(2025, 9, 11, 12, 0, 0),
+                location = Location(
+                    online = true
+                ),
+                title = "openCode Connect September 2025: F13 erklärt - Der einfache Weg zur eigenen KI in der Verwaltung",
+                link = "https://opencode.de/de/aktuelles/events/opencode-connect-september-2025-4867"
             )
         )
         events.add(
