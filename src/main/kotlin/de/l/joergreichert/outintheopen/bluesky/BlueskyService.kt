@@ -169,6 +169,27 @@ class BlueskyService @Autowired constructor(
         }
     }
 
+    // https://docs.bsky.app/docs/api/app-bsky-feed-getBookmarked
+    fun listBookmarks(
+        givenAccessToken: String? = null, userId: String? = null, targetFile: String? = null,
+        since: LocalDate?, until: LocalDate?
+    ): Mono<List<String>> {
+        return internalStatuses(
+            userId,
+            givenAccessToken,
+            "app.bsky.feed.getBookmarked",
+            null,
+            mutableListOf(),
+            since,
+            until
+        ).map { list ->
+            FileWriter(File(targetFile ?: "${rootFolder()}/bluesky-bookmarks.txt")).use {
+                it.write(list.joinToString("\n\n"))
+            }
+            list
+        }
+    }
+
     private fun <T> genericCall(
         pathSegment: String,
         returnType: Class<T>,

@@ -43,6 +43,16 @@ class BlueskyController @Autowired constructor(val blueskyService: BlueskyServic
     ) =
         blueskyService.listStatuses(accessToken, userId, targetFile, since, until)
 
+    @GetMapping("bookmarks")
+    fun getBookmarks(
+        @RequestParam(required = false) accessToken: String? = null,
+        @RequestParam(required = false) userId: String? = null,
+        @RequestParam(required = false) targetFile: String? = null,
+        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) since: LocalDate? = null,
+        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) until: LocalDate? = null
+    ) =
+        blueskyService.listBookmarks(accessToken, userId, targetFile, since, until)
+
     @GetMapping("followers")
     fun getFollowers(
         @RequestParam(required = false) accessToken: String? = null,
