@@ -60,7 +60,7 @@ class IcalGeneratorTest {
     }
 
     @Test
-    @Disabled
+    //@Disabled
     fun testGenerateOctober2025IcsFromDataModel() {
         val events = createOctober2025Events()
         val actual = events.sortedBy { it.from }.joinToString("\n") { generateEventLink(it) }
@@ -76,7 +76,7 @@ class IcalGeneratorTest {
     }
 
     @Test
-    //@Disabled
+    @Disabled
     fun testGenerateCompleteYear2025IcsFromDataModel() {
         val events = createJanuary2025Events()
         events.addAll(createFebruary2025Events())
@@ -131,6 +131,24 @@ class IcalGeneratorTest {
         // https://summit.openforumeurope.org
 
         val events = mutableListOf<Event>()
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 10, 17, 9, 0, 0),
+                to = LocalDateTime.of(2025, 10, 18, 18, 0, 0),
+                location = Location(
+                    name = "POTSDAM LAB, Wissenschaftsetage (4. OG)",
+                    street = "Am Kanal",
+                    houseNumber = "47",
+                    zipCode = "14467",
+                    city = "Potsdam",
+                    online = false,
+                    lat = 52.397026999999994,
+                    lon = 13.0593427
+                ),
+                title = "Rad-Daten-Hackathon Potsdam",
+                link = "https://mitgestalten.potsdam.de/de/raddatenhackathon"
+            )
+        )
         events.add(
             Event(
                 from = LocalDateTime.of(2025, 10, 1, 0, 0, 0),
@@ -766,6 +784,17 @@ class IcalGeneratorTest {
                 ),
                 title = "FLINTA*-exklusive FAQ-Sprechstunde zur Bewerbung beim Prototype Fund",
                 link = "https://mastodon.social/@PrototypeFund/115309176484976415"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 10, 18, 0, 0, 0),
+                to = LocalDateTime.of(2025, 10, 18, 23, 59, 59),
+                location = Location(
+                    online = true,
+                ),
+                title = "International Repair Day 2025: Software obsolescence",
+                link = "https://openrepair.org/international-repair-day/"
             )
         )
         val comparator = compareBy<Event> { it.from }.thenComparing { a, b -> compareValues(a.title, b.title) }
