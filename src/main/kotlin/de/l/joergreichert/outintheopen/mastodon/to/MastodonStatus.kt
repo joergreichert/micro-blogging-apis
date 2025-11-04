@@ -6,26 +6,26 @@ import com.fasterxml.jackson.annotation.JsonProperty
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class MastodonStatus(
     val id: String?,
-    @JsonProperty("created_at")
+    @get:JsonProperty("created_at")
     val createdAt: String?,
-    @JsonProperty("in_reply_to_id")
+    @get:JsonProperty("in_reply_to_id")
     val in_reply_to_id: String?,
-    @JsonProperty("in_reply_to_account_id")
+    @get:JsonProperty("in_reply_to_account_id")
     val inReplyToAccountId: String?,
     val sensitive: Boolean?,
-    @JsonProperty("spoiler_text")
+    @get:JsonProperty("spoiler_text")
     val spoilerText: String?,
     val visibility: String?,
     val language: String?,
     val uri: String?,
     val url: String?,
-    @JsonProperty("replies_count")
+    @get:JsonProperty("replies_count")
     val repliesCount: Int?,
-    @JsonProperty("reblogs_count")
+    @get:JsonProperty("reblogs_count")
     val reblogsCount: Int?,
-    @JsonProperty("favourites_count")
+    @get:JsonProperty("favourites_count")
     val favouritesCount: Int?,
-    @JsonProperty("edited_at")
+    @get:JsonProperty("edited_at")
     val editedAt: String?,
     val favourited: Boolean?,
     val reblogged: Boolean?,
@@ -35,7 +35,7 @@ data class MastodonStatus(
     val reblog: Reblog?,
     val application: Any?,
     val account: MastodonAccount?,
-    @JsonProperty("media_attachments")
+    @get:JsonProperty("media_attachments")
     val mediaAttachments: List<*>?,
     val mentions: List<*>?,
     val tags: List<*>?,
@@ -47,31 +47,31 @@ data class MastodonStatus(
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class Reblog(
     val id: String?,
-    @JsonProperty("created_at")
+    @get:JsonProperty("created_at")
     val created_at: String?,
-    @JsonProperty("in_reply_to_id")
+    @get:JsonProperty("in_reply_to_id")
     val inReplyToId: String?,
-    @JsonProperty("in_reply_to_account_id")
+    @get:JsonProperty("in_reply_to_account_id")
     val inReplyToAccountId: String?,
     val sensitive: Boolean?,
-    @JsonProperty("spoiler_text")
+    @get:JsonProperty("spoiler_text")
     val spoilerText: String?,
     val visibility: String?,
     val language: String?,
     val uri: String?,
     val url: String?,
-    @JsonProperty("replies_count")
+    @get:JsonProperty("replies_count")
     val repliesCount: Int?,
-    @JsonProperty("reblogs_count")
+    @get:JsonProperty("reblogs_count")
     val reblogsCount: Int?,
-    @JsonProperty("favourites_count")
+    @get:JsonProperty("favourites_count")
     val favouritesCount: Int?,
-    @JsonProperty("edited_at")
+    @get:JsonProperty("edited_at")
     val editedAt: String?,
     val content: String?,
     val reblog: Reblog?,
     val account: MastodonAccount?,
-    @JsonProperty("media_attachments")
+    @get:JsonProperty("media_attachments")
     val mediaAttachments: List<MastodonMediaAttachment>?,
     val mentions: List<*>?,
     val tags: List<MastodonTag>?,
@@ -85,13 +85,13 @@ data class MastodonMediaAttachment(
     val id: String?,
     val type: String?,
     val url: String?,
-    @JsonProperty("preview_url")
+    @get:JsonProperty("preview_url")
     val previewUrl: String?,
-    @JsonProperty("remote_url")
+    @get:JsonProperty("remote_url")
     val remoteUrl: String?,
-    @JsonProperty("preview_remote_url")
+    @get:JsonProperty("preview_remote_url")
     val previewRemoteUrl: String?,
-    @JsonProperty("text_url")
+    @get:JsonProperty("text_url")
     val textUrl: String?,
     val meta: MastodonMediaAttachmentMeta?,
     val description: String?,
@@ -131,19 +131,19 @@ data class MastodonCard(
     val title: String?,
     val description: String?,
     val type: String?,
-    @JsonProperty("author_name")
+    @get:JsonProperty("author_name")
     val authorName: String?,
-    @JsonProperty("author_url")
+    @get:JsonProperty("author_url")
     val authorUrl: String?,
-    @JsonProperty("provider_name")
+    @get:JsonProperty("provider_name")
     val providerName: String?,
-    @JsonProperty("provider_url")
+    @get:JsonProperty("provider_url")
     val providerUrl: String?,
     val html: String?,
     val width: Int?,
     val height: Int?,
     val image: String?,
-    @JsonProperty("embed_url")
+    @get:JsonProperty("embed_url")
     val embedUrl: String?,
     val blurhash: String?
 )

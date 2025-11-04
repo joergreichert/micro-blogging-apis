@@ -60,9 +60,17 @@ class IcalGeneratorTest {
     }
 
     @Test
-    //@Disabled
+    @Disabled
     fun testGenerateOctober2025IcsFromDataModel() {
         val events = createOctober2025Events()
+        val actual = events.sortedBy { it.from }.joinToString("\n") { generateEventLink(it) }
+        assertEquals(expected(), actual)
+    }
+
+    @Test
+    @Disabled
+    fun testGenerateNovember2025IcsFromDataModel() {
+        val events = createNovember2025Events()
         val actual = events.sortedBy { it.from }.joinToString("\n") { generateEventLink(it) }
         assertEquals(expected(), actual)
     }
@@ -107,7 +115,7 @@ class IcalGeneratorTest {
         return calendarWithCodeforEvents.toString()
     }
 
-    private fun createOctober2025Events(): List<Event> {
+    private fun createNovember2025Events(): List<Event> {
         // November
         // https://www.prototypefund.de/events/demo-day-jahrgang-01
         // ecoCompute conference 13 & 14 November 2025 📍bUm - Berlin, Germany: https://www.eco-compute.io
@@ -122,14 +130,154 @@ class IcalGeneratorTest {
         // https://www.eventbrite.de/e/public-service-lab-day-2025-tickets-1447550435319
         // https://2025.nook-luebeck.de
         // https://www.oshop-network.de/konferenz-2025/
+        // 6.11: Piazza Konferenz 2025
+        // https://okfn.de/blog/2025/04/piazza-konferenz-2025-call-for-workshops/
+        // Netzpolitik & Demokratie, 10.11.-14.11.
+        // https://netzpolitische-bildung.de
+        // 12.-14.11.: PartWiss 2025
+        // https://www.partizipation-wissenschaft.de/konferenz_2025_leipzig/
+        // digiS-Jahreskonferenz 13. November 2025
+        // https://www.digis-berlin.de/veranstaltungen/digis-jahreskonferenzen/
+        // 22.11.: OKNRW 2025
+        // https://oknrw.de/save-the-date-oknrw-2025/
+        // https://pad.okfn.de/p/community-hackday25-11
+        // https://correlaid.org/veranstaltungen/cc25-python
+        // https://www.ki-ideenwerkstatt.de/veranstaltungen/offene-umweltdaten-fuer-alle-climate-helpdesk-meets-umweltinfo-in-der-ki-ideenwerkstatt/
+        // https://www.wikimedia.de/veranstaltungen/jugend-editiert/
+        // https://www.eventbrite.de/e/public-service-lab-day-2025-tickets-1447550435319
+        // https://2025.nook-luebeck.de
+        // https://digitalegesellschaft.de/2025/10/151-netzpolitischer-abend/
+        // https://www.wikimedia.de/veranstaltungen/digital-democracy-day-2025/
+        // https://www.wikimedia.de/veranstaltungen/tech-from-below-13/
+        // https://wiki.openstreetmap.org/wiki/Verkehrswende-Meetup/Meetup_2025-11-25
+        // https://egovernment-podcast.com/event/chaos-jetzt-geekend-jetzt11-netze-staerken-bande-bilden/
+        //
 
         // Dezember
         // https://where2b-conference.com
+        // https://opencode.de/de/aktuelles/events/opencode-connect-dezember-2025-5187
 
         // Januar
         // https://staat-in-die-zukunft.de
         // https://summit.openforumeurope.org
 
+        val events = mutableListOf<Event>()
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 10, 31, 18, 0, 0),
+                to = LocalDateTime.of(2025, 11, 2, 15, 0, 0),
+                location = Location(
+                    name = "Hochschule Heilbronn",
+                    street = "Max-Planck-Straße",
+                    houseNumber = "39",
+                    zipCode = "74081",
+                    city = "Heilbronn",
+                    online = false,
+                    lat = 49.122579599999995,
+                    lon = 9.209932893491
+                ),
+                title = "Die Heilbronner Chaos Party -- DHCP 2025",
+                link = "https://dhcp.cfhn.it"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 10, 31, 16, 0, 0),
+                to = LocalDateTime.of(2025, 11, 2, 16, 0, 0),
+                location = Location(
+                    name = "Tagungshaus Kommune Niederkaufungen",
+                    street = "Kirchweg",
+                    houseNumber = "1",
+                    zipCode = "34260",
+                    city = "Kaufungen",
+                    online = false,
+                    lat = 51.28576725,
+                    lon = 9.6020346
+                ),
+                title = "Hack the Difference",
+                link = "https://www.aktion-agrar.de/hack-the-difference/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 11, 6, 9, 0, 0),
+                to = LocalDateTime.of(2025, 11, 6, 17, 0, 0),
+                location = Location(
+                    online = true,
+                ),
+                title = "PIAZZA",
+                link = "https://piazza-konferenz.de/piazza2025/konferenzprogramm/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 11, 7, 10, 0, 0),
+                to = LocalDateTime.of(2025, 11, 9, 14, 30, 0),
+                location = Location(
+                    name = "Neue Teefabrik",
+                    street = "Hohenstaufenstraße",
+                    houseNumber = "8",
+                    zipCode = "60327",
+                    city = "Frankfurt am Main",
+                    online = false,
+                    lat = 50.1087657,
+                    lon = 8.6565254
+                ),
+                title = "#jetzt11 Geekend",
+                link = "https://chaos.jetzt/articles/jetzt11.html"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 11, 10, 9, 30, 0),
+                to = LocalDateTime.of(2025, 11, 11, 12, 30, 0),
+                location = Location(
+                    name = "Harnack-Haus",
+                    street = "Ihnestraße",
+                    houseNumber = "16-20",
+                    zipCode = "14195",
+                    city = "Berlin",
+                    online = true,
+                    lat = 52.4493924,
+                    lon = 13.279086399999999
+                ),
+                title = "Open Science Days",
+                link = "https://osip.mpdl.mpg.de/open-science-days/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 11, 10, 10, 0, 0),
+                to = LocalDateTime.of(2025, 11, 14, 17, 0, 0),
+                location = Location(
+                    online = true,
+                ),
+                title = "Netzpolitik & Demokratie",
+                link = "https://netzpolitische-bildung.de"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 11, 3, 9, 30, 0),
+                to = LocalDateTime.of(2025, 11, 4, 13, 0, 0),
+                location = Location(
+                    name = "Deutsches Hygiene-Museum",
+                    street = "Lingnerplatz",
+                    houseNumber = "1",
+                    zipCode = "01069",
+                    city = "Dresden",
+                    online = false,
+                    lat = 51.0443875,
+                    lon = 13.746802534414268
+                ),
+                title = "ALASCA Summit 2025",
+                link = "https://alasca.cloud/en/alasca-summit-2025-schedule/"
+            )
+        )
+        return events
+    }
+
+    private fun createOctober2025Events(): List<Event> {
         val events = mutableListOf<Event>()
         events.add(
             Event(

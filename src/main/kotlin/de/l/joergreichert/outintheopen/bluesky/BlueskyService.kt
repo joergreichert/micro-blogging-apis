@@ -67,8 +67,8 @@ class BlueskyService @Autowired constructor(
             val url = "https://bsky.social/xrpc/app.bsky.actor.getProfile?actor=${actor}"
             webClientBuilder
                 .filter(ExchangeFilterFunction.ofRequestProcessor {
-                    clientRequest -> println(clientRequest.url());
-                    clientRequest.headers().forEach { t, u -> println("t: $t, u: $u") };
+                    clientRequest -> println(clientRequest.url())
+                    clientRequest.headers().forEach { (t, u) -> println("t: $t, u: $u") }
                     Mono.just(clientRequest)
                 })
                 .build().get().uri(url)
@@ -202,8 +202,8 @@ class BlueskyService @Autowired constructor(
         return getAccessToken(givenAccessToken).flatMap { accessToken ->
             webClientBuilder
                 .filter(ExchangeFilterFunction.ofRequestProcessor {
-                        clientRequest -> println(clientRequest.url());
-                    clientRequest.headers().forEach { t, u -> println("t: $t, u: $u") };
+                        clientRequest -> println(clientRequest.url())
+                    clientRequest.headers().forEach { (t, u) -> println("t: $t, u: $u") }
                     try {
                         Mono.just(clientRequest)
                     } catch (e: Exception) {
@@ -259,8 +259,8 @@ class BlueskyService @Autowired constructor(
                 .headers { h -> h.setBearerAuth(accessToken) }
                 .retrieve()
                 .toEntity(Likes::class.java).flatMap { response ->
-                    val cursor = response.body.cursor
-                    if (response.body.feed?.isNotEmpty() == true) {
+                    val cursor = response.body?.cursor
+                    if (response.body?.feed?.isNotEmpty() == true) {
                         handleLink((userId ?: appProperties.bluesky.accountId), cursor, pathSegment, visited, givenAccessToken, since, until).map { processed ->
                             val listOfLists = mutableListOf<String>()
                             listOfLists.addAll(processed)
@@ -269,7 +269,7 @@ class BlueskyService @Autowired constructor(
                             listOfLists
                         }
                     } else {
-                        Mono.just(emptyList<String>())
+                        Mono.just(emptyList())
                     }
                 }.doOnError {
                     val type2: CollectionType = objectMapper.typeFactory.constructCollectionType(
@@ -287,8 +287,8 @@ class BlueskyService @Autowired constructor(
                             .build()
                     }.headers { h -> h.setBearerAuth(accessToken) }.retrieve()
                         .toEntity(paramType2).flatMap { response ->
-                            val cursor = response.body.filter { it.get("cursor") != null }.map { it.get("cursor").asText() }.firstOrNull()
-                            if (response.body.filter { it.get("feeds") != null }.map { it.get("feeds") }.firstOrNull() !== null) {
+                            val cursor = response.body?.filter { it.get("cursor") != null }?.map { it.get("cursor").asText() }?.firstOrNull()
+                            if (response.body?.filter { it.get("feeds") != null }?.map { it.get("feeds") }?.firstOrNull() !== null) {
                                 handleLink((userId ?: appProperties.bluesky.accountId), cursor, pathSegment, visited, givenAccessToken, since, until).map { processed ->
                                     val listOfLists = mutableListOf<String>()
                                     listOfLists.addAll(processed)
@@ -297,7 +297,7 @@ class BlueskyService @Autowired constructor(
                                     listOfLists
                                 }
                             } else {
-                                Mono.just(emptyList<String>())
+                                Mono.just(emptyList())
                             }
                         }
                 }
