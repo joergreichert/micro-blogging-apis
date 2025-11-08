@@ -68,7 +68,7 @@ class IcalGeneratorTest {
     }
 
     @Test
-    @Disabled
+    //@Disabled
     fun testGenerateNovember2025IcsFromDataModel() {
         val events = createNovember2025Events()
         val actual = events.sortedBy { it.from }.joinToString("\n") { generateEventLink(it) }
@@ -145,17 +145,6 @@ class IcalGeneratorTest {
         )
         events.add(
             Event(
-                from = LocalDateTime.of(2025, 11, 10, 10, 0, 0),
-                to = LocalDateTime.of(2025, 11, 14, 17, 0, 0),
-                location = Location(
-                    online = true,
-                ),
-                title = "Netzpolitik & Demokratie",
-                link = "https://netzpolitische-bildung.de"
-            )
-        )
-        events.add(
-            Event(
                 from = LocalDateTime.of(2025, 11, 3, 9, 30, 0),
                 to = LocalDateTime.of(2025, 11, 4, 13, 0, 0),
                 location = Location(
@@ -185,7 +174,7 @@ class IcalGeneratorTest {
                     lon = 13.4296611,
                     lat = 52.4937932
                 ),
-                title = "Demo Day von Jahrgang 01",
+                title = "Prototype Fund Demo Day von Jahrgang 01",
                 link = "https://www.prototypefund.de/events/demo-day-jahrgang-01"
             )
         )
@@ -259,8 +248,8 @@ class IcalGeneratorTest {
         )
         events.add(
             Event(
-                from = LocalDateTime.of(2025, 11, 3, 8, 45, 0),
-                to = LocalDateTime.of(2025, 11, 4, 17, 0, 0),
+                from = LocalDateTime.of(2025, 11, 14, 8, 45, 0),
+                to = LocalDateTime.of(2025, 11, 15, 17, 0, 0),
                 location = Location(
                     name = "Abertay University",
                     street = "Bellstreet",
@@ -1165,17 +1154,6 @@ class IcalGeneratorTest {
                 ),
                 title = "Open Science Days",
                 link = "https://osip.mpdl.mpg.de/open-science-days/"
-            )
-        )
-        events.add(
-            Event(
-                from = LocalDateTime.of(2025, 11, 10, 10, 0, 0),
-                to = LocalDateTime.of(2025, 11, 14, 17, 0, 0),
-                location = Location(
-                    online = true,
-                ),
-                title = "Netzpolitik & Demokratie",
-                link = "https://netzpolitische-bildung.de"
             )
         )
         events.add(
