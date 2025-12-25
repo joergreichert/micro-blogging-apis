@@ -53,32 +53,8 @@ class IcalGeneratorTest {
 
     @Test
     @Disabled
-    fun testGenerateSeptember2025IcsFromDataModel() {
-        val events = createSeptember2025Events()
-        val actual = events.sortedBy { it.from }.joinToString("\n") { generateEventLink(it) }
-        assertEquals(expected(), actual)
-    }
-
-    @Test
-    @Disabled
-    fun testGenerateOctober2025IcsFromDataModel() {
-        val events = createOctober2025Events()
-        val actual = events.sortedBy { it.from }.joinToString("\n") { generateEventLink(it) }
-        assertEquals(expected(), actual)
-    }
-
-    @Test
-    @Disabled
-    fun testGenerateNovember2025IcsFromDataModel() {
-        val events = createNovember2025Events()
-        val actual = events.sortedBy { it.from }.joinToString("\n") { generateEventLink(it) }
-        assertEquals(expected(), actual)
-    }
-
-    @Test
-    @Disabled
-    fun testGenerateDecember2025IcsFromDataModel() {
-        val events = createDecember2025Events()
+    fun testGenerateJanuary2026IcsFromDataModel() {
+        val events = createJanuary2026Events()
         val actual = events.sortedBy { it.from }.joinToString("\n") { generateEventLink(it) }
         assertEquals(expected(), actual)
     }
@@ -92,7 +68,7 @@ class IcalGeneratorTest {
     }
 
     @Test
-    @Disabled
+    //@Disabled
     fun testGenerateCompleteYear2025IcsFromDataModel() {
         val events = createJanuary2025Events()
         events.addAll(createFebruary2025Events())
@@ -106,6 +82,7 @@ class IcalGeneratorTest {
         events.addAll(createOctober2025Events())
         events.addAll(createNovember2025Events())
         events.addAll(createDecember2025Events())
+        events.addAll(createJanuary2026Events())
         val df = DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm")
         val eventMap = events.groupBy { df.format(it.from) + "__" + it.title }.toMap()
         val distinctEvents = eventMap.keys.mapNotNull { key -> eventMap[key]?.firstOrNull() }
@@ -125,11 +102,245 @@ class IcalGeneratorTest {
         return calendarWithCodeforEvents.toString()
     }
 
-    private fun createDecember2025Events(): List<Event> {
-        // Januar
-        // https://staat-in-die-zukunft.de
-        // https://summit.openforumeurope.org
 
+    private fun createJanuary2026Events(): List<Event> {
+        val events = mutableListOf<Event>()
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 1, 1, 19, 31, 0),
+                to = LocalDateTime.of(2026, 1, 1, 19, 31, 0),
+                location = Location(
+                    online = true,
+                    onlineLink = "https://bits-und-baeume.org/bbb/community"
+                ),
+                title = "Bits und Bäume Community Treffen",
+                link = "https://bits-und-baeume.org/termine/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 1, 6, 20, 0, 0),
+                to = LocalDateTime.of(2026, 1, 6, 22, 0, 0),
+                location = Location(
+                    name = "c-base",
+                    street = "Rungestraße",
+                    houseNumber = "20",
+                    zipCode = "10179",
+                    city = "Berlin",
+                    online = true,
+                    lat = 52.5129735,
+                    lon = 13.4201313
+                ),
+                title = "153. Netzpolitischer Abend",
+                link = "https://digitalegesellschaft.de/2025/12/153-netzpolitischer-abend/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 1, 9, 13, 0, 0),
+                to = LocalDateTime.of(2026, 1, 9, 13, 45, 0),
+                location = Location(
+                    online = true,
+                ),
+                title = "Lunch & Learn zur digitalen Kunstgeschichte: Von der Information zum Wissen. Wie kommen wir von unseren relationalen Datenbanken zum Wissensgraphen. (Holger Simon)",
+                link = "https://digitale-kunstgeschichte.de/aktuelles/lunch-and-learn-zur-digitalen-kunstgeschichte/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 1, 15, 9, 0, 0),
+                to = LocalDateTime.of(2026, 1, 15, 18, 0, 0),
+                location = Location(
+                    name = "Wilhelm von Humboldt-Saal im Haus Unter den Linden der Staatsbibliothek zu Berlin",
+                    street = "Unter den Linden",
+                    houseNumber = "8",
+                    zipCode = "10117",
+                    city = "Berlin",
+                    lon = 13.391620476395673,
+                    lat = 52.51753889200077
+                ),
+                title = "Initiative News-Infographics-Analytics-Maps (NIAM 2025)",
+                link = "https://news-infographics-analytics-maps.media"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 1, 15, 9, 30, 0),
+                to = LocalDateTime.of(2026, 1, 15, 12, 30, 0),
+                location = Location(
+                    online = true,
+                ),
+                title = "Open Data Einführungsworkshop",
+                link = "https://correlaid.org/veranstaltungen/workshop-open-data-3?viewType=list"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 1, 20, 17, 30, 0),
+                to = LocalDateTime.of(2026, 1, 20, 19, 0, 0),
+                location = Location(
+                    name = "Futurium",
+                    street = "Alexanderufer",
+                    houseNumber = "2",
+                    zipCode = "10117",
+                    city = "Berlin",
+                    lon = 13.374344662701674,
+                    lat = 52.524026192695686
+                ),
+                title = "Auftaktveranstaltung des Wissenschaftsjahres 2026 – Medizin der Zukunft",
+                link = "https://www.wissenschaftsjahr.de/2026/veranstaltungen/auftaktveranstaltung"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 1, 8, 18, 0, 0),
+                to = LocalDateTime.of(2026, 1, 8, 21, 0, 0),
+                location = Location(
+                    name = "WikiBär Wikipedia",
+                    street = "Köpenicker Straße",
+                    houseNumber = "45",
+                    zipCode = "10179",
+                    city = "Berlin",
+                    lon = 13.439250348721544,
+                    lat = 52.50267706293607
+                ),
+                title = "Jugend editiert",
+                link = "https://www.wikimedia.de/veranstaltungen/jugend-editiert/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 1, 27, 19, 30, 0),
+                to = LocalDateTime.of(2026, 1, 27, 21, 0, 0),
+                location = Location(
+                    online = true,
+                    onlineLink = "https://osmvideo.cloud68.co/user/chr-g7r-xz3"
+                ),
+                title = "OSM-Verkehrswende #71",
+                link = "https://wiki.openstreetmap.org/wiki/Verkehrswende-Meetup/Meetup_2026-01-27"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 1, 22, 18, 0, 0),
+                to = LocalDateTime.of(2026, 1, 22, 19, 30, 0),
+                location = Location(
+                    name = "Campus Bonn",
+                    street = "Gotenstr.",
+                    houseNumber = "161",
+                    zipCode = "53175",
+                    city = "Bonn",
+                    lon = 7.143035603072974,
+                    lat = 50.69669867543533,
+                    online = true
+                ),
+                title = "Ringvorlesung Digital Health: Innovative Forschungsprojekte",
+                link = "https://www.wikimedia.de/veranstaltungen/jugend-editiert/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 1, 31, 9, 0, 0),
+                to = LocalDateTime.of(2026, 2, 1, 17, 0, 0),
+                location = Location(
+                    name = "Université libre de Bruxelles (ULB) Solbosch Campus",
+                    street = "Avenue Franklin Roosevelt",
+                    houseNumber = "50",
+                    zipCode = "1050",
+                    city = "Brüssel",
+                    online = true,
+                    onlineLink = "https://live.fosdem.org/",
+                    lon = 4.436951259577029,
+                    lat = 50.468529174564935
+                ),
+                title = "Free and Open Source Developers European Meeting (FOSDEM 2026)",
+                link = "https://fosdem.org/2026/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 1, 30, 9, 0, 0),
+                to = LocalDateTime.of(2026, 1, 30, 18, 0, 0),
+                location = Location(online = true),
+                title = "EU Open Source Policy Summit 2026",
+                link = "https://summit.openforumeurope.org"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 1, 13, 17, 0, 0),
+                to = LocalDateTime.of(2026, 1, 13, 18, 0, 0),
+                location = Location(online = true),
+                title = "Wo steht die Deutsche Verwaltungscloud (DVC)? – Jour Fixe des AK Cloud",
+                link = "https://negz.org/termin/wo-steht-die-dvc-jour-fixe-des-ak-cloud/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 1, 14, 17, 0, 0),
+                to = LocalDateTime.of(2026, 1, 14, 18, 0, 0),
+                location = Location(online = true),
+                title = "AK EU: Erste Sitzung",
+                link = "https://negz.org/termin/ak-eu-erste-sitzung/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 1, 27, 9, 0, 0),
+                to = LocalDateTime.of(2026, 1, 27, 17, 0, 0),
+                location = Location(online = true),
+                title = "Staat in die Zukunft 2026 Online-Barcamp",
+                link = "https://negz.org/termin/staat-in-die-zukunft-2026/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 1, 29, 9, 0, 0),
+                to = LocalDateTime.of(2026, 1, 29, 17, 0, 0),
+                location = Location(
+                    name = "Campus Altenholz der Fachhochschule für Verwaltung und Dienstleistung",
+                    street = "Rehmkamp",
+                    houseNumber = "10",
+                    zipCode = "24161",
+                    city = "Altenholz",
+                    lon = 10.133155359546947,
+                    lat = 54.402051075067305
+                ),
+                title = "NEGZ Science Dialog: Lohnt sich Verwaltungsdigitalisierung?",
+                link = "https://negz.org/termin/science-dialog-start-des-dialogprozesses/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 1, 28, 17, 0, 0),
+                to = LocalDateTime.of(2026, 1, 28, 18, 0, 0),
+                location = Location(online = true),
+                title = "Legitimizations and subversions of the Open: for an analysis of openwashing in scientific publishing",
+                link = "https://opendivide.hypotheses.org/open-divide-2025-2026-speakers-and-topics#:~:text=January%2028"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 1, 22, 11, 0, 0),
+                to = LocalDateTime.of(2026, 1, 22, 12, 0, 0),
+                location = Location(online = true),
+                title = "openCode Connect Januar 2026: Das erste Open Source Sabbatical der Stadt München",
+                link = "https://opencode.de/de/aktuelles/events/opencode-connect-januar-2026-5386"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 2, 4, 10, 0, 0),
+                to = LocalDateTime.of(2026, 2, 4, 11, 30, 0),
+                location = Location(online = true),
+                title = "21. Open-Data-Netzwerktreffen: Mini-Barcamp zu Open Data",
+                link = "https://www.bertelsmann-stiftung.de/de/unsere-projekte/daten-fuer-die-gesellschaft/projektnachrichten/das-kommunale-open-data-netzwerktreffen"
+            )
+        )
+        return events
+    }
+
+    private fun createDecember2025Events(): List<Event> {
         val events = mutableListOf<Event>()
         events.add(
             Event(
@@ -380,17 +591,6 @@ class IcalGeneratorTest {
     }
 
     private fun createNovember2025Events(): List<Event> {
-        /*
-         * The Munin Conference
-         *   https://site.uit.no/muninconf/
-         */
-        // Dezember
-        // https://where2b-conference.com
-
-        // Januar
-        // https://staat-in-die-zukunft.de
-        // https://summit.openforumeurope.org
-
         val events = mutableListOf<Event>()
         events.add(
             Event(
