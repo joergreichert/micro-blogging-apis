@@ -119,6 +119,24 @@ class IcalGeneratorTest {
         )
         events.add(
             Event(
+                from = LocalDateTime.of(2026, 1, 5, 14, 0, 0),
+                to = LocalDateTime.of(2026, 1, 5, 17, 0, 0),
+                location = Location(
+                    name = "Raum Oxford (04G01), Staatsbibliothek zu Berlin",
+                    street = "Unter den Linden",
+                    houseNumber = "8",
+                    zipCode = "10117 ",
+                    city = "Berlin",
+                    online = true,
+                    lon = 13.391620476395673,
+                    lat = 52.51753889200077
+                ),
+                title = "Datencafé: Verknüpfte Daten in Kalliope mit Python analysieren",
+                link = "https://lab.sbb.berlin/datencafe/"
+            )
+        )
+        events.add(
+            Event(
                 from = LocalDateTime.of(2026, 1, 6, 20, 0, 0),
                 to = LocalDateTime.of(2026, 1, 6, 22, 0, 0),
                 location = Location(
@@ -172,6 +190,28 @@ class IcalGeneratorTest {
                 ),
                 title = "Open Data Einführungsworkshop",
                 link = "https://correlaid.org/veranstaltungen/workshop-open-data-3?viewType=list"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 1, 15, 10, 0, 0),
+                to = LocalDateTime.of(2026, 1, 15, 10, 45, 0),
+                location = Location(
+                    online = true,
+                ),
+                title = "Heat Stress Maps – Webinar Invitation",
+                link = "https://www.mundialis.de/en/heat-stress-maps-webinar-invitation/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 1, 20, 16, 40, 0),
+                to = LocalDateTime.of(2026, 1, 20, 18, 0, 0),
+                location = Location(
+                    online = true,
+                ),
+                title = "How to Reduce LLM Hallucinations with Wikidata: Hands-On Fact-Checking Using MCP",
+                link = "https://luma.com/7fs5v7os"
             )
         )
         events.add(
