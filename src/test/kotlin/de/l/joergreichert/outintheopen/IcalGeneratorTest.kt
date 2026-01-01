@@ -52,7 +52,7 @@ class IcalGeneratorTest {
     )
 
     @Test
-    @Disabled
+    //@Disabled
     fun testGenerateJanuary2026IcsFromDataModel() {
         val events = createJanuary2026Events()
         val actual = events.sortedBy { it.from }.joinToString("\n") { generateEventLink(it) }
@@ -68,7 +68,7 @@ class IcalGeneratorTest {
     }
 
     @Test
-    //@Disabled
+    @Disabled
     fun testGenerateCompleteYear2025IcsFromDataModel() {
         val events = createJanuary2025Events()
         events.addAll(createFebruary2025Events())
@@ -137,24 +137,6 @@ class IcalGeneratorTest {
         )
         events.add(
             Event(
-                from = LocalDateTime.of(2026, 1, 6, 20, 0, 0),
-                to = LocalDateTime.of(2026, 1, 6, 22, 0, 0),
-                location = Location(
-                    name = "c-base",
-                    street = "Rungestraße",
-                    houseNumber = "20",
-                    zipCode = "10179",
-                    city = "Berlin",
-                    online = true,
-                    lat = 52.5129735,
-                    lon = 13.4201313
-                ),
-                title = "153. Netzpolitischer Abend",
-                link = "https://digitalegesellschaft.de/2025/12/153-netzpolitischer-abend/"
-            )
-        )
-        events.add(
-            Event(
                 from = LocalDateTime.of(2026, 1, 9, 13, 0, 0),
                 to = LocalDateTime.of(2026, 1, 9, 13, 45, 0),
                 location = Location(
@@ -162,6 +144,23 @@ class IcalGeneratorTest {
                 ),
                 title = "Lunch & Learn zur digitalen Kunstgeschichte: Von der Information zum Wissen. Wie kommen wir von unseren relationalen Datenbanken zum Wissensgraphen. (Holger Simon)",
                 link = "https://digitale-kunstgeschichte.de/aktuelles/lunch-and-learn-zur-digitalen-kunstgeschichte/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 1, 9, 17, 0, 0),
+                to = LocalDateTime.of(2026, 1, 9, 20, 0, 0),
+                location = Location(
+                    name = "Leerstand als Begegnungsraum",
+                    street = "Friedrichstraße",
+                    houseNumber = "5",
+                    zipCode = "53111",
+                    city = "Bonn",
+                    lat = 50.73671151565779,
+                    lon = 7.098767617408129
+                ),
+                title = "Kartierungsworkshop: Antiautoritäre Strategien kartieren",
+                link = "https://flyinghigh-bonn.org/event/antiautoritare-strategien-kartieren"
             )
         )
         events.add(
