@@ -52,7 +52,7 @@ class IcalGeneratorTest {
     )
 
     @Test
-    //@Disabled
+    @Disabled
     fun testGenerateJanuary2026IcsFromDataModel() {
         val events = createJanuary2026Events()
         val actual = events.sortedBy { it.from }.joinToString("\n") { generateEventLink(it) }
@@ -249,6 +249,23 @@ class IcalGeneratorTest {
         )
         events.add(
             Event(
+                from = LocalDateTime.of(2026, 1, 9, 16, 0, 0),
+                to = LocalDateTime.of(2026, 1, 11, 14, 30, 0),
+                location = Location(
+                    name = "WikiBär Wikipedia",
+                    street = "Köpenicker Straße",
+                    houseNumber = "45",
+                    zipCode = "10179",
+                    city = "Berlin",
+                    lon = 13.439250348721544,
+                    lat = 52.50267706293607
+                ),
+                title = "Transitous Hack Weekend Berlin",
+                link = "https://github.com/public-transport/transitous/wiki/Transitous-Hack-Weekend-Berlin,-January-2026"
+            )
+        )
+        events.add(
+            Event(
                 from = LocalDateTime.of(2026, 1, 27, 19, 30, 0),
                 to = LocalDateTime.of(2026, 1, 27, 21, 0, 0),
                 location = Location(
@@ -365,6 +382,15 @@ class IcalGeneratorTest {
                 location = Location(online = true),
                 title = "openCode Connect Januar 2026: Das erste Open Source Sabbatical der Stadt München",
                 link = "https://opencode.de/de/aktuelles/events/opencode-connect-januar-2026-5386"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 2, 1, 0, 0, 0),
+                to = LocalDateTime.of(2026, 2, 1, 23, 59, 59),
+                location = Location(online = true),
+                title = "Digital Independence Day",
+                link = "https://di.day"
             )
         )
         events.add(
