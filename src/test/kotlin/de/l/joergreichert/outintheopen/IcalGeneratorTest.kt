@@ -116,6 +116,14 @@ class IcalGeneratorTest {
         // März
         // https://veranstaltungen.muenchen.de/rit/veranstaltungen/open-data-day-muenchen-2026/
         // https://26.foss-backstage.de
+        // https://mastodon.online/@FOSSGISeV/115860128631278289
+        // https://mstdn.social/@4nn4_clickt/115900958239872063
+        // https://chemnitzer.linux-tage.de/2026/de/programm/hinweise
+        // https://datasci.social/@AntoninDanalet/115926934759673251
+        // https://www.tib.eu/de/aktuelles/detail/programm-8-workshop-retrodigitalisierung
+        // https://technik-salon.de/2026/03/12/datenatlas.html
+        // https://events.ccc.de/2026/01/30/winterchaos-2026/
+
         val events = mutableListOf<Event>()
         events.add(
             Event(
@@ -228,6 +236,24 @@ class IcalGeneratorTest {
         )
         events.add(
             Event(
+                from = LocalDateTime.of(2026, 2, 6, 9, 30, 0),
+                to = LocalDateTime.of(2026, 2, 6, 17, 0, 0),
+                location = Location(
+                    name = "Ministerium für Umwelt, Naturschutz und Verkehr des Landes NRW",
+                    street = "Emilie-Preyer-Platz",
+                    houseNumber = "1",
+                    zipCode = "40479",
+                    city = "Düsseldorf",
+                    lon = 6.7740108,
+                    lat = 51.2352584,
+                    online = true
+                ),
+                title = "Daten bewegen NRW - Von der Idee zur Lösung - Ideenwerkstatt für Natur, nachhaltige Mobilität und Klimaanpassung",
+                link = "https://beteiligung.nrw.de/portal/MUNV/beteiligung/themen/1018275?zugangscode=gsUmnhnD"
+            )
+        )
+        events.add(
+            Event(
                 from = LocalDateTime.of(2026, 2, 6, 13, 0, 0),
                 to = LocalDateTime.of(2026, 2, 6, 13, 45, 0),
                 location = Location(
@@ -285,6 +311,15 @@ class IcalGeneratorTest {
         )
         events.add(
             Event(
+                from = LocalDateTime.of(2026, 2, 13, 10, 0, 0),
+                to = LocalDateTime.of(2026, 2, 13, 11, 30, 0),
+                location = Location(online = true),
+                title = "Observing our planet through data: Destination Earth",
+                link = "https://dataeuropaacademy.clickmeeting.com/622855791/register"
+            )
+        )
+        events.add(
+            Event(
                 from = LocalDateTime.of(2026, 2, 23, 14, 0, 0),
                 to = LocalDateTime.of(2026, 2, 24, 15, 30, 0),
                 location = Location(
@@ -335,6 +370,24 @@ class IcalGeneratorTest {
                 ),
                 title = "7. FilmFrauen Berlinale-Edit-a-thon 2026",
                 link = "https://www.wikimedia.de/veranstaltungen/7-filmfrauen-berlinale-edit-a-thon-2026/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 2, 18, 9, 30, 0),
+                to = LocalDateTime.of(2026, 2, 18, 15, 30, 0),
+                location = Location(
+                    name = "Campus der Hochschule Anhalt in Dessau, Audimax",
+                    street = "Bauhausstraße",
+                    houseNumber = "5",
+                    zipCode = "06846",
+                    city = "Dessau-Roßlau",
+                    online = false,
+                    lat = 51.8397429,
+                    lon = 12.2286707
+                ),
+                title = "17. Geofachtag: KI und Geoinformation",
+                link = "https://geoobserver.de/2026/01/21/17-geofachtag-des-netzwerk-gis-programm-anmeldung/"
             )
         )
         events.add(
@@ -415,6 +468,17 @@ class IcalGeneratorTest {
                 location = Location(online = true),
                 title = "CDO-Talk: Hitze sichtbar machen – Datenbasierte Entscheidungen für klimaresiliente Kommunen und Regionen",
                 link = "https://negz.org/termin/cdo-talk-hitze-sichtbar-machen/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 2, 27, 12, 0, 0),
+                to = LocalDateTime.of(2026, 2, 27, 13, 0, 0),
+                location = Location(
+                    online = true,
+                ),
+                title = "IQ Wasser: Artenvielfalt gemeinsam erforschen",
+                link = "https://www.mitforschen.org/veranstaltungen/digitale-mittagspause"
             )
         )
         events.add(
