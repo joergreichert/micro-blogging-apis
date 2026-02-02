@@ -60,7 +60,7 @@ class IcalGeneratorTest {
     }
 
     @Test
-    //@Disabled
+    @Disabled
     fun testGenerateFebruary2026IcsFromDataModel() {
         val events = createFebruary2026Events()
         val actual = events.sortedBy { it.from }.joinToString("\n") { generateEventLink(it) }
@@ -6874,8 +6874,8 @@ class IcalGeneratorTest {
         )
         events.put("Bielefeld",
             Event(
-                from = LocalDateTime.of(2025, 7, 3, 18, 30, 0),
-                to = LocalDateTime.of(2025, 7, 3, 21, 0, 0),
+                from = LocalDateTime.of(2026, 2, 5, 18, 30, 0),
+                to = LocalDateTime.of(2026, 2, 5, 21, 0, 0),
                 location = Location(
                     name = "Innovation Office",
                     street = "Alter Markt",
@@ -6891,8 +6891,8 @@ class IcalGeneratorTest {
         )
         events.put("Flensburg",
             Event(
-                from = LocalDateTime.of(2025, 7, 2, 18, 0, 0),
-                to = LocalDateTime.of(2025, 7, 2, 21, 0, 0),
+                from = LocalDateTime.of(2026, 2, 4, 18, 0, 0),
+                to = LocalDateTime.of(2026, 2, 4, 21, 0, 0),
                 location = Location(
                     name = "Aktivitetshuset",
                     street = "Norderstraße",
@@ -6908,8 +6908,8 @@ class IcalGeneratorTest {
         )
         events.put("Karlsruhe",
             Event(
-                from = LocalDateTime.of(2025, 7, 21, 19, 0, 0),
-                to = LocalDateTime.of(2025, 7, 21, 21, 0, 0),
+                from = LocalDateTime.of(2026, 2, 10, 19, 0, 0),
+                to = LocalDateTime.of(2026, 2, 10, 21, 0, 0),
                 location = Location(
                     name = "Impact Hub",
                     street = "Kaiserstr",
@@ -6923,8 +6923,8 @@ class IcalGeneratorTest {
         )
         events.put("Köln",
             Event(
-                from = LocalDateTime.of(2025, 7, 7, 19, 0, 0),
-                to = LocalDateTime.of(2025, 7, 7, 22, 0, 0),
+                from = LocalDateTime.of(2026, 2, 2, 19, 0, 0),
+                to = LocalDateTime.of(2026, 2, 2, 22, 0, 0),
                 location = Location(
                     name = "Wikipedia Lokal K",
                     street = "Hackländerstr",
@@ -6940,8 +6940,8 @@ class IcalGeneratorTest {
         )
         events.put("Leipzig",
             Event(
-                from = LocalDateTime.of(2025, 7, 2, 19, 0, 0),
-                to = LocalDateTime.of(2025, 7, 2, 22, 0, 0),
+                from = LocalDateTime.of(2026, 2, 4, 19, 0, 0),
+                to = LocalDateTime.of(2026, 2, 4, 22, 0, 0),
                 location = Location(
                     name = "Basislager Coworking Leipzig",
                     street = "Peterssteinweg",
@@ -6957,8 +6957,8 @@ class IcalGeneratorTest {
         )
         events.put("Münster",
             Event(
-                from = LocalDateTime.of(2025, 7, 1, 19, 30, 0),
-                to = LocalDateTime.of(2025, 7, 1, 22, 0, 0),
+                from = LocalDateTime.of(2026, 2, 10, 19, 30, 0),
+                to = LocalDateTime.of(2026, 2, 10, 22, 0, 0),
                 location = Location(
                     name = "Cafe SpecOps network",
                     street = "Aegidiimarkt",
@@ -6974,8 +6974,8 @@ class IcalGeneratorTest {
         )
         events.put("Niederrhein",
             Event(
-                from = LocalDateTime.of(2025, 7, 1, 20, 0, 0),
-                to = LocalDateTime.of(2025, 7, 1, 22, 0, 0),
+                from = LocalDateTime.of(2026, 2, 3, 20, 0, 0),
+                to = LocalDateTime.of(2026, 2, 3, 22, 0, 0),
                 location = Location(online = true),
                 title = "Code for Niederrhein",
                 link = "https://www.codeforniederrhein.de/termine/"
@@ -6983,8 +6983,8 @@ class IcalGeneratorTest {
         )
         events.put("temporärhaus",
             Event(
-                from = LocalDateTime.of(2025, 7, 16, 19, 30, 0),
-                to = LocalDateTime.of(2025, 7, 16, 22, 0, 0),
+                from = LocalDateTime.of(2026, 2, 9, 19, 30, 0),
+                to = LocalDateTime.of(2026, 2, 9, 22, 0, 0),
                 location = Location(
                     name = "temporärhaus",
                     street = "Augsburgerstr",
