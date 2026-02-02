@@ -60,7 +60,7 @@ class IcalGeneratorTest {
     }
 
     @Test
-    @Disabled
+    //@Disabled
     fun testGenerateFebruary2026IcsFromDataModel() {
         val events = createFebruary2026Events()
         val actual = events.sortedBy { it.from }.joinToString("\n") { generateEventLink(it) }
@@ -194,6 +194,15 @@ class IcalGeneratorTest {
                 ),
                 title = "153. Netzpolitischer Abend",
                 link = "https://digitalegesellschaft.de/2026/01/153-netzpolitischer-abend/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 2, 4, 20, 0, 0),
+                to = LocalDateTime.of(2026, 2, 4, 21, 30, 0),
+                location = Location(online = true),
+                title = "Open Transport Meetup: Mark Stosberg: Sidewalk Priority Toolkit",
+                link = "https://hackmd.okfn.de/opentransportmeetup"
             )
         )
         events.add(
@@ -392,6 +401,15 @@ class IcalGeneratorTest {
         )
         events.add(
             Event(
+                from = LocalDateTime.of(2026, 2, 18, 20, 0, 0),
+                to = LocalDateTime.of(2026, 2, 18, 21, 30, 0),
+                location = Location(online = true),
+                title = "Open Transport Meetup: Theo: Bahnvorhersage",
+                link = "https://hackmd.okfn.de/opentransportmeetup"
+            )
+        )
+        events.add(
+            Event(
                 from = LocalDateTime.of(2026, 2, 21, 18, 0, 0),
                 to = LocalDateTime.of(2026, 2, 22, 21, 0, 0),
                 location = Location(
@@ -512,6 +530,23 @@ class IcalGeneratorTest {
         )
         events.add(
             Event(
+                from = LocalDateTime.of(2026, 3, 5, 10, 0, 0),
+                to = LocalDateTime.of(2026, 3, 5, 14, 0, 0),
+                location = Location(
+                    name = "Offenen Kanal Flensburg",
+                    street = "Sankt-Jürgen-Straße",
+                    houseNumber = "95",
+                    zipCode = "24937",
+                    city = "Flensburg",
+                    lon = 9.4422652,
+                    lat = 54.7916207
+                ),
+                title = "Mit Offene Daten, Vorträge und Vernetzung",
+                link = "https://opendataday-flensburg.de"
+            )
+        )
+        events.add(
+            Event(
                 from = LocalDateTime.of(2026, 3, 6, 19, 0, 0),
                 to = LocalDateTime.of(2026, 3, 8, 21, 0, 0),
                 location = Location(
@@ -525,6 +560,32 @@ class IcalGeneratorTest {
                 ),
                 title = "Hack im Pott",
                 link = "https://hackimpott.de"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 3, 7, 0, 0, 0),
+                to = LocalDateTime.of(2026, 3, 13, 23, 59, 59),
+                location = Location(online = true),
+                title = "Open Data Day 2025",
+                link = "https://opendataday.org"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 3, 7, 10, 0, 0),
+                to = LocalDateTime.of(2026, 3, 7, 18, 0, 0),
+                location = Location(
+                    name = "Offenen Kanal Flensburg",
+                    street = "Sankt-Jürgen-Straße",
+                    houseNumber = "95",
+                    zipCode = "24937",
+                    city = "Flensburg",
+                    lon = 9.4422652,
+                    lat = 54.7916207
+                ),
+                title = "Mit offenen Karten: Ein Hackathon mit Kartenanwendungen im Fokus",
+                link = "https://opendataday-flensburg.de"
             )
         )
         return events
