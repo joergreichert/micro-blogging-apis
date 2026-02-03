@@ -5,12 +5,12 @@ plugins {
     id("org.springframework.boot")
     id("org.jetbrains.kotlin.plugin.spring")
     idea
-    kotlin("jvm")
+    kotlin("jvm") version "2.3.0"
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_23
-    targetCompatibility = JavaVersion.VERSION_23
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
 }
 
 repositories {
@@ -45,4 +45,15 @@ tasks.test {
 
 tasks.named<org.springframework.boot.gradle.tasks.run.BootRun>("bootRun") {
     optimizedLaunch.set(false)
+}
+
+kotlin {
+    jvmToolchain(25)
+}
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(25))
+        vendor = JvmVendorSpec.ADOPTIUM
+    }
 }

@@ -23,7 +23,7 @@ class Application {
 
     @Bean
     fun initializer(): CommandLineRunner =
-        CommandLineRunner { args: Array<String?> ->
+        CommandLineRunner { args ->
             for (arg in args) {
                 logger.info(arg)
             }

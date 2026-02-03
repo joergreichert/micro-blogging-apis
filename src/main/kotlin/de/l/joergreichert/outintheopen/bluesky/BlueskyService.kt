@@ -68,7 +68,6 @@ class BlueskyService @Autowired constructor(
             webClientBuilder
                 .filter(ExchangeFilterFunction.ofRequestProcessor {
                     clientRequest -> println(clientRequest.url())
-                    clientRequest.headers().forEach { (t, u) -> println("t: $t, u: $u") }
                     Mono.just(clientRequest)
                 })
                 .build().get().uri(url)
@@ -85,7 +84,7 @@ class BlueskyService @Autowired constructor(
         limit: Int? = 100,
         cursor: String? = null,
         targetFile: String? = null
-    ): Mono<Followers?> {
+    ): Mono<Followers> {
         val processBody: Consumer<Followers> = Consumer { body: Followers ->
             FileWriter(File(targetFile ?: "${rootFolder()}/bluesky-followers.txt")).use { fw ->
                 body.followers?.let { fw.write(body.followers.joinToString("\n")) }
@@ -108,7 +107,7 @@ class BlueskyService @Autowired constructor(
         limit: Int? = 100,
         cursor: String? = null,
         targetFile: String? = null
-    ): Mono<Follows?> {
+    ): Mono<Follows> {
         val processBody: Consumer<Follows> = Consumer { body: Follows ->
             FileWriter(File(targetFile ?: "${rootFolder()}/bluesky-following.txt")).use { fw ->
                 body.follows?.let { fw.write(body.follows.joinToString("\n")) }
@@ -190,7 +189,7 @@ class BlueskyService @Autowired constructor(
         }
     }
 
-    private fun <T> genericCall(
+    private fun <T : Any> genericCall(
         pathSegment: String,
         returnType: Class<T>,
         processBody: Consumer<T>,
@@ -198,12 +197,11 @@ class BlueskyService @Autowired constructor(
         userId: String? = null,
         limit: Int? = 50,
         cursor: String? = null
-    ): Mono<T?> {
-        return getAccessToken(givenAccessToken).flatMap { accessToken ->
+    ): Mono<T> {
+        return getAccessToken(givenAccessToken).flatMap { accessToken: String ->
             webClientBuilder
                 .filter(ExchangeFilterFunction.ofRequestProcessor {
                         clientRequest -> println(clientRequest.url())
-                    clientRequest.headers().forEach { (t, u) -> println("t: $t, u: $u") }
                     try {
                         Mono.just(clientRequest)
                     } catch (e: Exception) {
@@ -216,7 +214,10 @@ class BlueskyService @Autowired constructor(
                     .host("bsky.social")
                     .path("/xrpc/$pathSegment")
                     .queryParam("actor", (userId ?: appProperties.bluesky.accountId))
-                    .queryParam("limit", limit).let {
+                    .let {
+                        if (limit != null) it.queryParam("limit", limit) else it
+                    }
+                    .let {
                         if (cursor != null) it.queryParam("cursor", cursor) else it
                     }
                     .build()
@@ -224,13 +225,13 @@ class BlueskyService @Autowired constructor(
                 .headers { h -> h.setBearerAuth(accessToken) }
                 .retrieve()
 
-                .bodyToMono(returnType).map { body ->
-                    body?.let {
+                .bodyToMono(returnType).map { body: T ->
+                    body.let {
                         processBody.accept(body)
                     }
                     body
                 }
-                .onErrorResume { e -> Mono.error(IllegalStateException("request failed: " +
+                .onErrorResume { e: Throwable -> Mono.error(IllegalStateException("request failed: " +
                         (e as BadRequest).getResponseBodyAsString(
                     java.nio.charset.Charset.forName("UTF-8")), e)) }
         }
@@ -252,7 +253,9 @@ class BlueskyService @Autowired constructor(
                     .host("bsky.social")
                     .path("/xrpc/$pathSegment")
                     .queryParam("actor", (userId ?: appProperties.bluesky.accountId))
-                    .queryParam("cursor", cursor)
+                    .let {
+                        if (cursor != null) it.queryParam("cursor", cursor) else it
+                    }
                     .queryParam("limit", 50)
                     .build()
             }
