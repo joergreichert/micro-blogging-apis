@@ -5,7 +5,7 @@ plugins {
     id("org.springframework.boot")
     id("org.jetbrains.kotlin.plugin.spring")
     idea
-    kotlin("jvm") version "2.3.0"
+    kotlin("jvm") version "2.3.10"
 }
 
 java {
