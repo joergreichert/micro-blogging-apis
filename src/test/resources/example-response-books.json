@@ -1,0 +1,119 @@
+[
+  {
+    "id": "116107415953198092",
+    "created_at": "2026-02-21T07:22:48.000Z",
+    "in_reply_to_id": "115303432641854510",
+    "in_reply_to_account_id": "111177614350417532",
+    "sensitive": false,
+    "spoiler_text": "",
+    "visibility": "public",
+    "language": "de",
+    "uri": "https://nrw.social/users/offenekommunen/statuses/116107415912954806",
+    "url": "https://nrw.social/@offenekommunen/116107415912954806",
+    "replies_count": 1,
+    "reblogs_count": 1,
+    "favourites_count": 0,
+    "quotes_count": 0,
+    "edited_at": null,
+    "favourited": false,
+    "reblogged": false,
+    "muted": false,
+    "bookmarked": true,
+    "content": "<p>Wir haben es endlich geschafft auch einen Rückblick auf das <a href=\"https://nrw.social/tags/Barcamp\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>Barcamp</span></a> 2025 aufzuschreiben. Ihr hattet hoffentlich genauso viel Spaß wie wir! <a href=\"https://oknrw.de/rueckblende-oknrw-barcamp-2025/\" rel=\"nofollow noopener\" translate=\"no\" target=\"_blank\"><span class=\"invisible\">https://</span><span class=\"ellipsis\">oknrw.de/rueckblende-oknrw-bar</span><span class=\"invisible\">camp-2025/</span></a> <a href=\"https://nrw.social/tags/oknrw\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>oknrw</span></a> <span class=\"h-card\" translate=\"no\"><a href=\"https://feddit.org/c/wuppertal\" class=\"u-url mention\" rel=\"nofollow noopener\" target=\"_blank\">@<span>wuppertal</span></a></span> <a href=\"https://nrw.social/tags/Wuppertal\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>Wuppertal</span></a></p>",
+    "filtered": [],
+    "reblog": null,
+    "account": {
+      "id": "111177614350417532",
+      "username": "offenekommunen",
+      "acct": "offenekommunen@nrw.social",
+      "display_name": "Offene Kommunen.NRW",
+      "locked": false,
+      "bot": false,
+      "discoverable": true,
+      "indexable": true,
+      "group": false,
+      "created_at": "2023-10-04T00:00:00.000Z",
+      "note": "<p>Der Verein „Offene Kommunen.NRW Institut e.V.“, kurz OKNRW Institut, setzt sich dafür ein, den Prozess der Offenheit, Zusammenarbeit und Transparenz auf landespolitischer und kommunaler Ebene in NRW voranzubringen und zu gestalten.</p><p>Posts von <span class=\"h-card\" translate=\"no\"><a href=\"https://ruhr.social/@phneutral\" class=\"u-url mention\" rel=\"nofollow noopener\" target=\"_blank\">@<span>phneutral</span></a></span></p>",
+      "url": "https://nrw.social/@offenekommunen",
+      "uri": "https://nrw.social/users/offenekommunen",
+      "avatar": "https://climatejustice.social/system/cache/accounts/avatars/111/177/614/350/417/532/original/399196db0644a22d.png",
+      "avatar_static": "https://climatejustice.social/system/cache/accounts/avatars/111/177/614/350/417/532/original/399196db0644a22d.png",
+      "header": "https://climatejustice.social/system/cache/accounts/headers/111/177/614/350/417/532/original/57812e39047f9251.png",
+      "header_static": "https://climatejustice.social/system/cache/accounts/headers/111/177/614/350/417/532/original/57812e39047f9251.png",
+      "followers_count": 156,
+      "following_count": 212,
+      "statuses_count": 149,
+      "last_status_at": "2026-02-21",
+      "hide_collections": false,
+      "emojis": [],
+      "fields": [
+        {
+          "name": "Website",
+          "value": "<a href=\"https://oknrw.de\" target=\"_blank\" rel=\"nofollow noopener\" translate=\"no\"><span class=\"invisible\">https://</span><span class=\"\">oknrw.de</span><span class=\"invisible\"></span></a>",
+          "verified_at": "2026-02-21T07:37:19.400+00:00"
+        },
+        {
+          "name": "Manifest",
+          "value": "<a href=\"https://opengovernmentmanifest.nrw\" rel=\"nofollow noopener\" translate=\"no\" target=\"_blank\"><span class=\"invisible\">https://</span><span class=\"\">opengovernmentmanifest.nrw</span><span class=\"invisible\"></span></a>",
+          "verified_at": null
+        },
+        {
+          "name": "GIT",
+          "value": "<a href=\"https://github.com/OKNRW\" target=\"_blank\" rel=\"nofollow noopener\" translate=\"no\"><span class=\"invisible\">https://</span><span class=\"\">github.com/OKNRW</span><span class=\"invisible\"></span></a>",
+          "verified_at": "2026-02-21T07:37:20.107+00:00"
+        }
+      ]
+    },
+    "media_attachments": [],
+    "mentions": [
+      {
+        "id": "112733511888248934",
+        "username": "wuppertal",
+        "url": "https://feddit.org/c/wuppertal",
+        "acct": "wuppertal@feddit.org"
+      }
+    ],
+    "tags": [
+      {
+        "name": "barcamp",
+        "url": "https://climatejustice.social/tags/barcamp"
+      },
+      {
+        "name": "OKNRW",
+        "url": "https://climatejustice.social/tags/OKNRW"
+      },
+      {
+        "name": "wuppertal",
+        "url": "https://climatejustice.social/tags/wuppertal"
+      }
+    ],
+    "emojis": [],
+    "quote": null,
+    "card": {
+      "url": "https://oknrw.de/rueckblende-oknrw-barcamp-2025/",
+      "title": "Rückblende OKNRW – Barcamp 2025",
+      "description": "Am 22. November 2025 fand unser diesjähriges OKNRW Barcamp in Wuppertal statt, unter dem Motto “Dis/connected – Was trennt uns, was verbindet uns”. Jetzt, ein paar Wochen später, haben wir uns im Team zusammengesetzt und […]",
+      "language": "de",
+      "type": "link",
+      "author_name": "",
+      "author_url": "",
+      "provider_name": "Offene Kommunen.NRW",
+      "provider_url": "",
+      "html": "",
+      "width": 636,
+      "height": 362,
+      "image": "https://climatejustice.social/system/cache/preview_cards/images/026/059/439/original/3f175e1cc1cc9ab5.jpg",
+      "image_description": "Rückblende OKNRW – Barcamp 2025",
+      "embed_url": "",
+      "blurhash": "UCGk{]srGK?Z_2K#E3+]^-S]XLU_$,x[oxbJ",
+      "published_at": "2026-02-02T08:15:03.000Z",
+      "authors": []
+    },
+    "poll": null,
+    "quote_approval": {
+      "automatic": [],
+      "manual": [],
+      "current_user": "denied"
+    }
+  }
+]

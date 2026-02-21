@@ -162,15 +162,10 @@ class MastodonService @Autowired constructor(
         since: LocalDate?,
         until: LocalDate?,
     ): Mono<List<String>> {
-        val type: CollectionType = objectMapper.typeFactory.constructCollectionType(
-            MutableList::class.java, MastodonStatus::class.java
-        )
-        val paramType: ParameterizedTypeReference<MutableList<MastodonStatus>> =
-            ParameterizedTypeReference.forType(type)
         val listOfLists = mutableListOf<String>()
         return getAccessToken(givenAccessToken).flatMap { accessToken ->
             webClientBuilder.build().get().uri(url).headers { h -> h.setBearerAuth(accessToken) }.retrieve()
-                .toEntity(paramType).flatMap { response ->
+                .toEntityList(MastodonStatus::class.java).flatMap { response ->
                     val linkHeader = response.headers["Link"]
                     val res = handleBody(response, since, until)
                     if (res.isNotEmpty()) {
@@ -183,13 +178,9 @@ class MastodonService @Autowired constructor(
                         Mono.just(listOfLists)
                     }
                 }.doOnError {
-                    val type2: CollectionType = objectMapper.typeFactory.constructCollectionType(
-                        MutableList::class.java, JsonNode::class.java
-                    )
-                    val paramType2: ParameterizedTypeReference<MutableList<JsonNode>> =
-                        ParameterizedTypeReference.forType(type2)
+                    it.message
                     webClientBuilder.build().get().uri(url).headers { h -> h.setBearerAuth(accessToken) }.retrieve()
-                        .toEntity(paramType2).flatMap { response ->
+                        .toEntityList(JsonNode::class.java).flatMap { response ->
                             val res = handleBody2(response, since, until, url)
                             if (res.isNotEmpty()) {
                                 listOfLists.addAll(res)

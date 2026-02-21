@@ -42,6 +42,10 @@ data class MastodonStatus(
     val emojis: List<*>?,
     val card: MastodonCard?,
     val poll: Any?,
+    val quotes_count: Int?,
+    val filtered: List<*>?,
+    val quote: Any?,
+    val quote_approval: Any?,
 )
 
 @JsonIgnoreProperties(ignoreUnknown = true)
