@@ -101,6 +101,7 @@ class IcalGeneratorTest {
         events.addAll(createDecember2025Events())*/
         events.addAll(createJanuary2026Events())
         events.addAll(createFebruary2026Events())
+        events.addAll(createMarch2026Events())
         events.addAll(recurrentEventsMap().entries.map { it.value })
         val df = DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm")
         val eventMap = events.groupBy { df.format(it.from) + "__" + it.title }.toMap()
@@ -234,8 +235,8 @@ class IcalGeneratorTest {
         )
         events.add(
             Event(
-                from = LocalDateTime.of(2025, 3, 1, 0, 0, 0),
-                to = LocalDateTime.of(2025, 3, 8, 23, 59, 59),
+                from = LocalDateTime.of(2026, 3, 1, 0, 0, 0),
+                to = LocalDateTime.of(2026, 3, 8, 23, 59, 59),
                 location = Location(online = true),
                 title = "Open Data Day 2026",
                 link = "https://opendataday.org/de/events/2026/"
@@ -285,10 +286,29 @@ class IcalGeneratorTest {
                     houseNumber = "20",
                     zipCode = "10179",
                     city = "Berlin",
-                    online = true
+                    online = true,
+                    lat = 52.5129735,
+                    lon = 13.4201313
                 ),
                 title = "154. Netzpolitischer Abend",
                 link = "https://digitalegesellschaft.de/2026/02/154-netzpolitischer-abend/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 3, 11, 13, 0, 0),
+                to = LocalDateTime.of(2026, 3, 12, 13, 15, 0),
+                location = Location(
+                    name = "Umweltbundesamt",
+                    street = "Wörlitzer Platz",
+                    houseNumber = "1",
+                    zipCode = "06844",
+                    city = "Dessau-Roßlau",
+                    lat = 51.84250085,
+                    lon = 12.239350592988522
+                ),
+                title = "From niche to centre: mainstreaming circular lifestyles in European cities",
+                link = "https://www.umweltbundesamt.de/fachkonferenz-von-der-nische-ins-zentrum-zirkulaere"
             )
         )
         events.add(
@@ -356,8 +376,8 @@ class IcalGeneratorTest {
         )
         events.add(
             Event(
-                from = LocalDateTime.of(2025, 3, 28, 9, 0, 0),
-                to = LocalDateTime.of(2025, 3, 29, 18, 0, 0),
+                from = LocalDateTime.of(2026, 3, 28, 9, 0, 0),
+                to = LocalDateTime.of(2026, 3, 29, 18, 0, 0),
                 location = Location(
                     name = "Technische Universität Chemnitz, Zentrales Hörsaal- und Seminargebäude",
                     street = "Reichenhainer Straße",
@@ -476,8 +496,8 @@ class IcalGeneratorTest {
                     houseNumber = "50",
                     zipCode = "44793",
                     city = "Bochum",
-                    lat = 51.4809426,
-                    lon = 7.2086028
+                    lat = 52.451914599999995,
+                    lon = 13.2882492
                 ),
                 title = "spring(); break;",
                 link = "https://wiki.das-labor.org/w/Veranstaltung/springbreak_2026"
@@ -512,8 +532,8 @@ class IcalGeneratorTest {
         )
         events.add(
             Event(
-                from = LocalDateTime.of(2025, 4, 3, 15, 0, 0),
-                to = LocalDateTime.of(2025, 4, 6, 15, 30, 0),
+                from = LocalDateTime.of(2026, 4, 3, 15, 0, 0),
+                to = LocalDateTime.of(2026, 4, 6, 15, 30, 0),
                 location = Location(
                     name = "Universität Koblenz",
                     street = "Universitätsstraße",
