@@ -61,6 +61,14 @@ class IcalGeneratorTest {
 
     @Test
     @Disabled
+    fun testGenerateMarch2026IcsFromDataModel() {
+        val events = createMarch2026Events()
+        val actual = events.sortedBy { it.from }.joinToString("\n") { generateEventLink(it) }
+        assertEquals(expected(), actual)
+    }
+
+    @Test
+    @Disabled
     fun testGenerateFebruary2026IcsFromDataModel() {
         val events = createFebruary2026Events()
         val actual = events.sortedBy { it.from }.joinToString("\n") { generateEventLink(it) }
@@ -113,18 +121,416 @@ class IcalGeneratorTest {
         return calendarWithCodeforEvents.toString()
     }
 
-    private fun createFebruary2026Events(): List<Event> {
-        // März
-        // https://veranstaltungen.muenchen.de/rit/veranstaltungen/open-data-day-muenchen-2026/
-        // https://26.foss-backstage.de
-        // https://mastodon.online/@FOSSGISeV/115860128631278289
-        // https://mstdn.social/@4nn4_clickt/115900958239872063
-        // https://chemnitzer.linux-tage.de/2026/de/programm/hinweise
-        // https://datasci.social/@AntoninDanalet/115926934759673251
-        // https://www.tib.eu/de/aktuelles/detail/programm-8-workshop-retrodigitalisierung
-        // https://technik-salon.de/2026/03/12/datenatlas.html
-        // https://events.ccc.de/2026/01/30/winterchaos-2026/
+    private fun createMarch2026Events(): List<Event> {
+        val events = mutableListOf<Event>()
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 3, 1, 0, 0, 0),
+                to = LocalDateTime.of(2026, 3, 1, 23, 59, 59),
+                location = Location(online = true),
+                title = "Digital Independence Day",
+                link = "https://di.day"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 3, 2, 14, 0, 0),
+                to = LocalDateTime.of(2026, 3, 2, 17, 0, 0),
+                location = Location(
+                    name = "Raum Oxford (04G01), Staatsbibliothek zu Berlin",
+                    street = "Unter den Linden",
+                    houseNumber = "8",
+                    zipCode = "10117 ",
+                    city = "Berlin",
+                    online = true,
+                    lon = 13.391620476395673,
+                    lat = 52.51753889200077
+                ),
+                title = "Datencafé: Automatische Texterkennung mit eScriptorium",
+                link = "https://lab.sbb.berlin/datencafe/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 3, 3, 13, 0, 0),
+                to = LocalDateTime.of(2026, 3, 3, 13, 45, 0),
+                location = Location(
+                    online = true,
+                ),
+                title = "Das Open Heritage Statement",
+                link = "https://www.wikimedia.de/veranstaltungen/das-open-heritage-statement/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 3, 6, 13, 0, 0),
+                to = LocalDateTime.of(2026, 3, 6, 13, 45, 0),
+                location = Location(
+                    online = true,
+                ),
+                title = "NFDI4Objects, Forschungsdateninfrastruktur für materielle Hinterlassenschaften aus Menschheits- und Umweltgeschichte (Anja Gerber)",
+                link = "https://digitale-kunstgeschichte.de/aktuelles/lunch-and-learn-zur-digitalen-kunstgeschichte/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 3, 5, 10, 0, 0),
+                to = LocalDateTime.of(2026, 3, 5, 14, 0, 0),
+                location = Location(
+                    name = "Offenen Kanal Flensburg",
+                    street = "Sankt-Jürgen-Straße",
+                    houseNumber = "95",
+                    zipCode = "24937",
+                    city = "Flensburg",
+                    lon = 9.4422652,
+                    lat = 54.7916207
+                ),
+                title = "Mit Offene Daten, Vorträge und Vernetzung",
+                link = "https://opendataday-flensburg.de"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 3, 6, 19, 0, 0),
+                to = LocalDateTime.of(2026, 3, 8, 21, 0, 0),
+                location = Location(
+                    name = "WIR-Haus",
+                    street = "Wilhelmstraße",
+                    houseNumber = "189",
+                    zipCode = "42489",
+                    city = "Wülfrath",
+                    lon = 4.436951259577029,
+                    lat = 50.468529174564935
+                ),
+                title = "Hack im Pott",
+                link = "https://hackimpott.de"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 3, 7, 0, 0, 0),
+                to = LocalDateTime.of(2026, 3, 13, 23, 59, 59),
+                location = Location(online = true),
+                title = "Open Data Day 2025",
+                link = "https://opendataday.org"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 3, 7, 10, 0, 0),
+                to = LocalDateTime.of(2026, 3, 7, 18, 0, 0),
+                location = Location(
+                    name = "Offenen Kanal Flensburg",
+                    street = "Sankt-Jürgen-Straße",
+                    houseNumber = "95",
+                    zipCode = "24937",
+                    city = "Flensburg",
+                    lon = 9.4422652,
+                    lat = 54.7916207
+                ),
+                title = "Mit offenen Karten: Ein Hackathon mit Kartenanwendungen im Fokus",
+                link = "https://opendataday-flensburg.de"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 3, 1, 0, 0, 0),
+                to = LocalDateTime.of(2025, 3, 8, 23, 59, 59),
+                location = Location(online = true),
+                title = "Open Data Day 2026",
+                link = "https://opendataday.org/de/events/2026/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 3, 12, 19, 0, 0),
+                to = LocalDateTime.of(2026, 3, 12, 21, 0, 0),
+                location = Location(
+                    name = "Marstall | Lesesaal Patente & Normen, TIB – Technische Informationsbibliothek",
+                    street = "Welfengarten",
+                    houseNumber = "1a",
+                    zipCode = "30167",
+                    city = "Hannover",
+                    lat = 52.38204415985828,
+                    lon = 9.720253442585033
+                ),
+                title = "Datenatlas - Im Dickicht der digitalen Verwaltung",
+                link = "https://technik-salon.de/2026/03/12/datenatlas.html"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 3, 21, 9, 0, 0),
+                to = LocalDateTime.of(2026, 3, 21, 16, 0, 0),
+                location = Location(
+                    name = "IT-Referat der Stadt München, Qubes Gebäude",
+                    street = "Agnes-Pockels-Bogen",
+                    houseNumber = "33",
+                    zipCode = "80992",
+                    city = "München",
+                    lat = 48.17402935,
+                    lon = 11.533678297485846
+                ),
+                title = "Open Data Day 2026 in München",
+                link = "https://muenchen.digital/veranstaltungen/open-data-day-2026.html"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 3, 3, 20, 0, 0),
+                to = LocalDateTime.of(2026, 3, 3, 22, 0, 0),
+                location = Location(
+                    name = "c-base",
+                    street = "Rungestraße",
+                    houseNumber = "20",
+                    zipCode = "10179",
+                    city = "Berlin",
+                    online = true
+                ),
+                title = "154. Netzpolitischer Abend",
+                link = "https://digitalegesellschaft.de/2026/02/154-netzpolitischer-abend/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 3, 16, 10, 0, 0),
+                to = LocalDateTime.of(2026, 3, 17, 17, 30, 0),
+                location = Location(
+                    name = "bUm – Raum für solidarisches Miteinander",
+                    street = "Paul-Lincke-Ufer",
+                    houseNumber = "21",
+                    zipCode = "10999",
+                    city = "Berlin",
+                    lon = 13.4296611,
+                    lat = 52.4937932
+                ),
+                title = "FOSS Backstage",
+                link = "https://26.foss-backstage.de"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 3, 5, 18, 0, 0),
+                to = LocalDateTime.of(2026, 3, 5, 21, 0, 0),
+                location = Location(
+                    name = "WikiBär Wikipedia",
+                    street = "Köpenicker Straße",
+                    houseNumber = "45",
+                    zipCode = "10179",
+                    city = "Berlin",
+                    lon = 13.439250348721544,
+                    lat = 52.50267706293607
+                ),
+                title = "Jugend editiert",
+                link = "https://www.wikimedia.de/veranstaltungen/jugend-editiert/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 3, 5, 19, 31, 0),
+                to = LocalDateTime.of(2026, 3, 5, 20, 30, 0),
+                location = Location(
+                    online = true,
+                    onlineLink = "https://bbb.tu-dresden.de/rooms/qje-7si-xu1-lul/join"
+                ),
+                title = "Bits & Bäume Community Vernetzungstreffen",
+                link = "https://discourse.bits-und-baeume.org/t/2025-03-06-online-community-treffen-19-31-uhr/1602"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 3, 20, 17, 0, 0),
+                to = LocalDateTime.of(2026, 3, 21, 18, 0, 0),
+                location = Location(
+                    name = "tba",
+                    street = "",
+                    houseNumber = "",
+                    zipCode = "60311",
+                    city = "Frankfurt/Main",
+                    lat = 50.1106444,
+                    lon = 8.6820917
+                ),
+                title = "Datendialog",
+                link = "https://correlaid.org/veranstaltungen/datendialog-mar2026"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 3, 28, 9, 0, 0),
+                to = LocalDateTime.of(2025, 3, 29, 18, 0, 0),
+                location = Location(
+                    name = "Technische Universität Chemnitz, Zentrales Hörsaal- und Seminargebäude",
+                    street = "Reichenhainer Straße",
+                    houseNumber = "90",
+                    zipCode = "09126",
+                    city = "Chemnitz",
+                    lat = 50.8135282,
+                    lon = 12.92920661940131
+                ),
+                title = "Chemnitzer Linux-Tage",
+                link = "https://chemnitzer.linux-tage.de/2026/de"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 3, 5, 11, 0, 0),
+                to = LocalDateTime.of(2026, 3, 5, 12, 0, 0),
+                location = Location(online = true),
+                title = "CorrelCompact: Wirkungsbericht für die Tonne? Wirkungsdaten besser aufbereiten",
+                link = "https://correlaid.org/veranstaltungen/cc26-wirkungsbericht"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 3, 25, 9, 0, 0),
+                to = LocalDateTime.of(2026, 3, 25, 14, 30, 0),
+                location = Location(
+                    name = "SBB CFF FFS – Hauptsitz, HS1",
+                    street = "Hilfikerstrasse",
+                    houseNumber = "1",
+                    zipCode = "3014",
+                    city = "Bern",
+                    lat = 46.9678201,
+                    lon = 7.4631688
+                ),
+                title = "opentransportdata.swiss Community Day",
+                link = "https://opentransportdata.swiss/de/25-maerz-2026-opentransportdata-swiss-community-day/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 3, 25, 10, 0, 0),
+                to = LocalDateTime.of(2026, 3, 28, 16, 45, 0),
+                location = Location(
+                    name = "Zentrales Hörsaalgebäude (ZHG), Georg-August-Universität Göttingen",
+                    street = "Platz der Göttinger Sieben",
+                    houseNumber = "5",
+                    zipCode = "37073",
+                    city = "Göttingen",
+                    lat = 51.54092,
+                    lon = 9.93581
+                ),
+                title = "FOSSGIS",
+                link = "https://fossgis-konferenz.de/2026/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 3, 28, 10, 0, 0),
+                to = LocalDateTime.of(2026, 3, 28, 23, 59, 59),
+                location = Location(name = "diverse"),
+                title = "Tag des offenen Hackspace",
+                link = "https://md.ccc-mannheim.de/tdoh-spaces26"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 3, 24, 19, 30, 0),
+                to = LocalDateTime.of(2026, 3, 24, 21, 0, 0),
+                location = Location(online = true),
+                title = "Verkehrswende-Meetup",
+                link = "https://wiki.openstreetmap.org/wiki/Verkehrswende-Meetup#Meetups"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 3, 27, 15, 30, 0),
+                to = LocalDateTime.of(2026, 3, 29, 14, 0, 0),
+                location = Location(
+                    name = "Museum Schnütgen",
+                    street = "Cäcilienstraße",
+                    houseNumber = "29–33",
+                    zipCode = "50667",
+                    city = "Köln",
+                    lat = 50.9347912,
+                    lon = 6.9516632
+                ),
+                title = "Art History Loves Wiki 2026",
+                link = "https://de.wikipedia.org/wiki/Wikipedia:Art_History_Loves_Wiki"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 3, 27, 16, 0, 0),
+                to = LocalDateTime.of(2026, 3, 27, 19, 0, 0),
+                location = Location(
+                    name = "Freie Universität Berlin, Hörsaal 1a",
+                    street = "Habelschwerdter Allee",
+                    houseNumber = "45",
+                    zipCode = "14195",
+                    city = "Berlin",
+                    lat = 52.451914599999995,
+                    lon = 13.2882492
+                ),
+                title = "Abschlussveranstaltung Gesunde und gerechte Mobilität für alle in Berlin",
+                link = "https://www.ioew.de/veranstaltung/gesunde-und-gerechte-mobilitaet-fuer-alle-in-berlin"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 3, 27, 16, 0, 0),
+                to = LocalDateTime.of(2026, 3, 27, 19, 0, 0),
+                location = Location(
+                    name = "Das Labor",
+                    street = "Alleestraße",
+                    houseNumber = "50",
+                    zipCode = "44793",
+                    city = "Bochum",
+                    lat = 51.4809426,
+                    lon = 7.2086028
+                ),
+                title = "spring(); break;",
+                link = "https://wiki.das-labor.org/w/Veranstaltung/springbreak_2026"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 4, 1, 0, 0, 0),
+                to = LocalDateTime.of(2026, 4, 1, 23, 59, 59),
+                location = Location(online = true),
+                title = "Digital Independence Day",
+                link = "https://di.day"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 3, 4, 20, 0, 0),
+                to = LocalDateTime.of(2026, 3, 4, 21, 30, 0),
+                location = Location(online = true),
+                title = "Open Transport Meetup: Organic Maps - Public Transport for everyone",
+                link = "https://hackmd.okfn.de/opentransportmeetup"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 3, 18, 20, 0, 0),
+                to = LocalDateTime.of(2026, 3, 18, 21, 30, 0),
+                location = Location(online = true),
+                title = "Open Transport Meetup: OpenTNF - a geopackage based INSPIRE DS TN data format for roadnetworks",
+                link = "https://hackmd.okfn.de/opentransportmeetup"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2025, 4, 3, 15, 0, 0),
+                to = LocalDateTime.of(2025, 4, 6, 15, 30, 0),
+                location = Location(
+                    name = "Universität Koblenz",
+                    street = "Universitätsstraße",
+                    houseNumber = "1",
+                    zipCode = "56070",
+                    city = "Koblenz-Metternich",
+                    lon = 7.558307699999999,
+                    lat = 50.3635854,
+                ),
+                title = "Easterhegg 2026",
+                link = "https://eh23.easterhegg.eu"
+            )
+        )
+        return events
+    }
 
+    private fun createFebruary2026Events(): List<Event> {
         val events = mutableListOf<Event>()
         events.add(
             Event(
