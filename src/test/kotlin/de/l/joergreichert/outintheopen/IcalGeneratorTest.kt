@@ -151,6 +151,76 @@ class IcalGeneratorTest {
                 link = "https://lab.sbb.berlin/datencafe/"
             )
         )
+
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 3, 11, 11, 0, 0),
+                to = LocalDateTime.of(2026, 3, 11, 16, 0, 0),
+                location = Location(online = true),
+                title = "The Future of Open Data",
+                link = "https://okfn.org/en/events/the-future-of-open-data/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 3, 3, 14, 0, 0),
+                to = LocalDateTime.of(2026, 3, 5, 17, 0, 0),
+                location = Location(
+                    name = "Messe Karlsruhe",
+                    street = "Messeallee",
+                    houseNumber = "1",
+                    zipCode = "76287 ",
+                    city = "Rheinstetten",
+                    lon = 8.330416699999999,
+                    lat = 48.9808646,
+                ),
+                title = "IT-TRANS – Die Internationale Fachmesse mit Kongressplattform für digitale Mobilität",
+                link = "https://www.it-trans.org/de/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 3, 12, 14, 0, 0),
+                to = LocalDateTime.of(2026, 3, 12, 15, 30, 0),
+                location = Location(online = true),
+                title = "Podiumsdiskussion: Wie sollte eine faire Finanzierung von Open Access aussehen?",
+                link = "https://blogs.fu-berlin.de/open-research-berlin/2026/02/27/quo-vadis-faire-finanzierung-open-access/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 3, 6, 14, 0, 0),
+                to = LocalDateTime.of(2026, 3, 8, 14, 0, 0),
+                location = Location(
+                    name = "Institut für Ur- und Frühgeschichte, Christian-Albrechts-Universität, Raum 148 (PC-Labor)",
+                    street = "Johanna-Mestorf-Straße",
+                    houseNumber = "6",
+                    zipCode = "24118 ",
+                    city = "Kiel",
+                    lon = 10.1243789,
+                    lat = 54.3392203,
+                ),
+                title = "Archaeogaming Hackathon Kiel",
+                link = "https://dikopa.net/2026/01/ankuendigung-archaeogaming-hackathon-kiel-6-8-3-2026/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 4, 10, 14, 0, 0),
+                to = LocalDateTime.of(2026, 4, 11, 14, 0, 0),
+                location = Location(
+                    name = "HPI Campus II",
+                    street = "August-Bebel-Str.",
+                    houseNumber = "88",
+                    zipCode = "14482",
+                    city = "Potsdam",
+                    lon = 13.124569699999999,
+                    lat = 52.392156199999995,
+                ),
+                title = "Hack HPI 2026 - Agriculture, Climate & Tech",
+                link = "https://hackhpi.org"
+            )
+        )
         events.add(
             Event(
                 from = LocalDateTime.of(2026, 3, 3, 13, 0, 0),
