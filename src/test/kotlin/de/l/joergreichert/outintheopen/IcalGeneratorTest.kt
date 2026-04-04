@@ -61,6 +61,14 @@ class IcalGeneratorTest {
 
     @Test
     @Disabled
+    fun testGenerateFebruary2026IcsFromDataModel() {
+        val events = createFebruary2026Events()
+        val actual = events.sortedBy { it.from }.joinToString("\n") { generateEventLink(it) }
+        assertEquals(expected(), actual)
+    }
+
+    @Test
+    @Disabled
     fun testGenerateMarch2026IcsFromDataModel() {
         val events = createMarch2026Events()
         val actual = events.sortedBy { it.from }.joinToString("\n") { generateEventLink(it) }
@@ -69,8 +77,8 @@ class IcalGeneratorTest {
 
     @Test
     @Disabled
-    fun testGenerateFebruary2026IcsFromDataModel() {
-        val events = createFebruary2026Events()
+    fun testGenerateApril2026IcsFromDataModel() {
+        val events = createApril2026Events()
         val actual = events.sortedBy { it.from }.joinToString("\n") { generateEventLink(it) }
         assertEquals(expected(), actual)
     }
@@ -102,6 +110,7 @@ class IcalGeneratorTest {
         events.addAll(createJanuary2026Events())
         events.addAll(createFebruary2026Events())
         events.addAll(createMarch2026Events())
+        events.addAll(createApril2026Events())
         events.addAll(recurrentEventsMap().entries.map { it.value })
         val df = DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm")
         val eventMap = events.groupBy { df.format(it.from) + "__" + it.title }.toMap()
@@ -122,7 +131,639 @@ class IcalGeneratorTest {
         return calendarWithCodeforEvents.toString()
     }
 
+    private fun createApril2026Events(): List<Event> {
+        //* 12.3: Halle Geekend Weekendchen 2026: https://eigenbaukombinat.de/hagewe26-tickets/
+        //* 14.3./15.3: https://ok-lab-karlsruhe.de/projekte/odd26/
+        //
+        //* 8.-10.5.: Hackathon Environmental Intelligence for Cultural Heritage and Health: https://www.copernicus-italia.it/?page_id=1715
+        // 8.-10.5.: https://de.wikipedia.org/wiki/Wikipedia:WikiProjekt_FemNetz/FemNetzCon_2026
+        val events = mutableListOf<Event>()
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 4, 3, 15, 0, 0),
+                to = LocalDateTime.of(2026, 4, 6, 15, 30, 0),
+                location = Location(
+                    name = "Universität Koblenz",
+                    street = "Universitätsstraße",
+                    houseNumber = "1",
+                    zipCode = "56070",
+                    city = "Koblenz-Metternich",
+                    lon = 7.558307699999999,
+                    lat = 50.3635854,
+                ),
+                title = "Easterhegg 2026",
+                link = "https://eh23.easterhegg.eu"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 4, 5, 0, 0, 0),
+                to = LocalDateTime.of(2026, 4, 5, 23, 59, 59),
+                location = Location(online = true),
+                title = "Digital Independence Day",
+                link = "https://di.day"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 4, 9, 11, 0, 0),
+                to = LocalDateTime.of(2026, 4, 9, 12, 0, 0),
+                location = Location(online = true),
+                title = "CorrelCompact - Diskriminierung durch KI: Wie kommt das und was können wir dagegen tun?",
+                link = "https://correlaid.org/veranstaltungen/cc26-diskriminierung"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 4, 10, 14, 0, 0),
+                to = LocalDateTime.of(2026, 4, 11, 14, 0, 0),
+                location = Location(
+                    name = "HPI Campus II",
+                    street = "August-Bebel-Str.",
+                    houseNumber = "88",
+                    zipCode = "14482",
+                    city = "Potsdam",
+                    lon = 13.124569699999999,
+                    lat = 52.392156199999995,
+                ),
+                title = "Hack HPI 2026 - Agriculture, Climate & Tech",
+                link = "https://hackhpi.org"
+            )
+        )
+
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 4, 7, 20, 0, 0),
+                to = LocalDateTime.of(2026, 4, 7, 22, 0, 0),
+                location = Location(
+                    name = "c-base",
+                    street = "Rungestraße",
+                    houseNumber = "20",
+                    zipCode = "10179",
+                    city = "Berlin",
+                    online = true
+                ),
+                title = "155. Netzpolitischer Abend",
+                link = "https://digitalegesellschaft.de/2026/04/155-netzpolitscher-abend/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 4, 9, 9, 0, 0),
+                to = LocalDateTime.of(2026, 4, 9, 10, 0, 0),
+                location = Location(
+                    online = true
+                ),
+                title = "Green-AI Hub-Workshop: Data Readiness für KI-Projekte",
+                link = "https://www.z-u-g.org/veranstaltungen/green-ai-hub-workshop-data-readiness-fuer-ki-projekte/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 4, 10, 13, 0, 0),
+                to = LocalDateTime.of(2026, 4, 11, 18, 30, 0),
+                location = Location(
+                    name = "TU Graz, Campus Inffeldgasse",
+                    street = "Inffeldgasse",
+                    houseNumber = "25",
+                    zipCode = "8010",
+                    city = "Graz (Österreich)",
+                    lat = 47.057997199999996,
+                    lon = 15.4609799
+                ),
+                title = "Grazer Linuxtage 2026",
+                link = "https://www.linuxtage.at/de/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 4, 10, 15, 30, 0),
+                to = LocalDateTime.of(2026, 4, 12, 16, 0, 0),
+                location = Location(
+                    name = "FMP1",
+                    street = "Franz-Mehring-Platz",
+                    houseNumber = "1",
+                    zipCode = "10243",
+                    city = "Berlin",
+                    lat = 52.5128001,
+                    lon = 13.4402215
+                ),
+                title = "Cables of Resistence",
+                link = "https://cableresist.de/de/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 4, 12, 10, 0, 0),
+                to = LocalDateTime.of(2026, 4, 12, 18, 30, 0),
+                location = Location(
+                    name = "Wikimedia Deutschland e. V.",
+                    street = "Tempelhofer Ufer",
+                    houseNumber = "23-24",
+                    zipCode = "10963",
+                    city = "Berlin",
+                    online = false,
+                    lat = 52.4984142,
+                    lon = 13.3810486
+                ),
+                title = "OpenStreetMap Hack-Weekend Berlin",
+                link = "https://www.wikimedia.de/veranstaltungen/openstreetmap-hackweekend-berlin-brandenburg/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 4, 12, 14, 30, 0),
+                to = LocalDateTime.of(2026, 4, 12, 17, 0, 0),
+                location = Location(
+                    name = "Amerika-Gedenkbibliothek",
+                    street = "Blücherplatz",
+                    houseNumber = "1",
+                    zipCode = "10961",
+                    city = "Berlin",
+                    lat = 52.496567199999994,
+                    lon = 13.3924936,
+                ),
+                title = "KI, was ist das eigentlich und welche Macht steckt dahinter",
+                link = "https://pretix.eu/SUPERRR/kixbibliotheken/4891193/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 4, 13, 10, 0, 0),
+                to = LocalDateTime.of(2026, 4, 13, 12, 30, 0),
+                location = Location(
+                    online = true
+                ),
+                title = "What the Hype? Eine Einführung in die Grundlagen des maschinellen Lernens für Kulturerbeinstitutionen (Machine-Learning-Montag I)",
+                link = "https://www.digis-berlin.de/veranstaltungen/workshops/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 4, 13, 12, 0, 0),
+                to = LocalDateTime.of(2026, 4, 13, 13, 0, 0),
+                location = Location(
+                    online = true
+                ),
+                title = "Green Economy und KI – Webinar 1: Materialeinsparung in der Produktion durch KI",
+                link = "https://www.z-u-g.org/veranstaltungen/green-economy-und-ki-webinar-1-materialeinsparung-in-der-produktion-durch-ki/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 4, 13, 14, 0, 0),
+                to = LocalDateTime.of(2026, 4, 13, 17, 0, 0),
+                location = Location(
+                    name = "Raum Oxford (04G01), Staatsbibliothek zu Berlin",
+                    street = "Unter den Linden",
+                    houseNumber = "8",
+                    zipCode = "10117 ",
+                    city = "Berlin",
+                    online = true,
+                    lon = 13.391620476395673,
+                    lat = 52.51753889200077
+                ),
+                title = "Datencafé: Qalamos - Globales Schrifterbe digital entdecken und visualisieren",
+                link = "https://lab.sbb.berlin/datencafe/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 4, 13, 17, 0, 0),
+                to = LocalDateTime.of(2026, 4, 13, 21, 0, 0),
+                location = Location(
+                    name = "Weizenbaum-Institut",
+                    street = "Hardenbergstr.",
+                    houseNumber = "32",
+                    zipCode = "10623",
+                    city = "Berlin",
+                    lon = 13.3292227,
+                    lat = 52.5081411
+                ),
+                title = "Reclaim the Cloud! Contesting, Resisting and Reimagining Data Centers",
+                link = "https://www.weizenbaum-institut.de/veranstaltungen/detailseite/reclaim-the-cloud-contesting-resisting-and-reimagining-data-centers/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 4, 13, 18, 0, 0),
+                to = LocalDateTime.of(2026, 4, 13, 21, 0, 0),
+                location = Location(
+                    online = true,
+                    name = "TMF e.V.",
+                    street = "Charlottenstraße",
+                    houseNumber = "42",
+                    zipCode = "10117",
+                    city = "Berlin",
+                    lon = 13.3903278,
+                    lat = 52.5185963,
+                ),
+                title = "Health-IT Talk: MII-Update: 10 Jahre",
+                link = "https://www.eventbrite.de/e/health-it-talk-mii-update-10-jahre-tickets-1984869050762"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 4, 14, 9, 0, 0),
+                to = LocalDateTime.of(2026, 4, 14, 9, 45, 0),
+                location = Location(
+                    online = true
+                ),
+                title = "Green-AI Hub-Workshop: Wie DPP und KI zirkuläre Entscheidungen ermöglichen",
+                link = "https://www.z-u-g.org/veranstaltungen/green-ai-hub-workshop-wie-dpp-und-ki-zirkulaere-entscheidungen-ermoeglichen/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 4, 14, 18, 0, 0),
+                to = LocalDateTime.of(2026, 4, 14, 19, 30, 0),
+                location = Location(
+                    online = true
+                ),
+                title = "Demokratie unter Druck – zivilgesellschaftliche und wissenschaftliche Strukturen stärken",
+                link = "https://www.weizenbaum-institut.de/veranstaltungen/detailseite/demokratie-unter-druck-zivilgesellschaftliche-und-wissenschaftliche-strukturen-staerken/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 4, 15, 9, 0, 0),
+                to = LocalDateTime.of(2026, 4, 17, 14, 30, 0),
+                location = Location(
+                    online = true
+                ),
+                title = "Berliner Energietage 2026 (digital)",
+                link = "https://www.energietage.de/kongress/gesamtprogramm.html"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 4, 15, 14, 0, 0),
+                to = LocalDateTime.of(2026, 4, 15, 16, 30, 0),
+                location = Location(
+                    online = true
+                ),
+                title = "Gute Antworten aus KI-Tools holen – Prompt & Knowledge Engineering für die Migrationsarbeit",
+                link = "https://civic-data.de/veranstaltung/gute-antworten-aus-ki-tools-holen-prompt-knowledge-engineering-fuer-die-migrationsarbeit/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 4, 15, 16, 0, 0),
+                to = LocalDateTime.of(2026, 4, 15, 17, 30, 0),
+                location = Location(online = true),
+                title = "Neue Ziele: Sitzung des AK Low Code",
+                link = "https://negz.org/termin/neue-ziele-sitzung-des-ak-low-code/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 4, 16, 19, 0, 0),
+                to = LocalDateTime.of(2026, 4, 16, 22, 0, 0),
+                location = Location(
+                    name = "Karl der Grosse",
+                    street = "Kirchgasse",
+                    houseNumber = "14",
+                    zipCode = "8001",
+                    city = "Zürich (Schweiz)",
+                    lat = 47.3697813,
+                    lon = 8.5445846
+                ),
+                title = "Netzpolitischer Abend in Zürich",
+                link = "https://www.digitale-gesellschaft.ch/event/netzpolitischer-abend-in-zuerich/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 4, 17, 9, 0, 0),
+                to = LocalDateTime.of(2026, 4, 17, 10, 0, 0),
+                location = Location(
+                    online = true
+                ),
+                title = "Die FITKO stellt vor: So profitieren Sie von Deutscher Verwaltungscloud und neuem Marktplatz Deutschland Digital",
+                link = "https://www.fitko.de/veranstaltung/detail/infoveranstaltung-die-fitko-stellt-vor-so-profitieren-sie-von-deutscher-verwaltungscloud-und-neuem-marktplatz-deutschland-digital"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 4, 21, 10, 0, 0),
+                to = LocalDateTime.of(2026, 4, 22, 20, 0, 0),
+                location = Location(
+                    name = "AXICA - Kongress- & Tagungszentrum",
+                    street = "Pariser Platz",
+                    houseNumber = "3",
+                    zipCode = "10117",
+                    city = "Berlin",
+                    lat = 52.515378999999996,
+                    lon = 13.3790482,
+                ),
+                title = "Sustainable Economy Summit 2026",
+                link = "https://sustainable-economy-summit.org"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 4, 21, 13, 0, 0),
+                to = LocalDateTime.of(2026, 4, 21, 15, 0, 0),
+                location = Location(
+                    online = true
+                ),
+                title = "Online-Workshop: Daten Visualisierung und Data Storytelling und wie Du mit Daten überzeugen kannst",
+                link = "https://civic-data.de/veranstaltung/save-the-date-online-workshop-daten-visualisierung-und-storytelling/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 4, 21, 18, 0, 0),
+                to = LocalDateTime.of(2026, 4, 21, 20, 0, 0),
+                location = Location(
+                    name = "Weizenbaum-Institut",
+                    street = "Hardenbergstr.",
+                    houseNumber = "32",
+                    zipCode = "10623",
+                    city = "Berlin",
+                    lon = 13.3292227,
+                    lat = 52.5081411
+                ),
+                title = "Weizenbaum Report 2026: Politische Partizipation in Deutschland",
+                link = "https://www.weizenbaum-institut.de/veranstaltungen/detailseite/weizenbaum-report-2026-politische-partizipation-in-deutschland/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 4, 22, 9, 0, 0),
+                to = LocalDateTime.of(2026, 4, 22, 16, 0, 0),
+                location = Location(
+                    name = "Design Offices Hamburg Hammerbrook",
+                    street = "Sachsenstraße",
+                    houseNumber = "20",
+                    zipCode = "20097",
+                    city = "Hamburg",
+                    lat = 53.5467142,
+                    lon = 10.0278086
+                ),
+                title = "5. Open Data Barcamp",
+                link = "https://www.bertelsmann-stiftung.de/de/unsere-projekte/daten-fuer-die-gesellschaft/projektnachrichten/5-open-data-barcamp-2026-einladungsseite"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 4, 22, 10, 0, 0),
+                to = LocalDateTime.of(2026, 4, 22, 16, 30, 0),
+                location = Location(
+                    name = "KOMED im Mediapark Köln",
+                    street = "Im Mediapark",
+                    houseNumber = "7",
+                    zipCode = "50670",
+                    city = "Köln",
+                    lat = 50.9487249,
+                    lon = 6.943300842058996
+                ),
+                title = "Barcamp kommunaler Klimaschutz 2026",
+                link = "https://difu.de/veranstaltungen/2026-04-22/barcamp-kommunaler-klimaschutz-2026"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 4, 23, 8, 0, 0),
+                to = LocalDateTime.of(2026, 4, 23, 20, 0, 0),
+                location = Location(online = true),
+                title = "Girls Day Online Events",
+                link = "https://www.girls-day.de/aktuelles/girls-day/auf-einen-blick"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 4, 23, 9, 0, 0),
+                to = LocalDateTime.of(2026, 4, 23, 15, 0, 0),
+                location = Location(
+                    name = "Technologiestiftung Berlin",
+                    street = "Grunewaldstraße",
+                    houseNumber = "61-62",
+                    zipCode = "12101",
+                    city = "Berlin",
+                    lat = 52.4886206,
+                    lon = 13.34277
+                ),
+                title = "Girls' Day: Tech meets Teamwork: Hinter den Kulissen digitaler Projekt",
+                link = "https://citylab-berlin.org/de/events/girls-day-tech-meets-teamwork-hinter-den-kulissen-digitaler-projekte/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 4, 23, 11, 0, 0),
+                to = LocalDateTime.of(2026, 4, 23, 12, 0, 0),
+                location = Location(
+                    online = true
+                ),
+                title = "openCode Connect April 2026 - Kiezbox 2.0: resiliente und bürgernahe Krisenkommunikation bei Stromausfällen",
+                link = "https://opencode.de/de/aktuelles/events/opencode-connect-april-2026-5740"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 4, 23, 12, 0, 0),
+                to = LocalDateTime.of(2026, 4, 23, 12, 30, 0),
+                location = Location(online = true),
+                title = "Civic Data Lab Espresso Talk: Model Context Protocol (MCP) – Wie der neue Standard KI-Anwendungen mit Daten und Tools verbindet",
+                link = "https://correlaid.org/veranstaltungen/espresso_mcp"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 4, 23, 18, 0, 0),
+                to = LocalDateTime.of(2026, 4, 23, 19, 30, 0),
+                location = Location(online = true),
+                title = "CDO-Talk: Digitalisieren reicht nicht – Warum Aufgaben hinterfragen Führungssache ist",
+                link = "https://negz.org/termin/cdo-talk-digitalisieren-reicht-nicht/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 4, 24, 12, 0, 0),
+                to = LocalDateTime.of(2026, 4, 24, 13, 0, 0),
+                location = Location(online = true),
+                title = "mitforschen Projekte am Freitag",
+                link = "https://www.mitforschen.org/veranstaltungen/digitale-mittagspause"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 4, 25, 8, 45, 0),
+                to = LocalDateTime.of(2026, 4, 25, 16, 0, 0),
+                location = Location(
+                    name = "LabSpace PHBern",
+                    street = "Fabrikstrasse",
+                    houseNumber = "8",
+                    zipCode = "3012",
+                    city = "Bern (Schweiz)",
+                    lat = 46.9535363,
+                    lon = 7.4230048
+                ),
+                title = "Open Education Day",
+                link = "https://openeducationday.ch"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 4, 27, 10, 0, 0),
+                to = LocalDateTime.of(2026, 4, 27, 12, 30, 0),
+                location = Location(
+                    online = true
+                ),
+                title = "KI und Recht für Kulturerbe-Einrichtungen: Vortrag und Q&A (Machine-Learning-Montag II)",
+                link = "https://www.digis-berlin.de/veranstaltungen/workshops/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 4, 28, 19, 30, 0),
+                to = LocalDateTime.of(2026, 4, 28, 21, 30, 0),
+                location = Location(
+                    online = true
+                ),
+                title = "Verkehrswende-Meetup: Ciclomapa",
+                link = "https://wiki.openstreetmap.org/wiki/Verkehrswende-Meetup/Meetup_2026-04-28"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 4, 29, 13, 30, 0),
+                to = LocalDateTime.of(2026, 4, 29, 18, 30, 0),
+                location = Location(
+                    name = "Weizenbaum-Institut",
+                    street = "Hardenbergstr.",
+                    houseNumber = "32",
+                    zipCode = "10623",
+                    city = "Berlin",
+                    lon = 13.3292227,
+                    lat = 52.5081411
+                ),
+                title = "Hype oder echter Mehrwert für Prozesse? Agentic AI im Prozessmanagement erfolgreich einsetzen",
+                link = "https://www.weizenbaum-institut.de/veranstaltungen/detailseite/hype-oder-echter-mehrwert-fuer-prozesse-agentic-ai-im-prozessmanagement-erfolgreich-einsetzen/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 4, 29, 15, 0, 0),
+                to = LocalDateTime.of(2026, 4, 29, 16, 30, 0),
+                location = Location(
+                    online = true
+                ),
+                title = "Digitale Werkzeuge für den Natürlichen Klimaschutz",
+                link = "https://www.z-u-g.org/veranstaltungen/digitale-werkzeuge-fuer-den-natuerlichen-klimaschutz-1/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 4, 29, 18, 0, 0),
+                to = LocalDateTime.of(2026, 4, 29, 21, 0, 0),
+                location = Location(
+                    name = "Technologiestiftung Berlin - CityLAB",
+                    street = "Platz der Luftbrücke",
+                    houseNumber = "4",
+                    zipCode = "12101",
+                    city = "Berlin",
+                    lat = 52.4838796,
+                    lon = 13.3885778
+                ),
+                title = "Maptime – Karten jenseits des Bildschirms",
+                link = "https://citylab-berlin.org/de/events/maptime-karten-jenseits-des-bildschirms/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 4, 30, 9, 30, 0),
+                to = LocalDateTime.of(2026, 4, 30, 12, 30, 0),
+                location = Location(online = true),
+                title = "Civic Data Lab Gemeinsam Machen: Wie kann Deployment mit wenig Mitteln und Ressourcen nachhaltig gelingen?",
+                link = "https://correlaid.org/veranstaltungen/gemeinsam_machen_deployment"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 5, 4, 14, 0, 0),
+                to = LocalDateTime.of(2026, 5, 4, 17, 0, 0),
+                location = Location(
+                    name = "Raum Oxford (04G01), Staatsbibliothek zu Berlin",
+                    street = "Unter den Linden",
+                    houseNumber = "8",
+                    zipCode = "10117 ",
+                    city = "Berlin",
+                    online = true,
+                    lon = 13.391620476395673,
+                    lat = 52.51753889200077
+                ),
+                title = "Datencafé: Mit Geodaten raumzeitliche Zusammenhänge erforschen",
+                link = "https://lab.sbb.berlin/datencafe/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 5, 3, 0, 0, 0),
+                to = LocalDateTime.of(2026, 5, 3, 23, 59, 59),
+                location = Location(online = true),
+                title = "Digital Independence Day",
+                link = "https://di.day"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 5, 4, 16, 0, 0),
+                to = LocalDateTime.of(2026, 5, 4, 18, 0, 0),
+                location = Location(
+                    online = true
+                ),
+                title = "Europas digitale Souveränität stärken: Auf dem Weg zu einer europäischen Web-Daten-Infrastruktur für Web Suche, Analytics und KI",
+                link = "https://ak-oss.gi.de/veranstaltung/information/europas-digitale-souveraenitaet-staerken-auf-dem-weg-zu-einer-europaeischen-web-daten-infrastruktur-fuer-web-suche-analytics-und-ki"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 5, 5, 16, 0, 0),
+                to = LocalDateTime.of(2026, 5, 5, 17, 0, 0),
+                location = Location(
+                    name = "Amerika-Gedenkbibliothek | PopUp Saal",
+                    street = "Blücherplatz",
+                    houseNumber = "1",
+                    zipCode = "10961",
+                    city = "Berlin",
+                    lat = 52.496567199999994,
+                    lon = 13.3924936,
+                ),
+                title = "Einfach Wissen: Die Zukunft des offenen Wissens",
+                link = "https://www.zlb.de/veranstaltungsuebersicht/einfach-wissen-die-zukunft-des-offenen-wissens/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 5, 8, 13, 0, 0),
+                to = LocalDateTime.of(2026, 5, 8, 13, 45, 0),
+                location = Location(
+                    online = true,
+                ),
+                title = "Cultural Heritage Data für die Forschung (Angela Dressen)",
+                link = "https://digitale-kunstgeschichte.de/aktuelles/lunch-and-learn-zur-digitalen-kunstgeschichte/"
+            )
+        )
+
+
+
+
+
+
+
+
+
+
+
+
+        return events.sortedBy { it.from }.toMutableList()
+
+    }
+
     private fun createMarch2026Events(): List<Event> {
+        // April
+        // https://mannheim.adfc.de/neuigkeit/hackathon-2026
         val events = mutableListOf<Event>()
         events.add(
             Event(
