@@ -279,6 +279,24 @@ class IcalGeneratorTest {
         )
         events.add(
             Event(
+                from = LocalDateTime.of(2026, 6, 6, 10, 0, 0),
+                to = LocalDateTime.of(2026, 6, 6, 20, 30, 0),
+                location = Location(
+                    name = "Wikimedia Deutschland e. V.",
+                    street = "Tempelhofer Ufer",
+                    houseNumber = "23-24",
+                    zipCode = "10963",
+                    city = "Berlin",
+                    online = false,
+                    lat = 52.4984142,
+                    lon = 13.3810486
+                ),
+                title = "Bits & Bäume Community Summit 2026",
+                link = "https://www.fiff.de/termine/2026/bits-und-baeume-community-konferenz/"
+            )
+        )
+        events.add(
+            Event(
                 from = LocalDateTime.of(2026, 6, 10, 10, 0, 0),
                 to = LocalDateTime.of(2026, 6, 10, 17, 30, 0),
                 location = Location(
