@@ -109,6 +109,14 @@ class IcalGeneratorTest {
 
     @Test
     @Disabled
+    fun testGenerateAugust2026IcsFromDataModel() {
+        val events = createAugust2026Events()
+        val actual = events.sortedBy { it.from }.joinToString("\n") { generateEventLink(it) }
+        assertEquals(expected(), actual)
+    }
+
+    @Test
+    @Disabled
     fun testGenerateRecurrentIcsFromDataModel() {
         val events = recurrentEventsMap().entries.sortedBy { it.key }.map { it.value }
         val actual = events.joinToString("\n") { generateEventLink(it) }
@@ -116,7 +124,7 @@ class IcalGeneratorTest {
     }
 
     @Test
-    //@Disabled
+    @Disabled
     fun testGenerateCompleteYear2026IcsFromDataModel() {
         val events = mutableListOf<Event>()
         /*events.addAll(createJanuary2025Events())
@@ -138,6 +146,7 @@ class IcalGeneratorTest {
         events.addAll(createMay2026Events())
         events.addAll(createJune2026Events())
         events.addAll(createJuly2026Events())
+        events.addAll(createAugust2026Events())
         events.addAll(recurrentEventsMap().entries.map { it.value })
         val df = DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm")
         val eventMap = events.groupBy { df.format(it.from) + "__" + it.title }.toMap()
@@ -156,6 +165,273 @@ class IcalGeneratorTest {
         val calendarWithCodeforEvents = recurrentEvents()
             .fold(calendar) { cal, event -> cal.withComponent(event) }
         return calendarWithCodeforEvents.toString()
+    }
+
+    private fun createAugust2026Events(): List<Event> {
+        val events = mutableListOf<Event>()
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 8, 2, 0, 0, 0),
+                to = LocalDateTime.of(2026, 8, 2, 23, 59, 59),
+                location = Location(online = true),
+                title = "Digital Independence Day",
+                link = "https://di.day"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 8, 6, 18, 0, 0),
+                to = LocalDateTime.of(2026, 8, 6, 21, 0, 0),
+                location = Location(
+                    name = "WikiBär Wikipedia",
+                    street = "Köpenicker Straße",
+                    houseNumber = "45",
+                    zipCode = "10179",
+                    city = "Berlin",
+                    lon = 13.439250348721544,
+                    lat = 52.50267706293607
+                ),
+                title = "Jugend editiert",
+                link = "https://www.wikimedia.de/veranstaltungen/jugend-editiert/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 8, 6, 19, 31, 0),
+                to = LocalDateTime.of(2026, 8, 6, 19, 31, 0),
+                location = Location(
+                    online = true,
+                    onlineLink = "https://bits-und-baeume.org/bbb/community"
+                ),
+                title = "Bits und Bäume Community Treffen",
+                link = "https://bits-und-baeume.org/termine/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 8, 15, 9, 30, 0),
+                to = LocalDateTime.of(2026, 8, 16, 17, 0, 0),
+                location = Location(
+                    name = "Hochschule Bonn-Rhein-Sieg",
+                    street = "Grantham-Allee",
+                    houseNumber = "20",
+                    zipCode = "53757",
+                    city = "Sankt Augustin",
+                    lat = 50.779560200000006,
+                    lon = 7.182170128730925
+                ),
+                title = "FrOSCon",
+                link = "https://froscon.org"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 8, 27, 12, 0, 0),
+                to = LocalDateTime.of(2026, 8, 27, 12, 45, 0),
+                location = Location(online = true),
+                title = "Die demokratische Qualität von Debatten messbar machen? Espresso Doppio mit Mirko Lange vom Democracy Intelligence Score",
+                link = "https://correlaid.org/veranstaltungen/cdl-espresso-aug"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 8, 15, 10, 0, 0),
+                to = LocalDateTime.of(2026, 8, 16, 17, 0, 0),
+                location = Location(
+                    name = "Hannover Congress Centrum (HCC)",
+                    street = "Theodor-Heuss-Platz",
+                    houseNumber = "1-3",
+                    zipCode = "30175",
+                    city = "Hannover",
+                    lat = 52.37739626292196,
+                    lon = 9.769216275667079
+                ),
+                title = "Maker Faire Hannover",
+                link = "https://maker-faire.de/hannover/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 8, 25, 19, 30, 0),
+                to = LocalDateTime.of(2026, 8, 25, 21, 0, 0),
+                location = Location(
+                    online = true,
+                ),
+                title = "OSM-Verkehrswende #78",
+                link = "https://osmcal.org/event/5004/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 8, 19, 9, 0, 0),
+                to = LocalDateTime.of(2026, 8, 23, 18, 0, 0),
+                location = Location(
+                    name = "CZZ in Krebes, Vogtlandkreis",
+                    street = "Burgsteinstraße",
+                    houseNumber = "15A",
+                    zipCode = "08538",
+                    city = "Weischlitz",
+                    lat = 50.4183869,
+                    lon = 11.9903852
+                ),
+                title = "ChaosZeltZone 2026",
+                link = "https://thereisno.camp"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 8, 26, 10, 0, 0),
+                to = LocalDateTime.of(2026, 8, 27, 15, 30, 0),
+                location = Location(
+                    name = "Hochschule Merseburg (Hauptgebäude)",
+                    street = "Eberhard-Leibnitz-Straße",
+                    houseNumber = "2",
+                    zipCode = "06217",
+                    city = "Merseburg",
+                    lat = 51.3436547,
+                    lon = 11.974483708704984
+                ),
+                title = "Merseburger Digitaltage 2026",
+                link = "https://www.merseburger-digitaltage.de"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 8, 13, 11, 0, 0),
+                to = LocalDateTime.of(2026, 8, 13, 12, 0, 0),
+                location = Location(
+                    online = true
+                ),
+                title = "openCode Connect August 2026: Digitale Souveränität messen - Vom Kriterienkatalog zur Anwendung",
+                link = "https://opencode.de/de/aktuelles/events/opencode-connect-august-2026-5984"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 8, 27, 18, 0, 0),
+                to = LocalDateTime.of(2026, 8, 27, 22, 0, 0),
+                location = Location(
+                    name = "Wikimedia Deutschland e. V.",
+                    street = "Tempelhofer Ufer",
+                    houseNumber = "23-24",
+                    zipCode = "10963",
+                    city = "Berlin",
+                    online = false,
+                    lat = 52.4984142,
+                    lon = 13.3810486
+                ),
+                title = "Monsters of Law live: Wem gehören staatliche Geodaten? - Der Fall Drenger gegen Bayern",
+                link = "https://www.wikimedia.de/veranstaltungen/monsters-of-law-live-wem-gehoeren-staatliche-geodaten/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 8, 27, 15, 0, 0),
+                to = LocalDateTime.of(2026, 8, 30, 17, 0, 0),
+                location = Location(
+                    name = "Schloss Ottenschlag und Apfelwiese",
+                    street = "Schloßgasse",
+                    houseNumber = "",
+                    zipCode = "3631",
+                    city = "Ottenschlag",
+                    lat = 48.4252443,
+                    lon = 15.2195449
+                ),
+                title = "Håck ma's Castle",
+                link = "https://hack-mas.at/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 8, 31, 10, 0, 0),
+                to = LocalDateTime.of(2026, 8, 31, 13, 0, 0),
+                location = Location(online = true),
+                title = "KI-assistierte Datenarbeit in GLAM-Einrichtungen",
+                link = "https://openbiblio.social/@digiSberlin/117002711606896080"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 9, 3, 9, 0, 0),
+                to = LocalDateTime.of(2026, 9, 3, 20, 0, 0),
+                location = Location(
+                    name = "Technische Hochschule Wildau",
+                    street = "Hochschulring",
+                    houseNumber = "1",
+                    zipCode = "15745",
+                    city = "Wildau",
+                    lat = 52.3183828,
+                    lon = 13.6303138
+                ),
+                title = "NEGZ-Herbsttagung 2026",
+                link = "https://negz.org/event/negz-herbsttagung-2026/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 9, 3, 15, 0, 0),
+                to = LocalDateTime.of(2026, 9, 6, 17, 0, 0),
+                location = Location(
+                    name = "WandelGut",
+                    street = "Dorfstr.",
+                    houseNumber = "17",
+                    zipCode = "23909",
+                    city = "Mechow",
+                    lat = 53.7163442,
+                    lon = 10.8093187
+                ),
+                title = "do.IT.local Barcamp",
+                link = "https://local-it.org/barcamp2026/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 9, 3, 15, 0, 0),
+                to = LocalDateTime.of(2026, 9, 6, 17, 0, 0),
+                location = Location(
+                    name = "La Grange",
+                    street = "Gingster Chaussee",
+                    houseNumber = "6",
+                    zipCode = "18528",
+                    city = "Bergen auf Rügen",
+                    lat = 54.4235467,
+                    lon = 13.4165578
+                ),
+                title = "InselChaos 2026",
+                link = "https://inselchaos.de/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 9, 4, 12, 30, 0),
+                to = LocalDateTime.of(2026, 9, 4, 13, 30, 0),
+                location = Location(online = true),
+                title = "Law as Code – Das digitale gesellschaftliche Betriebssystem für Gesetzgebung und Verwaltungsvollzug",
+                link = "https://negz.org/event/law-as-code-das-digitale-gesellschaftliche-betriebssystem-fuer-gesetzgebung-und-verwaltungsvollzug/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 9, 6, 0, 0, 0),
+                to = LocalDateTime.of(2026, 9, 6, 23, 59, 59),
+                location = Location(online = true),
+                title = "Digital Independence Day",
+                link = "https://di.day"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 9, 8, 14, 0, 0),
+                to = LocalDateTime.of(2026, 9, 8, 15, 0, 0),
+                location = Location(
+                    online = true
+                ),
+                title = "Replication Games: Advancing Reproducibility with Open and Restricted Access Data",
+                link = "https://openeconomics.zbw.eu/coffee-lectures-on-open-science-education/"
+            )
+        )
+        val comparator = compareBy<Event> { it.from }.thenComparator({ a, b -> compareValues(a.title, b.title) })
+        return events.sortedWith(comparator).toMutableList()
     }
 
     private fun createJuly2026Events(): List<Event> {
@@ -184,6 +460,23 @@ class IcalGeneratorTest {
                 ),
                 title = "10 Jahre temporärhaus – kleine Feier!",
                 link = "https://temporaerhaus.de/zehn-jahre-temporaerhaus-fuenfzehn-jahre-datalove-wir-feiern/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 7, 7, 10, 0, 0),
+                to = LocalDateTime.of(2026, 7, 7, 13, 0, 0),
+                location = Location(
+                    name = "Objekt-Labor im Gerlachbau (Haus 3), Campus Nord Humboldt-Universtität zu Berlin",
+                    street = "Philippstraße",
+                    houseNumber = "12/13",
+                    zipCode = "10115",
+                    city = "Berlin",
+                    lat = 52.5271705,
+                    lon = 13.3820286
+                ),
+                title = "Universitätssammungen, FAIR- und CARE-Prinzipien in der Wikipedia sichtbar machen: Edit-a-thon",
+                link = "https://sammlungen.io/events/universitaetssammungen-fair-und-care-prinzipien-der-wikipedia-sichtbar-machen-edit-thon"
             )
         )
         events.add(
@@ -311,6 +604,28 @@ class IcalGeneratorTest {
                 ),
                 title = "openCode Connect Juli 2026: IKT-Architekturrichtlinie Berlin",
                 link = "https://opencode.de/de/aktuelles/events/opencode-connect-juli-2026-5957"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 7, 8, 19, 0, 0),
+                to = LocalDateTime.of(2026, 7, 8, 21, 15, 0),
+                location = Location(
+                    online = true
+                ),
+                title = "Moon first! - Weltraumkolonisierung und Technofaschismus",
+                link = "https://domberg-akademie.de/veranstaltungen-detail/moon-first-weltraumkolonisierung-und-technofaschismus"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 7, 22, 19, 0, 0),
+                to = LocalDateTime.of(2026, 7, 22, 20, 30, 0),
+                location = Location(
+                    online = true
+                ),
+                title = "Ein digitaler Fallschirm für die Demokratie",
+                link = "https://domberg-akademie.de/veranstaltungen-detail/ein-digitaler-fallschirm-fuer-die-demokratie"
             )
         )
         events.add(
