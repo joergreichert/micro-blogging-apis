@@ -125,6 +125,14 @@ class IcalGeneratorTest {
 
     @Test
     @Disabled
+    fun testGenerateOctober2026IcsFromDataModel() {
+        val events = createOctober2026Events()
+        val actual = events.sortedBy { it.from }.joinToString("\n") { generateEventLink(it) }
+        assertEquals(expected(), actual)
+    }
+
+    @Test
+    @Disabled
     fun testGenerateRecurrentIcsFromDataModel() {
         val events = recurrentEventsMap().entries.sortedBy { it.key }.map { it.value }
         val actual = events.joinToString("\n") { generateEventLink(it) }
@@ -132,7 +140,7 @@ class IcalGeneratorTest {
     }
 
     @Test
-    //@Disabled
+    @Disabled
     fun testGenerateCompleteYear2026IcsFromDataModel() {
         val events = mutableListOf<Event>()
         /*events.addAll(createJanuary2025Events())
@@ -180,20 +188,13 @@ class IcalGeneratorTest {
         val events = mutableListOf<Event>()
         events.add(
             Event(
-                from = LocalDateTime.of(2026, 9, 28, 10, 0, 0),
-                to = LocalDateTime.of(2026, 9, 28, 17, 30, 0),
+                from = LocalDateTime.of(2026, 10, 1, 0, 0, 0),
+                to = LocalDateTime.of(2026, 10, 31, 23, 59, 59),
                 location = Location(
-                    name = "Museum für Naturkunde Berlin",
-                    street = "Invalidenstraße",
-                    houseNumber = "43",
-                    zipCode = "10115",
-                    city = "Berlin",
-                    online = false,
-                    lat = 52.5304903,
-                    lon = 13.3791152
+                    online = true
                 ),
-                title = "Campus Citizen Science: Künstliche Intelligenz",
-                link = "https://www.mitforschen.org/campus-citizen-science-2026"
+                title = "Hacktoberfest",
+                link = "https://hacktoberfest.com"
             )
         )
         events.add(
@@ -203,8 +204,8 @@ class IcalGeneratorTest {
                 location = Location(
                     online = true
                 ),
-                title = "Hacktoberfest",
-                link = "https://hacktoberfest.com"
+                title = "#31DayOSMChallenge (Maptober)",
+                link = "https://wiki.openstreetmap.org/wiki/31_Day_OSM_Challenge"
             )
         )
         events.add(
@@ -223,6 +224,17 @@ class IcalGeneratorTest {
                 ),
                 title = "Public Data – besser mit Behördendaten umgehen",
                 link = "https://www.fokus.fraunhofer.de/de/dps/veranstaltungen/public-data-konferenz-III.html"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 10, 1, 18, 0, 0),
+                to = LocalDateTime.of(2026, 10, 1, 19, 0, 59),
+                location = Location(
+                    online = true
+                ),
+                title = "CDO-Talk: Neu gedacht und neu gemacht – Thüringens Roadmap zur datengetriebenen Verwaltung",
+                link = "https://egovernment-podcast.com/event/cdo-talk-neu-gedacht-und-neu-gemacht-thueringens-roadmap-zur-datengetriebenen-verwaltung/"
             )
         )
         events.add(
@@ -317,6 +329,24 @@ class IcalGeneratorTest {
         )
         events.add(
             Event(
+                from = LocalDateTime.of(2026, 10, 5, 10, 0, 0),
+                to = LocalDateTime.of(2026, 10, 5, 16, 45, 0),
+                location = Location(
+                    name = "Bibliotheca Albertina",
+                    street = "Beethovenstraße",
+                    houseNumber = "6",
+                    zipCode = "04107",
+                    city = "Leipzig",
+                    online = false,
+                    lon = 12.3682587,
+                    lat = 51.3324928,
+                ),
+                title = "Open Science Forum Mitteldeutschland 2026: Open Science als Gestaltungsaufgabe – Forschungsbewertung und Infrastruktur für die Wissenschaftspraxis",
+                link = "https://saxfdm.de/open-science-forum-mitteldeutschland-2026/"
+            )
+        )
+        events.add(
+            Event(
                 from = LocalDateTime.of(2026, 10, 5, 14, 0, 0),
                 to = LocalDateTime.of(2026, 10, 5, 15, 0, 0),
                 location = Location(
@@ -347,6 +377,17 @@ class IcalGeneratorTest {
         events.add(
             Event(
                 from = LocalDateTime.of(2026, 10, 6, 10, 0, 0),
+                to = LocalDateTime.of(2026, 10, 6, 16, 0, 0),
+                location = Location(
+                    name = "deutschlandweit (siehe Karte bzw. Liste)"
+                ),
+                title = "Tag der offenen Rechenzentren (TdoRZ26)",
+                link = "https://tdorz.de/liste/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 10, 6, 10, 0, 0),
                 to = LocalDateTime.of(2026, 10, 7, 18, 0, 0),
                 location = Location(
                     name = "SBB Headquarters",
@@ -359,6 +400,24 @@ class IcalGeneratorTest {
                 ),
                 title = "Open Transport Hackdays",
                 link = "https://open-transport.org"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 10, 6, 17, 30, 0),
+                to = LocalDateTime.of(2026, 10, 6, 20, 0, 0),
+                location = Location(
+                    name = "Hörsaal 2, Campus Poppelsdorf, Universität Bonn",
+                    street = "Friedrich-Hirzebruch-Allee",
+                    houseNumber = "5",
+                    zipCode = "10179",
+                    city = "Bonn",
+                    online = true,
+                    lat = 50.7265858,
+                    lon = 7.0851258
+                ),
+                title = "Bonner Dialog für Cybersicherheit (BDCS)",
+                link = "https://www.fkie.fraunhofer.de/de/Veranstaltungen/bonner-dialog-fuer-cybersicherheit.html"
             )
         )
         events.add(
@@ -416,6 +475,40 @@ class IcalGeneratorTest {
         )
         events.add(
             Event(
+                from = LocalDateTime.of(2026, 10, 8, 10, 0, 0),
+                to = LocalDateTime.of(2026, 10, 8, 20, 0, 0),
+                location = Location(
+                    name = "Rabryka",
+                    street = "Conrad-Schiedt-Straße",
+                    houseNumber = "23",
+                    zipCode = "02826",
+                    city = "Görlitz",
+                    lat = 51.1549241,
+                    lon = 14.9761158
+                ),
+                title = "Hackday4all Görlitz 2026",
+                link = "https://jugendhackt.org/events/dresden/hackday-goerlitz-2026/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 10, 9, 16, 0, 0),
+                to = LocalDateTime.of(2026, 10, 11, 14, 0, 0),
+                location = Location(
+                    name = "Stadthalle Kolpinghaus",
+                    street = "Klingelstraße",
+                    houseNumber = "14",
+                    zipCode = "36088",
+                    city = "Hünfeld",
+                    lat = 46.9678201,
+                    lon = 7.4631688
+                ),
+                title = "Mostly Harmless 2026",
+                link = "https://mostly.harmless.world"
+            )
+        )
+        events.add(
+            Event(
                 from = LocalDateTime.of(2026, 10, 10, 0, 0, 0),
                 to = LocalDateTime.of(2026, 10, 25, 23, 59, 59),
                 location = Location(
@@ -445,6 +538,96 @@ class IcalGeneratorTest {
         )
         events.add(
             Event(
+                from = LocalDateTime.of(2026, 10, 10, 14, 30, 0),
+                to = LocalDateTime.of(2026, 10, 10, 22, 0, 0),
+                location = Location(
+                    online = true,
+                    name = "aquarium",
+                    street = "Skalitzer Str.",
+                    houseNumber = "6",
+                    zipCode = "10999",
+                    city = "Berlin",
+                    lon = 13.4165594,
+                    lat = 52.4986179,
+                ),
+                title = "Alles für Alle: Vergesellschaftungstag in Berlin",
+                link = "https://communia.de/alles-fuer-alle-vergesellschaftungstag-in-berlin/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 10, 11, 11, 0, 0),
+                to = LocalDateTime.of(2026, 10, 11, 18, 30, 0),
+                location = Location(
+                    name = "Wikimedia Deutschland e. V.",
+                    street = "Tempelhofer Ufer",
+                    houseNumber = "23-24",
+                    zipCode = "10963",
+                    city = "Berlin",
+                    online = false,
+                    lat = 52.4984142,
+                    lon = 13.3810486
+                ),
+                title = "Staat in die Zukunft Live - Das Barcamp trifft echtes Leben",
+                link = "https://egovernment-podcast.com/event/staat-in-die-zukunft-live/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 10, 13, 10, 0, 0),
+                to = LocalDateTime.of(2026, 10, 15, 16, 15, 0),
+                location = Location(
+                    name = "hub27 | Messegelände Berlin",
+                    street = "Jafféstraße",
+                    houseNumber = "2 (Tor 25)",
+                    zipCode = "14055",
+                    city = "Berlin",
+                    online = true,
+                    lat = 52.502930023073986,
+                    lon = 13.267570356733671,
+                ),
+                title = "Smart Country Convention (SCCON25)",
+                link = "https://www.smartcountry.berlin/de"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 10, 14, 19, 0, 0),
+                to = LocalDateTime.of(2026, 10, 14, 22, 30, 0),
+                location = Location(
+                    name = "Bayerische Landesvertretung",
+                    street = "Behrenstraße",
+                    houseNumber = "21/22",
+                    zipCode = "10117",
+                    city = "Berlin",
+                    online = true,
+                    lat = 52.5154544,
+                    lon = 13.3875933
+                ),
+                title = "Digitale Souveränität: Freiheit durch Wahlfreiheit! Staatliche Handlungsfähigkeit und individuelle Selbstbestimmung in einer Welt digitaler Abhängigkeiten",
+                link = "https://egovernment-podcast.com/event/digitale-souveraenitaet-freiheit-durch-wahlfreiheit-staatliche-handlungsfaehigkeit-und-individuelle-selbstbestimmung-in-einer-welt-digitaler-abhaengigkeiten/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 10, 17, 11, 0, 0),
+                to = LocalDateTime.of(2026, 10, 17, 19, 0, 0),
+                location = Location(
+                    name = "bitcircus101",
+                    street = "Dorotheenstraße",
+                    houseNumber = "101",
+                    zipCode = "53113",
+                    city = "Bonn",
+                    online = false,
+                    lat = 50.7405098,
+                    lon = 7.0894147
+                ),
+                title = "Hack den Stadtrat: Mitmach-Tag zu offenen Ratsdaten und KI",
+                link = "https://machdenstaat.de/blog/hack-den-stadtrat/"
+            )
+        )
+        events.add(
+            Event(
                 from = LocalDateTime.of(2026, 10, 17, 11, 0, 0),
                 to = LocalDateTime.of(2026, 10, 18, 15, 0, 0),
                 location = Location(
@@ -459,6 +642,57 @@ class IcalGeneratorTest {
                 ),
                 title = "Jugend hackt Congress",
                 link = "https://jugendhackt.org/events/jugend-hackt-congress/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 10, 17, 18, 0, 0),
+                to = LocalDateTime.of(2026, 10, 23, 19, 50, 0),
+                location = Location(
+                    online = true
+                ),
+                title = "Wikidata Query Service Days 2026",
+                link = "https://www.wikidata.org/wiki/Event:Query_Service_Days_2026"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 10, 19, 0, 0, 0),
+                to = LocalDateTime.of(2026, 10, 25, 23, 59, 59),
+                location = Location(
+                    name = "Diverse Veranstaltungen weltweit",
+                ),
+                title = "Open Access Week 2026: The Cost of Knowledge",
+                link = "https://www.openaccessweek.org"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 10, 19, 13, 0, 0),
+                to = LocalDateTime.of(2026, 10, 19, 14, 0, 0),
+                location = Location(
+                    online = true,
+                ),
+                title = "Offen und fair Publizieren: Orte und Tools für digitales, nicht-kommerzielles Publizieren",
+                link = "https://blogs.fu-berlin.de/open-research-berlin/2026/09/17/online-lunch-meeting-offen-und-fair-publizieren/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 10, 20, 9, 0, 0),
+                to = LocalDateTime.of(2026, 10, 20, 10, 0, 0),
+                location = Location(
+                    name = "Humboldt-Universität",
+                    street = "Unter den Linden",
+                    houseNumber = "6",
+                    zipCode = "10117",
+                    city = "Berlin",
+                    online = false,
+                    lat = 52.5183402,
+                    lon = 13.3929202,
+                ),
+                title = "OpenRefine – Effiziente Datenbereinigung für das Forschungsdatenmanagement",
+                link = "https://www.berlin-university-alliance.de/commitments/sharing-resources/shared-resources-center/CARDS-FDM/cards_events/2026-openrefine-aktionswoche.html"
             )
         )
         events.add(
@@ -495,6 +729,17 @@ class IcalGeneratorTest {
                 ),
                 title = "DaSCHCon 2026",
                 link = "https://dasch.swiss/news/daschcon5"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 10, 22, 9, 0, 0),
+                to = LocalDateTime.of(2026, 10, 22, 16, 0, 0),
+                location = Location(
+                    online = true
+                ),
+                title = "FAIR und reproduzierbar: Tidy Data, Versionskontrolle & Wikidata in der Forschungspraxis",
+                link = "https://www.berlin-university-alliance.de/commitments/sharing-resources/shared-resources-center/CARDS-FDM/cards_events/2026-10-FAIR-und-reproduzierbar.html"
             )
         )
         events.add(
@@ -576,7 +821,7 @@ class IcalGeneratorTest {
                     lat = 52.4984142,
                     lon = 13.3810486
                 ),
-                title = "Berlin Hack Weekend Oktober 2025",
+                title = "Berlin Hack Weekend Oktober 2026",
                 link = "https://wiki.openstreetmap.org/wiki/Berlin_Hack_Weekend_Oktober_2026"
             )
         )
@@ -600,6 +845,35 @@ class IcalGeneratorTest {
         )
         events.add(
             Event(
+                from = LocalDateTime.of(2026, 10, 30, 18, 0, 0),
+                to = LocalDateTime.of(2026, 11, 1, 12, 0, 0),
+                location = Location(
+                    name = "Theater im Delphi Berlin",
+                    street = "Gustav-Adolf-Str.",
+                    houseNumber = "2",
+                    zipCode = "13086",
+                    city = "Berlin",
+                    online = false,
+                    lat = 52.5519035,
+                    lon = 13.4311632
+                ),
+                title = "#FIfFKon42",
+                link = "https://2026.fiffkon.de"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 11, 1, 0, 0, 0),
+                to = LocalDateTime.of(2026, 11, 30, 23, 59, 59),
+                location = Location(
+                    online = true
+                ),
+                title = "#30DayMapChallenge",
+                link = "https://30daymapchallenge.com"
+            )
+        )
+        events.add(
+            Event(
                 from = LocalDateTime.of(2026, 11, 3, 9, 15, 0),
                 to = LocalDateTime.of(2026, 11, 4, 16, 10, 0),
                 location = Location(
@@ -614,6 +888,34 @@ class IcalGeneratorTest {
                 ),
                 title = "ALASCA Summit 2026",
                 link = "https://alasca.cloud/en/alasca-summit-2026"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 11, 4, 10, 0, 0),
+                to = LocalDateTime.of(2026, 11, 4, 11, 30, 0),
+                location = Location(
+                    online = true
+                ),
+                title = "23. Open-Data-Netzwerktreffen",
+                link = "https://www.bertelsmann-stiftung.de/de/unsere-projekte/daten-fuer-die-gesellschaft/projektnachrichten/das-kommunale-open-data-netzwerktreffen"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 11, 5, 10, 30, 0),
+                to = LocalDateTime.of(2026, 11, 5, 21, 0, 0),
+                location = Location(
+                    name = "silent green Kulturquartier",
+                    street = "Gerichtstraße",
+                    houseNumber = "35",
+                    zipCode = "13347",
+                    city = "Berlin",
+                    lon = 13.366489999999999,
+                    lat = 52.545685299999995
+                ),
+                title = "Digital Democracy Day 2026",
+                link = "https://www.wikimedia.de/veranstaltungen/digital-democracy-day/"
             )
         )
         val comparator = compareBy<Event> { it.from }.thenComparing { a, b -> compareValues(a.title, b.title) }
@@ -1515,6 +1817,24 @@ class IcalGeneratorTest {
                 location = Location(online = true),
                 title = "Open Transport Meetup: Ilya Zverev - Offline GTFS Transit Routing for apps",
                 link = "https://hackmd.okfn.de/opentransportmeetup"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 9, 28, 10, 0, 0),
+                to = LocalDateTime.of(2026, 9, 28, 17, 30, 0),
+                location = Location(
+                    name = "Museum für Naturkunde Berlin",
+                    street = "Invalidenstraße",
+                    houseNumber = "43",
+                    zipCode = "10115",
+                    city = "Berlin",
+                    online = false,
+                    lat = 52.5304903,
+                    lon = 13.3791152
+                ),
+                title = "Campus Citizen Science: Künstliche Intelligenz",
+                link = "https://www.mitforschen.org/campus-citizen-science-2026"
             )
         )
         val comparator = compareBy<Event> { it.from }.thenComparator({ a, b -> compareValues(a.title, b.title) })
