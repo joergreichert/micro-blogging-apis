@@ -486,7 +486,7 @@ class IcalGeneratorTest {
                     lon = 13.4322498
                 ),
                 title = "Widerstand gegen Rechenzentren",
-                link = "https://cryptpad.fr/form/#/2/form/view/2ZcLVMRsSyZi4aceCfbd0IG1UlISkCHLHDXWAJbcLgA/"
+                link = "https://noderesist.de/wp-content/uploads/2026/09/2026-11-07_Einladung_Konferenz_Rechenzentren_GL_NoR.pdf"
             )
         )
         events.add(

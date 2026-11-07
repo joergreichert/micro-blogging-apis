@@ -47,6 +47,63 @@
     		    margin: 20px;
     		    margin-top: 10px;
     		}
+
+            /* Modal/Popup styles */
+            .modal {
+                display: none;
+                position: fixed;
+                z-index: 1000;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                overflow: auto;
+                background-color: rgba(0,0,0,0.4);
+            }
+            .modal-content {
+                background-color: #fefefe;
+                margin: 10% auto;
+                padding: 20px;
+                border: 1px solid #888;
+                width: 80%;
+                max-width: 600px;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            }
+            .close {
+                color: #aaa;
+                float: right;
+                font-size: 28px;
+                font-weight: bold;
+                cursor: pointer;
+            }
+            .close:hover,
+            .close:focus {
+                color: black;
+                text-decoration: none;
+            }
+            .event-detail {
+                margin: 15px 0;
+            }
+            .event-detail-label {
+                font-weight: bold;
+                display: inline-block;
+                width: 120px;
+            }
+            .event-links {
+                margin-top: 20px;
+                padding-top: 15px;
+                border-top: 1px solid #eee;
+            }
+            .event-links a {
+                display: block;
+                margin: 8px 0;
+                color: #0066cc;
+                text-decoration: none;
+            }
+            .event-links a:hover {
+                text-decoration: underline;
+            }
         </style>
     </head>
     <body>
@@ -55,6 +112,16 @@
         </div>
         <div id='loading'>Lade...</div>
         <div id='calendar'></div>
+
+        <!-- Event Details Modal -->
+        <div id="eventModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2 id="modalEventTitle"></h2>
+                <div id="modalEventDetails"></div>
+                <div class="event-links" id="modalEventLinks"></div>
+            </div>
+        </div>
 
         <label style="margin-left: 20px" for="startdate">Zwischen</label>
         <input id="startdate" type="date" />
@@ -65,15 +132,196 @@
 
         <script>
             const eventsUrl = 'https://events.codeforleipzig.de/ics/events.ics'
-            var eventIcon = L.icon({
+            const eventIcon = L.icon({
                 iconUrl: 'js/images/event.png',
                 iconSize: [16, 16],
             });
-          document.addEventListener('DOMContentLoaded', function() {
-            var calendarEl = document.getElementById('calendar');
-            var now = new Date();
-            var initialDate = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-1");
-            var calendar = new FullCalendar.Calendar(calendarEl, {
+          // Global map to store event coordinates and details
+            const eventDataMap = {};
+
+          // Set up modal elements
+          let modal, modalTitle, modalDetails, modalLinks;
+          const setupModal = function() {
+              modal = document.getElementById('eventModal');
+              modalTitle = document.getElementById('modalEventTitle');
+              modalDetails = document.getElementById('modalEventDetails');
+              modalLinks = document.getElementById('modalEventLinks');
+
+              // Close modal when clicking X
+              document.querySelector('.close').onclick = function() {
+                  modal.style.display = 'none';
+              };
+
+              // Close modal when clicking outside
+              window.onclick = function(event) {
+                  if (event.target === modal) {
+                      modal.style.display = 'none';
+                  }
+              };
+          };
+
+          // Function to show event popup (defined globally)
+          const showEventPopup = function(event) {
+              // Extract event properties
+              const title = event.title || event.summary || 'Event';
+              let url = event.url;
+              const start = event.start;
+              const end = event.end;
+              
+              // Try to get additional data from extendedProps or directly from event
+              let location = event.extendedProps && event.extendedProps.location || event.location || '';
+              let description = event.extendedProps && event.extendedProps.description || event.description || '';
+              let geo = event.extendedProps && event.extendedProps.geo || event.geo;
+              
+              // Look up event in our pre-loaded data map
+              // Try multiple possible keys to match the event
+              let eventData = null;
+              const possibleKeys = [];
+              
+              // Primary key: URL
+              if (url) possibleKeys.push(url);
+              
+              // Fallback keys: summary + start time
+              const summary = event.title || event.summary || '';
+              if (summary && start) {
+                  possibleKeys.push(summary + '_' + start.getTime());
+              }
+              
+              // Also try with title from event object
+              if (event.title && start) {
+                  possibleKeys.push(event.title + '_' + start.getTime());
+              }
+              
+              // Also try without the timestamp for exact summary match
+              if (summary) {
+                  possibleKeys.push(summary);
+              }
+              
+              // Find matching event data
+              for (let i = 0; i < possibleKeys.length && !eventData; i++) {
+                  eventData = eventDataMap[possibleKeys[i]];
+              }
+              
+              // If still not found, try to find by matching summary and start date
+              if (!eventData) {
+                  for (const key in eventDataMap) {
+                      const data = eventDataMap[key];
+                      if (data.summary === summary && data.start && start && 
+                          data.start.getTime() === start.getTime()) {
+                          eventData = data;
+                          break;
+                      }
+                  }
+              }
+              
+              // Use data from map if available (more reliable for ICS properties)
+              if (eventData) {
+                  if (!location && eventData.location) location = eventData.location;
+                  if (!description && eventData.description) description = eventData.description;
+                  if (!geo && eventData.coords) geo = eventData.coords.join(';');
+                  if (!url && eventData.link) url = eventData.link;
+              }
+
+              // Set title
+              modalTitle.textContent = title;
+
+              // Build details HTML
+              let detailsHTML = '';
+              
+              // Add date/time
+              if (start) {
+                  const dateStr = start.toLocaleString('de-DE', { 
+                      weekday: 'long', 
+                      year: 'numeric', 
+                      month: 'long', 
+                      day: 'numeric'
+                  });
+                  detailsHTML += '<div class="event-detail"><span class="event-detail-label">Datum:</span>' + dateStr + '</div>';
+                  const startStr = start.toLocaleString('de-DE', {
+                      hour: '2-digit',
+                      minute: '2-digit'
+                  });
+                  detailsHTML += '<div class="event-detail"><span class="event-detail-label">Beginn:</span>' + startStr + '</div>';
+              }
+              
+              if (end && start && end !== start) {
+                  const endStr = end.toLocaleString('de-DE', { 
+                      hour: '2-digit',
+                      minute: '2-digit'
+                  });
+                  detailsHTML += '<div class="event-detail"><span class="event-detail-label">Ende:</span>' + endStr + '</div>';
+              }
+
+              // Add location
+              if (location) {
+                  detailsHTML += '<div class="event-detail"><span class="event-detail-label">Ort:</span>' + location + '</div>';
+              }
+
+              // Add description
+              if (description) {
+                  detailsHTML += '<div class="event-detail"><span class="event-detail-label">Beschreibung:</span>' + description + '</div>';
+              }
+
+              modalDetails.innerHTML = detailsHTML;
+
+              // Build links HTML
+              let linksHTML = '';
+              
+              // Add event link
+              if (url) {
+                  linksHTML += '<a href="' + url + '" target="_blank">🔗 Zur Veranstaltung</a>';
+              }
+
+              // Add map link if coordinates exist
+              // First try from our pre-loaded data map
+              if (eventData && eventData.coords && eventData.coords.length === 2) {
+                  const mapUrl = 'https://www.openstreetmap.org/?mlat=' + eventData.coords[0] + '&mlon=' + eventData.coords[1] + '#map=15/' + eventData.coords[0] + '/' + eventData.coords[1];
+                  linksHTML += '<a href="' + mapUrl + '" target="_blank">🗺️ Standort auf Karte anzeigen</a>';
+              }
+              // Fallback: try from geo string
+              else if (geo && typeof geo === 'string' && geo.split) {
+                  const coords = geo.split(';');
+                  if (coords.length === 2 && !isNaN(coords[0]) && !isNaN(coords[1])) {
+                      const mapUrl = 'https://www.openstreetmap.org/?mlat=' + coords[0] + '&mlon=' + coords[1] + '#map=15/' + coords[0] + '/' + coords[1];
+                      linksHTML += '<a href="' + mapUrl + '" target="_blank">🗺️ Standort auf Karte anzeigen</a>';
+                  }
+              }
+              // Fallback: try from coords array
+              else if (!linksHTML.includes('🗺️')) {
+                  let coordsArray = null;
+                  if (event.extendedProps && event.extendedProps.coords && Array.isArray(event.extendedProps.coords) && event.extendedProps.coords.length === 2) {
+                      coordsArray = event.extendedProps.coords;
+                  } else if (event.coords && Array.isArray(event.coords) && event.coords.length === 2) {
+                      coordsArray = event.coords;
+                  }
+                  if (coordsArray) {
+                      const mapUrl = 'https://www.openstreetmap.org/?mlat=' + coordsArray[0] + '&mlon=' + coordsArray[1] + '#map=15/' + coordsArray[0] + '/' + coordsArray[1];
+                      linksHTML += '<a href="' + mapUrl + '" target="_blank">🗺️ Standort auf Karte anzeigen</a>';
+                  }
+              }
+              // Fallback: try to geocode from location string if we have a location but no coords
+              else if (location && !linksHTML.includes('🗺️')) {
+                  // For now, just use a generic OpenStreetMap search link
+                  const mapUrl = 'https://www.openstreetmap.org/search?query=' + encodeURIComponent(location);
+                  linksHTML += '<a href="' + mapUrl + '" target="_blank">🗺️ Standort auf Karte anzeigen</a>';
+              }
+
+              modalLinks.innerHTML = linksHTML || '<p>Keine weiteren Informationen verfügbar</p>';
+
+              // Show modal
+              modal.style.display = 'block';
+          };
+
+          document.addEventListener('DOMContentLoaded', async function() {
+              setupModal();
+              
+              // Load ICS data first to populate eventDataMap
+              await loadIcsData();
+              
+            const calendarEl = document.getElementById('calendar');
+            const now = new Date();
+            const initialDate = new Date(now.getFullYear() + "-" + (now.getMonth()+1) + "-1");
+            const calendar = new FullCalendar.Calendar(calendarEl, {
                 locale: 'de',
                 initialView: 'dayGridMonth',
                 displayEventTime: true,
@@ -98,76 +346,112 @@
                 },
                 eventClick: (info) => {
                     info.jsEvent.preventDefault();
-                    if (info.event.url) {
-                      window.open(info.event.url);
-                    }
+                    showEventPopup(info.event);
                 }
               });
               calendar.render();
           });
-          var now = new Date();
+          
+          const now = new Date();
           document.getElementById('startdate').value = new Date(now.getFullYear(), now.getMonth(), now.getDate()+1).toISOString().split('T')[0];
           document.getElementById('enddate').value = new Date(now.getFullYear(), now.getMonth()+1, 1).toISOString().split('T')[0];
-          var coords = [ 51.1638175, 10.4478313 ];
-          var zoom = 6;
-          var map = L.map('eventMap').setView(coords, zoom);
+          const coords = [ 51.1638175, 10.4478313 ];
+          const zoom = 6;
+          const map = L.map('eventMap').setView(coords, zoom);
           L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
               attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           }).addTo(map);
-          var events = [];
-          var loadIcsData = async () => {
+          const events = [];
+          const loadIcsData = async () => {
               let response = await fetch (eventsUrl);
               const icalStr = await response.text().then(( str ) => {
                   return str;
               });
-              var vevents = new ICAL.Component(ICAL.parse(icalStr)).getAllSubcomponents('vevent');
-              for (var vevent of vevents) {
-                  var event = new ICAL.Event(vevent);
-                  var geos = vevent.jCal && vevent.jCal.length > 1 && vevent.jCal[1]
-                    && vevent.jCal[1].filter(arr => arr[0] == 'geo');
-                  var geo = geos && geos.length > 0 && geos[0];
-                  var coords = geo && geo.length > 3 && geo[3];
-                  if (coords && coords.length == 2) {
-                      if (!isNaN(coords[0]) && !isNaN(coords[1])) {
-                          var links = vevent.jCal && vevent.jCal.length > 1 && vevent.jCal[1]
-                            && vevent.jCal[1].filter(arr => arr[0] == 'link');
-                          var linkObj = links && links.length > 0 && links[0];
-                          var link = linkObj && linkObj.length > 3 && linkObj[3];
-                          events.push({
-                              summary: event.summary,
-                              start: event.startDate.toJSDate(),
-                              end: event.endDate.toJSDate(),
-                              link,
-                              coords
-                          });
+              const vevents = new ICAL.Component(ICAL.parse(icalStr)).getAllSubcomponents('vevent');
+              for (const vevent of vevents) {
+                  const event = new ICAL.Event(vevent);
+                  
+                  // Extract summary, start, end
+                  const summary = event.summary || '';
+                  const startDate = event.startDate.toJSDate();
+                  const endDate = event.endDate.toJSDate();
+                  
+                  // Extract URL/LINK
+                  let link = event.url;
+                  if (!link) {
+                      const links = vevent.jCal && vevent.jCal.length > 1 && vevent.jCal[1]
+                        && vevent.jCal[1].filter(arr => arr[0] === 'link');
+                      const linkObj = links && links.length > 0 && links[0];
+                      link = linkObj && linkObj.length > 3 && linkObj[3];
+                  }
+                  
+                  // Extract description
+                  const description = event.description || '';
+                  
+                  // Extract location
+                  const location = event.location || '';
+                  
+                  // Extract GEO coordinates
+                  let coords = null;
+                  const geos = vevent.jCal && vevent.jCal.length > 1 && vevent.jCal[1]
+                    && vevent.jCal[1].filter(arr => arr[0] === 'geo');
+                  const geo = geos && geos.length > 0 && geos[0];
+                  const geoValue = geo && geo.length > 3 && geo[3];
+                  if (geoValue && geoValue.length === 2) {
+                      if (!isNaN(geoValue[0]) && !isNaN(geoValue[1])) {
+                          coords = [parseFloat(geoValue[0]), parseFloat(geoValue[1])];
                       }
+                  }
+                  
+                  // Store event data in map for popup lookup
+                  // Use URL as primary key, or summary+start time as fallback
+                  const eventKey = link || summary + '_' + startDate.getTime();
+                  eventDataMap[eventKey] = {
+                      summary: summary,
+                      start: startDate,
+                      end: endDate,
+                      link: link,
+                      description: description,
+                      location: location,
+                      coords: coords
+                  };
+                  
+                  // Add to events array for map markers
+                  if (coords) {
+                      events.push({
+                          summary: summary,
+                          start: startDate,
+                          end: endDate,
+                          link: link,
+                          coords: coords
+                      });
                   }
               }
               showEvents(events);
           };
-          var eventDetails = (evt) => {
-              var day = evt.start.getDate() + "." + (evt.start.getMonth() + 1);
-              var content = "<b>" + day + ": " + evt.summary + "</b>";
+          const eventDetails = (evt) => {
+              const day = evt.start.getDate() + "." + (evt.start.getMonth() + 1);
+              let content = "<b>" + day + ": " + evt.summary + "</b>";
               if (evt.link) {
                 content += "<br /><a target='_blank' href='" + evt.link + "'>Mehr Infos</a>";
               }
               return content;
           };
-          var showEvents = (evts) => {
-              for (var evt of evts) {
+          const showEvents = (evts) => {
+              for (const evt of evts) {
                 if (evt.coords) {
                     const marker = L.marker(evt.coords, {icon: eventIcon}).addTo(map)
                         .bindPopup(eventDetails(evt))
-                    marker.on('mouseover',function(ev) {
+                    marker.on('mouseover',function() {
                        marker.openPopup();
                     });
                 }
               }
           };
           function filterEvents() {
-              var startDate = new Date(document.getElementById('startdate').value);
-              var endDate = new Date(document.getElementById('enddate').value);
-              var filteredEvents = events.filter((evt) => evt.start >= startDate && evt.end <= endDate);
+              const startDate = new Date(document.getElementById('startdate').value);
+              const endDate = new Date(document.getElementById('enddate').value);
+              const filteredEvents = events.filter((evt) => evt.start >= startDate && evt.end <= endDate);
               map.eachLayer((layer) => {
                   if (layer instanceof L.Marker) {
                       map.removeLayer(layer);
@@ -175,7 +459,6 @@
               });
               showEvents(filteredEvents);
           }
-          loadIcsData();
         </script>
 
     </body>
