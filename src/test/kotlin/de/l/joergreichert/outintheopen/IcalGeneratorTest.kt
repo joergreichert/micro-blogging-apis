@@ -620,6 +620,24 @@ class IcalGeneratorTest {
         )
         events.add(
             Event(
+                from = LocalDateTime.of(2026, 11, 12, 10, 0, 0),
+                to = LocalDateTime.of(2026, 11, 12, 21, 0, 0),
+                location = Location(
+                    name = "Urbane Praxis",
+                    street = "Gerichtstraße",
+                    houseNumber = "23",
+                    zipCode = "13347",
+                    city = "Berlin",
+                    online = false,
+                    lat = 52.5442434,
+                    lon = 13.3724004
+                ),
+                title = "Meet Reset! Berlin: Reclaiming Europe's Digital Commons",
+                link = "https://www.eventbrite.com/e/meet-reset-berlin-reclaiming-europes-digital-commons-tickets-2003628596067?keep_tld=true"
+            )
+        )
+        events.add(
+            Event(
                 from = LocalDateTime.of(2026, 11, 12, 0, 0, 0),
                 to = LocalDateTime.of(2026, 11, 13, 23, 59, 59),
                 location = Location(
@@ -700,6 +718,23 @@ class IcalGeneratorTest {
         )
         events.add(
             Event(
+                from = LocalDateTime.of(2026, 11, 18, 9, 50, 0),
+                to = LocalDateTime.of(2026, 11, 18, 17, 0, 0),
+                location = Location(
+                    name = "Publix",
+                    street = "Hermannstraße",
+                    houseNumber = "90",
+                    zipCode = "12051",
+                    city = "Berlin",
+                    lat = 52.4710996,
+                    lon = 13.4289811
+                ),
+                title = "Engaging Communities with Investigations & Evidence",
+                link = "https://exposingtheinvisible.org/en/berlin-event-investigations-november-2026/"
+            )
+        )
+        events.add(
+            Event(
                 from = LocalDateTime.of(2026, 11, 18, 13, 15, 0),
                 to = LocalDateTime.of(2026, 11, 20, 15, 45, 0),
                 location = Location(
@@ -713,6 +748,17 @@ class IcalGeneratorTest {
                 ),
                 title = "PartWiss 2026",
                 link = "https://www.partizipation-wissenschaft.de/konferenz_2026_berlin/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 11, 19, 9, 0, 0),
+                to = LocalDateTime.of(2026, 11, 19, 13, 0, 0),
+                location = Location(
+                    online = true
+                ),
+                title = "CDL Online-BarCamp - Willkommen in Civic Data City",
+                link = "https://correlaid.org/veranstaltungen/cdl-online-barcamp/"
             )
         )
         events.add(
