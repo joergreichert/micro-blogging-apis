@@ -194,6 +194,8 @@ class IcalGeneratorTest {
     }
 
     private fun createNovember2026Events(): List<Event> {
+        // 24.11.: https://kompetenz-wasser.de/de/newsroom/veranstaltungen/wasserwerkstatt-smartwater
+        //
         val events = mutableListOf<Event>()
         events.add(
             Event(
@@ -632,7 +634,7 @@ class IcalGeneratorTest {
                     lat = 52.5442434,
                     lon = 13.3724004
                 ),
-                title = "Meet Reset! Berlin: Reclaiming Europe's Digital Commons",
+                title = "Meet Reset! Berlin: Reclaiming Europes Digital Commons",
                 link = "https://www.eventbrite.com/e/meet-reset-berlin-reclaiming-europes-digital-commons-tickets-2003628596067?keep_tld=true"
             )
         )
@@ -874,6 +876,21 @@ class IcalGeneratorTest {
                 ),
                 title = "OKNRW–Barcamp 2026",
                 link = "https://oknrw.de/veranstaltungen/offene-kommunen-nrw-2026/"
+            )
+        )
+        events.add(
+            Event(
+                from = LocalDateTime.of(2026, 11, 24, 17, 0, 0),
+                to = LocalDateTime.of(2026, 11, 24, 19, 0, 0),
+                location = Location(
+                    name = "Audimax der Technologiestiftung Berlin",
+                    street = "Grunewaldstr.",
+                    houseNumber = "61-62",
+                    zipCode = "10825",
+                    city = "Berlin"
+                ),
+                title = "WasserWerkstatt: SmartWater – Digitale Klimaanpassung zum Anfassen",
+                link = "https://kompetenz-wasser.de/de/newsroom/veranstaltungen/wasserwerkstatt-smartwater"
             )
         )
         events.add(
